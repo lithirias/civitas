@@ -347,7 +347,13 @@ export const initialBrazilData: BrazilDataset = {
             { name: 'Amaury Rodrigues Pinto Junior', role: 'Ministro', origin: 'TRT-24 (MS)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
             { name: 'Alberto Bastos Balazeiro', role: 'Ministro', origin: 'Ministério Público do Trabalho (MPT)', category: 'Quinto MPT', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
             { name: 'Liana Chaib', role: 'Ministra', origin: 'TRT-22 (PI)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
-            { name: 'Antônio Fabrício de Campos Gonçalves', role: 'Ministro', origin: 'OAB (MG)', category: 'Quinto OAB', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2024 }
+            { name: 'Antônio Fabrício de Campos Gonçalves', role: 'Ministro', origin: 'OAB (MG)', category: 'Quinto OAB', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2024 },
+            { name: 'Maria Cristina Irigoyen Peduzzi', role: 'Ministra', origin: 'OAB (DF)', category: 'Quinto OAB', appointedBy: 'Fernando Henrique Cardoso', startYear: 2001, notes: 'Primeira mulher a presidir o TST' },
+            { name: 'Guilherme Augusto Caputo Bastos', role: 'Ministro', origin: 'Ministério Público do Trabalho (MPT)', category: 'Quinto MPT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2007 },
+            { name: 'Breno Medeiros', role: 'Ministro', origin: 'TRT-18 (GO)', category: 'Magistratura TRT', appointedBy: 'Michel Temer', startYear: 2017 },
+            { name: 'Alexandre Luiz Ramos', role: 'Ministro', origin: 'TRT-12 (SC)', category: 'Magistratura TRT', appointedBy: 'Michel Temer', startYear: 2018 },
+            { name: 'Luiz José Dezena da Silva', role: 'Ministro', origin: 'TRT-15 (SP)', category: 'Magistratura TRT', appointedBy: 'Michel Temer', startYear: 2018 },
+            { name: 'Vaga Constitucional (Aposentadoria)', role: 'Aguardando Indicação', origin: 'Aguardando Processo', category: 'Magistratura TRT', appointedBy: 'Processo em Andamento', startYear: 2024 }
           ]
         },
         {
@@ -413,7 +419,7 @@ export const initialBrazilData: BrazilDataset = {
         name: 'Ministério Público da União (MPU)',
         headTitle: 'Procurador-Geral da República (PGR)',
         headName: 'Paulo Gonet Branco',
-        headPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Paulo_Gonet_Branco_%28cropped%29.jpg/330px-Paulo_Gonet_Branco_%28cropped%29.jpg',
+        headPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Paulo_Gonet_em_sess%C3%A3o_do_TSE_no_dia_14.02.2023_%28cropped%29.jpg/330px-Paulo_Gonet_em_sess%C3%A3o_do_TSE_no_dia_14.02.2023_%28cropped%29.jpg',
         seat: 'Setor de Administração Federal Sul (SAFS), Brasília - DF',
         role: 'Instituição autônoma indispensável à função jurisdicional do Estado, incumbida da defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis. O PGR atua perante o STF e TSE.',
         branches: [
