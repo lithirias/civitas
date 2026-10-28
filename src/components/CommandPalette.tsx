@@ -71,6 +71,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           onClose();
         }
       });
+
+      // Prefeito da Capital
+      if (state.capitalCity && state.capitalCity.councilorsCount > 0) {
+        list.push({
+          id: `mayor-${state.id}`,
+          title: state.capitalCity.mayor,
+          subtitle: `Prefeito(a) de ${state.capital} (${state.id}) • Partido: ${state.capitalCity.party} • Mandato ${state.capitalCity.term}`,
+          category: 'Executivo',
+          icon: <Building2 className="w-4 h-4 text-teal-600 dark:text-teal-400" />,
+          action: () => {
+            onSelectState(state.id);
+            onClose();
+          }
+        });
+      }
     });
 
     // 2. Chefes do Executivo Federal

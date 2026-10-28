@@ -457,6 +457,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '830.018 hab.',
       area: '164.123 km²',
       municipalitiesCount: 22,
+      capitalCity: {
+        mayor: 'Tião Bocalom',
+        party: 'PL',
+        viceMayor: 'Alysson Bestene',
+        councilorsCount: 21,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Gladson Cameli',
         party: 'PP',
@@ -490,6 +497,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.127.683 hab.',
       area: '27.848 km²',
       municipalitiesCount: 102,
+      capitalCity: {
+        mayor: 'JHC (João Henrique Caldas)',
+        party: 'PL',
+        viceMayor: 'Rodrigo Cunha',
+        councilorsCount: 27,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Paulo Dantas',
         party: 'MDB',
@@ -523,6 +537,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '733.759 hab.',
       area: '142.828 km²',
       municipalitiesCount: 16,
+      capitalCity: {
+        mayor: 'Dr. Furlan',
+        party: 'MDB',
+        viceMayor: 'Mário Neto',
+        councilorsCount: 23,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Clécio Luís',
         party: 'Solidariedade',
@@ -556,6 +577,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.941.613 hab.',
       area: '1.559.146 km²',
       municipalitiesCount: 62,
+      capitalCity: {
+        mayor: 'David Almeida',
+        party: 'Avante',
+        viceMayor: 'Renato Júnior',
+        councilorsCount: 41,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Wilson Lima',
         party: 'UNIÃO',
@@ -589,6 +617,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '14.141.626 hab.',
       area: '564.760 km²',
       municipalitiesCount: 417,
+      capitalCity: {
+        mayor: 'Bruno Reis',
+        party: 'União Brasil',
+        viceMayor: 'Ana Paula Matos',
+        councilorsCount: 43,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Jerônimo Rodrigues',
         party: 'PT',
@@ -622,6 +657,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '8.794.957 hab.',
       area: '148.894 km²',
       municipalitiesCount: 184,
+      capitalCity: {
+        mayor: 'Evandro Leitão',
+        party: 'PT',
+        viceMayor: 'Gabriella Aguiar',
+        councilorsCount: 43,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Elmano de Freitas',
         party: 'PT',
@@ -655,6 +697,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '2.817.381 hab.',
       area: '5.760 km²',
       municipalitiesCount: 1,
+      capitalCity: {
+        mayor: 'Sem Prefeito (Governo Direto)',
+        party: 'Não aplicável',
+        councilorsCount: 0,
+        term: 'Constitucional',
+        note: 'O Distrito Federal não pode ser dividido em Municípios (Art. 32 da CF/88). Suas atribuições municipais e estaduais são exercidas cumulativamente pelo Governador e pela CLDF.'
+      },
       executive: {
         governor: 'Ibaneis Rocha',
         party: 'MDB',
@@ -688,6 +737,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.833.712 hab.',
       area: '46.074 km²',
       municipalitiesCount: 78,
+      capitalCity: {
+        mayor: 'Lorenzo Pazolini',
+        party: 'Republicanos',
+        viceMayor: 'Cris Samorini',
+        councilorsCount: 21,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Renato Casagrande',
         party: 'PSB',
@@ -721,6 +777,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '7.056.495 hab.',
       area: '340.203 km²',
       municipalitiesCount: 246,
+      capitalCity: {
+        mayor: 'Sandro Mabel',
+        party: 'União Brasil',
+        viceMayor: 'Cláudia Lira',
+        councilorsCount: 37,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Ronaldo Caiado',
         party: 'UNIÃO',
@@ -754,6 +817,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '6.776.699 hab.',
       area: '329.651 km²',
       municipalitiesCount: 217,
+      capitalCity: {
+        mayor: 'Eduardo Braide',
+        party: 'PSD',
+        viceMayor: 'Professora Esmênia',
+        councilorsCount: 31,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Carlos Brandão',
         party: 'PSB',
@@ -787,6 +857,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.658.649 hab.',
       area: '903.208 km²',
       municipalitiesCount: 141,
+      capitalCity: {
+        mayor: 'Abilio Brunini',
+        party: 'PL',
+        viceMayor: 'Cel. Vânia',
+        councilorsCount: 27,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Mauro Mendes',
         party: 'UNIÃO',
@@ -820,6 +897,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '2.757.013 hab.',
       area: '357.142 km²',
       municipalitiesCount: 79,
+      capitalCity: {
+        mayor: 'Adriane Lopes',
+        party: 'PP',
+        viceMayor: 'Dra. Camilla',
+        councilorsCount: 29,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Eduardo Riedel',
         party: 'PSDB',
@@ -853,6 +937,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '20.539.989 hab.',
       area: '586.514 km²',
       municipalitiesCount: 853,
+      capitalCity: {
+        mayor: 'Fuad Noman',
+        party: 'PSD',
+        viceMayor: 'Álvaro Damião',
+        councilorsCount: 41,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Romeu Zema',
         party: 'NOVO',
@@ -886,6 +977,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '8.120.131 hab.',
       area: '1.245.871 km²',
       municipalitiesCount: 144,
+      capitalCity: {
+        mayor: 'Igor Normando',
+        party: 'MDB',
+        viceMayor: 'Cássio Andrade',
+        councilorsCount: 35,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Helder Barbalho',
         party: 'MDB',
@@ -919,6 +1017,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.974.687 hab.',
       area: '56.467 km²',
       municipalitiesCount: 223,
+      capitalCity: {
+        mayor: 'Cícero Lucena',
+        party: 'PP',
+        viceMayor: 'Leo Bezerra',
+        councilorsCount: 29,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'João Azevêdo',
         party: 'PSB',
@@ -952,6 +1057,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '11.444.380 hab.',
       area: '199.299 km²',
       municipalitiesCount: 399,
+      capitalCity: {
+        mayor: 'Eduardo Pimentel',
+        party: 'PSD',
+        viceMayor: 'Paulo Martins',
+        councilorsCount: 38,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Ratinho Júnior',
         party: 'PSD',
@@ -985,6 +1097,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '9.058.931 hab.',
       area: '98.067 km²',
       municipalitiesCount: 185,
+      capitalCity: {
+        mayor: 'João Campos',
+        party: 'PSB',
+        viceMayor: 'Victor Marques',
+        councilorsCount: 37,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Raquel Lyra',
         party: 'PSDB',
@@ -1018,6 +1137,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.271.199 hab.',
       area: '251.755 km²',
       municipalitiesCount: 224,
+      capitalCity: {
+        mayor: 'Silvio Mendes',
+        party: 'União Brasil',
+        viceMayor: 'Jeová Alencar',
+        councilorsCount: 29,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Rafael Fonteles',
         party: 'PT',
@@ -1051,6 +1177,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '16.055.174 hab.',
       area: '43.750 km²',
       municipalitiesCount: 92,
+      capitalCity: {
+        mayor: 'Eduardo Paes',
+        party: 'PSD',
+        viceMayor: 'Eduardo Cavaliere',
+        councilorsCount: 51,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Cláudio Castro',
         party: 'PL',
@@ -1084,6 +1217,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '3.302.729 hab.',
       area: '52.809 km²',
       municipalitiesCount: 167,
+      capitalCity: {
+        mayor: 'Paulinho Freire',
+        party: 'União Brasil',
+        viceMayor: 'Joanna Guerra',
+        councilorsCount: 29,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Fátima Bezerra',
         party: 'PT',
@@ -1117,6 +1257,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '10.882.965 hab.',
       area: '281.707 km²',
       municipalitiesCount: 497,
+      capitalCity: {
+        mayor: 'Sebastião Melo',
+        party: 'MDB',
+        viceMayor: 'Betina Worm',
+        councilorsCount: 36,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Eduardo Leite',
         party: 'PSDB',
@@ -1150,6 +1297,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '1.581.196 hab.',
       area: '237.765 km²',
       municipalitiesCount: 52,
+      capitalCity: {
+        mayor: 'Léo Moraes',
+        party: 'Podemos',
+        viceMayor: 'Magna dos Anjos',
+        councilorsCount: 23,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Marcos Rocha',
         party: 'UNIÃO',
@@ -1183,6 +1337,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '636.707 hab.',
       area: '223.644 km²',
       municipalitiesCount: 15,
+      capitalCity: {
+        mayor: 'Arthur Henrique',
+        party: 'MDB',
+        viceMayor: 'Tenente-Coronel Zeitoune',
+        councilorsCount: 23,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Antonio Denarium',
         party: 'PP',
@@ -1216,6 +1377,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '7.610.361 hab.',
       area: '95.730 km²',
       municipalitiesCount: 295,
+      capitalCity: {
+        mayor: 'Topázio Neto',
+        party: 'PSD',
+        viceMayor: 'Maryanne Mattos',
+        councilorsCount: 23,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Jorginho Mello',
         party: 'PL',
@@ -1249,6 +1417,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '44.411.238 hab.',
       area: '248.219 km²',
       municipalitiesCount: 645,
+      capitalCity: {
+        mayor: 'Ricardo Nunes',
+        party: 'MDB',
+        viceMayor: 'Cel. Mello Araújo',
+        councilorsCount: 55,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Tarcísio de Freitas',
         party: 'REPUBLICANOS',
@@ -1282,6 +1457,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '2.210.004 hab.',
       area: '21.925 km²',
       municipalitiesCount: 75,
+      capitalCity: {
+        mayor: 'Emília Corrêa',
+        party: 'PL',
+        viceMayor: 'Ricardo Marques',
+        councilorsCount: 26,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Fábio Mitidieri',
         party: 'PSD',
@@ -1315,6 +1497,13 @@ export const initialBrazilData: BrazilDataset = {
       population: '1.511.460 hab.',
       area: '277.466 km²',
       municipalitiesCount: 139,
+      capitalCity: {
+        mayor: 'Eduardo Siqueira Campos',
+        party: 'Podemos',
+        viceMayor: 'Pastor Carlos Eduardo',
+        councilorsCount: 23,
+        term: '2025–2028'
+      },
       executive: {
         governor: 'Wanderlei Barbosa',
         party: 'REPUBLICANOS',

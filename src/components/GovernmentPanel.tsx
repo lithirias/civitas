@@ -1349,10 +1349,56 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
             <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/50 dark:border-zinc-800 rounded-lg p-3 flex items-center gap-3">
               <Landmark className="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0" />
               <div>
-                <span className="text-xs sm:text-sm text-zinc-500 block">Sede Governamental</span>
+                <span className="text-xs sm:text-sm text-zinc-500 block">Sede Governamental Estadual</span>
                 <span className="text-xs sm:text-sm font-medium text-zinc-800 dark:text-zinc-200">{stateData.executive.seat}</span>
               </div>
             </div>
+
+            {/* Poder Executivo Municipal da Capital */}
+            {stateData.capitalCity && (
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider block">
+                    Gestão Municipal da Capital — {stateData.capital}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded bg-zinc-200 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 font-semibold">
+                    Mandato {stateData.capitalCity.term}
+                  </span>
+                </div>
+
+                {stateData.capitalCity.note ? (
+                  <div className="p-3 rounded-md bg-amber-50 border border-amber-200 text-amber-900 dark:bg-amber-950/30 dark:border-amber-900/50 dark:text-amber-200 text-xs leading-relaxed">
+                    <strong>Regime Constitucional Singular:</strong> {stateData.capitalCity.note}
+                  </div>
+                ) : (
+                  <>
+                    <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-2">
+                      <div className="min-w-0 flex-1">
+                        <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Prefeito(a) da Capital</span>
+                        <h4 className="text-base font-bold text-zinc-950 dark:text-white truncate">
+                          {stateData.capitalCity.mayor}
+                        </h4>
+                        {stateData.capitalCity.viceMayor && (
+                          <span className="text-xs text-zinc-500 dark:text-zinc-400 block mt-0.5 truncate">
+                            Vice-Prefeito(a): <strong className="text-zinc-700 dark:text-zinc-300">{stateData.capitalCity.viceMayor}</strong>
+                          </span>
+                        )}
+                      </div>
+                      <span className="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/60 text-xs font-bold shrink-0">
+                        {stateData.capitalCity.party}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs px-1 text-zinc-600 dark:text-zinc-400">
+                      <span>Câmara Municipal de {stateData.capital}:</span>
+                      <strong className="text-zinc-950 dark:text-white font-semibold">
+                        {stateData.capitalCity.councilorsCount} Vereadores Eleitos
+                      </strong>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         )}
 

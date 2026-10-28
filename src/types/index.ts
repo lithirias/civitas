@@ -51,6 +51,14 @@ export interface StateData {
     publicDefender: string;
     stateAttorney: string;
   };
+  capitalCity?: {
+    mayor: string;
+    party: string;
+    viceMayor?: string;
+    councilorsCount: number;
+    term: string;
+    note?: string;
+  };
 }
 
 export interface JudgeMember {
