@@ -171,23 +171,11 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
                     }}
                   />
 
-                  {/* Círculo auxiliar para estados pequenos/litorâneos */}
-                  {item.circleD && (
-                    <path
-                      d={item.circleD}
-                      fill={isSelected ? '#ffffff' : isHovered ? colors.hover : colors.base}
-                      stroke={isSelected ? colors.selected : '#ffffff'}
-                      strokeWidth={1}
-                      opacity={isDimmed ? 0.25 : 1}
-                      className="state-circle"
-                    />
-                  )}
-
                   {/* Sigla do Estado */}
                   <text
                     transform={item.textTransform}
                     fill="#ffffff"
-                    fontSize="11"
+                    fontSize={['SE', 'AL', 'DF', 'ES', 'PB', 'RN', 'RJ'].includes(item.id) ? '9' : '11'}
                     fontFamily="system-ui, sans-serif"
                     fontWeight="bold"
                     textAnchor="middle"
