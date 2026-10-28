@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { BrazilMap } from './components/BrazilMap';
 import { GovernmentPanel } from './components/GovernmentPanel';
@@ -16,8 +16,40 @@ export const App: React.FC = () => {
 
   const selectedStateData = selectedStateId ? dataset.states[selectedStateId] : null;
 
+  // Sincronização bidirecional via Hash (#/SP, #/RJ, etc.) para Deep Linking
+  useEffect(() => {
+    const handleHashSync = () => {
+      const hash = window.location.hash.replace(/^#\/?/, '').toUpperCase();
+      if (hash && dataset.states[hash]) {
+        setSelectedStateId(hash);
+      } else if (!hash) {
+        setSelectedStateId(null);
+      }
+    };
+
+    handleHashSync();
+    window.addEventListener('hashchange', handleHashSync);
+    return () => window.removeEventListener('hashchange', handleHashSync);
+  }, [dataset.states]);
+
+  // Atualização dinâmica do título da página
+  useEffect(() => {
+    if (selectedStateData) {
+      document.title = `${selectedStateData.name} (${selectedStateData.id}) - Pólis Brasil`;
+    } else {
+      document.title = 'Pólis Brasil - Hierarquia de Governo e Representação dos Estados';
+    }
+  }, [selectedStateData]);
+
   const handleSelectState = (stateId: string) => {
-    setSelectedStateId(stateId ? stateId.toUpperCase() : null);
+    const upper = stateId ? stateId.toUpperCase() : null;
+    setSelectedStateId(upper);
+    if (upper) {
+      window.location.hash = `#/${upper}`;
+    } else {
+      // Remove o hash de forma limpa sem recarregar
+      history.pushState('', document.title, window.location.pathname + window.location.search);
+    }
   };
 
   const handleSelectRegion = (region: Region | 'Todas') => {
