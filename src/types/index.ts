@@ -17,6 +17,19 @@ export interface FederalDeputy {
   email?: string;
 }
 
+export interface LiveSenator {
+  id: string;
+  name: string;
+  fullName: string;
+  party: string;
+  uf: string;
+  photoUrl: string;
+  email: string;
+  pageUrl: string;
+  phone?: string;
+  leadership?: boolean;
+}
+
 export interface StateData {
   id: string; // Ex: 'SP', 'RJ'
   name: string;

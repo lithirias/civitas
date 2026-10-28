@@ -16,10 +16,14 @@ import {
   ShieldCheck,
   Search,
   Filter,
-  Award
+  Award,
+  ExternalLink,
+  Phone,
+  Mail
 } from 'lucide-react';
-import { StateData, FederalStructure, FederalDeputy } from '../types';
+import { StateData, FederalStructure, FederalDeputy, LiveSenator } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
+import { fetchSenatorsByState } from '../services/senadoApi';
 
 interface GovernmentPanelProps {
   stateData: StateData | null;
@@ -69,11 +73,18 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   const [deputiesError, setDeputiesError] = useState<string | null>(null);
   const [showDeputiesList, setShowDeputiesList] = useState<boolean>(false);
 
-  // Limpa os deputados ao trocar de estado
+  // Estado para carregar senadores federais via API do Senado
+  const [loadingSenators, setLoadingSenators] = useState<boolean>(false);
+  const [liveSenators, setLiveSenators] = useState<LiveSenator[] | null>(null);
+  const [senatorsError, setSenatorsError] = useState<string | null>(null);
+
+  // Limpa os dados ao trocar de estado
   useEffect(() => {
     setLiveDeputies(null);
     setDeputiesError(null);
     setShowDeputiesList(false);
+    setLiveSenators(null);
+    setSenatorsError(null);
   }, [stateData?.id]);
 
   const handleLoadDeputies = async () => {
@@ -89,6 +100,21 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
       setDeputiesError('Não foi possível conectar com a API da Câmara dos Deputados no momento.');
     } finally {
       setLoadingDeputies(false);
+    }
+  };
+
+  const handleLoadSenators = async () => {
+    if (!stateData) return;
+    setLoadingSenators(true);
+    setSenatorsError(null);
+
+    try {
+      const senators = await fetchSenatorsByState(stateData.id);
+      setLiveSenators(senators);
+    } catch {
+      setSenatorsError('Não foi possível conectar com a API do Senado Federal no momento.');
+    } finally {
+      setLoadingSenators(false);
     }
   };
 
@@ -1407,34 +1433,116 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
           <div className="space-y-3.5 animate-fade-in">
             {/* Senadores da República (3) */}
             <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider block">
-                  Senadores Federais (Representação no Congresso)
-                </span>
-                <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 font-medium">3 Cadeiras</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                <div>
+                  <span className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider block">
+                    Senadores Federais (Representação no Congresso)
+                  </span>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400">3 Cadeiras por Estado da Federação</span>
+                </div>
+
+                <button
+                  onClick={handleLoadSenators}
+                  disabled={loadingSenators}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white border border-zinc-300 hover:bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border-zinc-700 disabled:opacity-50 dark:text-zinc-200 text-xs font-semibold transition-all shadow-xs self-start sm:self-auto"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${loadingSenators ? 'animate-spin' : ''}`} />
+                  {loadingSenators ? 'Conectando...' : liveSenators ? 'Atualizado do Senado' : 'Fotos e Gabinetes ao Vivo'}
+                </button>
               </div>
 
-              <div className="space-y-2">
-                {stateData.legislative.senators.map((senator, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-2.5 flex items-center justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors shadow-xs"
-                  >
-                    <div>
-                      <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 block">Senador(a)</span>
-                      <span className="font-bold text-xs sm:text-sm text-zinc-950 dark:text-white">{senator.name}</span>
+              {senatorsError && (
+                <div className="mb-3 p-2.5 rounded-md bg-red-50 border border-red-200 text-red-800 dark:bg-red-950/40 dark:border-red-900/60 dark:text-red-300 text-xs">
+                  {senatorsError}
+                </div>
+              )}
+
+              {/* Lista dos Senadores (ao vivo ou curada) */}
+              {liveSenators ? (
+                <div className="space-y-2.5">
+                  {liveSenators.map((sen) => (
+                    <div
+                      key={sen.id}
+                      className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 flex items-start sm:items-center gap-3 shadow-xs hover:border-zinc-300 dark:hover:border-zinc-700 transition-all text-xs"
+                    >
+                      {sen.photoUrl ? (
+                        <img
+                          src={sen.photoUrl}
+                          alt={sen.name}
+                          className="w-12 h-15 rounded-md object-cover bg-zinc-100 border border-zinc-200 dark:bg-zinc-800 dark:border-zinc-700 shrink-0"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-12 h-15 rounded-md bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center font-bold text-zinc-600 dark:text-zinc-400 shrink-0">
+                          SF
+                        </div>
+                      )}
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-bold text-sm text-zinc-950 dark:text-white truncate">
+                            {sen.name}
+                          </h4>
+                          <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-zinc-800 dark:text-amber-300 dark:border-zinc-700 font-bold shrink-0">
+                            {sen.party}
+                          </span>
+                        </div>
+                        <span className="text-zinc-500 dark:text-zinc-400 block truncate">
+                          {sen.fullName}
+                        </span>
+
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1 text-[11.5px] text-zinc-500 dark:text-zinc-400">
+                          {sen.email && (
+                            <a
+                              href={`mailto:${sen.email}`}
+                              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                            >
+                              <Mail className="w-3 h-3" /> {sen.email}
+                            </a>
+                          )}
+                          {sen.phone && (
+                            <span className="flex items-center gap-1">
+                              <Phone className="w-3 h-3" /> {sen.phone}
+                            </span>
+                          )}
+                          {sen.pageUrl && (
+                            <a
+                              href={sen.pageUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white flex items-center gap-0.5 underline font-medium"
+                            >
+                              Perfil Oficial <ExternalLink className="w-2.5 h-2.5 ml-0.5" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-zinc-800 dark:text-amber-300 dark:border-zinc-700 text-xs font-semibold">
-                        {senator.party}
-                      </span>
-                      <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 block mt-0.5">
-                        {senator.mandate}
-                      </span>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {stateData.legislative.senators.map((senator, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-2.5 flex items-center justify-between hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors shadow-xs"
+                    >
+                      <div>
+                        <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 block">Senador(a)</span>
+                        <span className="font-bold text-xs sm:text-sm text-zinc-950 dark:text-white">{senator.name}</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-zinc-800 dark:text-amber-300 dark:border-zinc-700 text-xs font-semibold">
+                          {senator.party}
+                        </span>
+                        <span className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 block mt-0.5">
+                          {senator.mandate}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Assembleia Legislativa Estadual */}
