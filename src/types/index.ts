@@ -48,6 +48,30 @@ export interface StateData {
   };
 }
 
+export interface JudgeMember {
+  name: string;
+  role?: string;
+  origin?: string;
+  appointedBy?: string;
+  startYear?: string | number;
+  photoUrl?: string;
+  notes?: string;
+  category?: string;
+}
+
+export interface SuperiorCourtDetail {
+  name: string;
+  acronym: string;
+  totalMinisters: number;
+  seat: string;
+  role: string;
+  compositionRule: string;
+  presidentName?: string;
+  presidentPhoto?: string;
+  vicePresidentName?: string;
+  members: JudgeMember[];
+}
+
 export interface FederalStructure {
   name: string;
   capital: string;
@@ -104,17 +128,15 @@ export interface FederalStructure {
       presidentPhoto?: string;
       appointmentCriteria: string;
       role: string;
+      members: JudgeMember[];
     };
-    superiorCourts: {
-      name: string;
-      acronym: string;
-      totalMinisters: number;
-      role: string;
-    }[];
+    superiorCourts: SuperiorCourtDetail[];
     cnj: {
       name: string;
       totalMembers: number;
       role: string;
+      compositionRule?: string;
+      members?: JudgeMember[];
     };
   };
   checksAndBalances: {

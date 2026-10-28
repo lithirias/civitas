@@ -86,39 +86,307 @@ export const initialBrazilData: BrazilDataset = {
         presidentPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Ministro_Roberto_Barroso.jpg/330px-Ministro_Roberto_Barroso.jpg',
         seat: 'Praça dos Três Poderes, Brasília - DF',
         totalMinisters: 11,
-        appointmentCriteria: 'Cidadãos com mais de 35 e menos de 70 anos, de notável saber jurídico e reputação ilibada, indicados pelo Presidente e aprovados pelo Senado.',
-        role: 'Guardião supremo da Constituição Federal. Julga Ações Diretas de Inconstitucionalidade (ADI), crimes comuns de autoridades federais com foro privilegiado e recursos extraordinários.'
+        appointmentCriteria: 'Cidadãos entre 35 e 70 anos de notável saber jurídico e reputação ilibada, indicados pelo Presidente da República e aprovados por maioria absoluta do Senado Federal após sabatina pública (Art. 101 CF).',
+        role: 'Guardião supremo da Constituição Federal. Julga Ações Diretas de Inconstitucionalidade (ADI), crimes comuns de autoridades federais com prerrogativa de função e recursos extraordinários com repercussão geral.',
+        members: [
+          {
+            name: 'Luís Roberto Barroso',
+            role: 'Presidente do STF',
+            origin: 'Advocacia / Jurista (RJ)',
+            appointedBy: 'Dilma Rousseff',
+            startYear: 2013,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Ministro_Roberto_Barroso.jpg/330px-Ministro_Roberto_Barroso.jpg',
+            notes: 'Ex-Procurador do Estado do RJ e Professor Titular de Direito Constitucional da UERJ.'
+          },
+          {
+            name: 'Edson Fachin',
+            role: 'Vice-Presidente do STF',
+            origin: 'Advocacia / Jurista (PR)',
+            appointedBy: 'Dilma Rousseff',
+            startYear: 2015,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Edson_Fachin_%28cropped%29.jpg/330px-Edson_Fachin_%28cropped%29.jpg',
+            notes: 'Professor Titular de Direito Civil da UFPR e ex-Presidente do TSE.'
+          },
+          {
+            name: 'Gilmar Mendes',
+            role: 'Decano da Corte',
+            origin: 'Ministério Público Federal / AGU (MT)',
+            appointedBy: 'Fernando Henrique Cardoso',
+            startYear: 2002,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Gilmar_Mendes_2016.jpg/330px-Gilmar_Mendes_2016.jpg',
+            notes: 'Ex-Advogado-Geral da União, ex-Presidente do STF e membro com maior tempo de atuação na Corte.'
+          },
+          {
+            name: 'Cármen Lúcia',
+            role: 'Ministra (Presidente do TSE)',
+            origin: 'Advocacia / Procuradoria (MG)',
+            appointedBy: 'Luiz Inácio Lula da Silva',
+            startYear: 2006,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/C%C3%A1rmen_L%C3%BAcia_em_outubro_de_2019.jpg/330px-C%C3%A1rmen_L%C3%BAcia_em_outubro_de_2019.jpg',
+            notes: 'Ex-Procuradora-Geral de Minas Gerais e ex-Presidente do STF (2016-2018).'
+          },
+          {
+            name: 'Dias Toffoli',
+            role: 'Ministro',
+            origin: 'Advocacia / AGU (SP)',
+            appointedBy: 'Luiz Inácio Lula da Silva',
+            startYear: 2009,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Dias_Toffoli_em_outubro_de_2019.jpg/330px-Dias_Toffoli_em_outubro_de_2019.jpg',
+            notes: 'Ex-Advogado-Geral da União, ex-Presidente do TSE e ex-Presidente do STF (2018-2020).'
+          },
+          {
+            name: 'Luiz Fux',
+            role: 'Ministro',
+            origin: 'Magistratura de Carreira / STJ (RJ)',
+            appointedBy: 'Dilma Rousseff',
+            startYear: 2011,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/19.12.2025_-_Luiz_Fux.jpg/330px-19.12.2025_-_Luiz_Fux.jpg',
+            notes: 'Ex-Ministro do STJ, ex-Desembargador do TJ-RJ e ex-Presidente do STF (2020-2022).'
+          },
+          {
+            name: 'Alexandre de Moraes',
+            role: 'Ministro',
+            origin: 'Ministério Público / Ministério da Justiça (SP)',
+            appointedBy: 'Michel Temer',
+            startYear: 2017,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Ministro_Alexandre_de_Moraes_como_presidente_do_TSE.jpg/330px-Ministro_Alexandre_de_Moraes_como_presidente_do_TSE.jpg',
+            notes: 'Ex-Ministro da Justiça, ex-Promotor de Justiça em SP e ex-Presidente do TSE (2022-2024).'
+          },
+          {
+            name: 'Nunes Marques',
+            role: 'Ministro (Vice-Presidente do TSE)',
+            origin: 'Magistratura Federal / TRF-1 (PI)',
+            appointedBy: 'Jair Bolsonaro',
+            startYear: 2020,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Nunes_Marques%2C_February_2025_%28cropped%29.jpg/330px-Nunes_Marques%2C_February_2025_%28cropped%29.jpg',
+            notes: 'Ex-Desembargador e Vice-Presidente do Tribunal Regional Federal da 1ª Região (TRF-1).'
+          },
+          {
+            name: 'André Mendonça',
+            role: 'Ministro',
+            origin: 'Advocacia-Geral da União / MJSP (SP)',
+            appointedBy: 'Jair Bolsonaro',
+            startYear: 2021,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Ministro_Andr%C3%A9_Mendon%C3%A7a_em_outubro_de_2025_%283x4%29.jpg/330px-Ministro_Andr%C3%A9_Mendon%C3%A7a_em_outubro_de_2025_%283x4%29.jpg',
+            notes: 'Ex-Advogado-Geral da União e ex-Ministro da Justiça e Segurança Pública.'
+          },
+          {
+            name: 'Cristiano Zanin',
+            role: 'Ministro',
+            origin: 'Advocacia Privada (SP)',
+            appointedBy: 'Luiz Inácio Lula da Silva',
+            startYear: 2023,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Cristiano_Zanin_%28cropped%29.jpg/330px-Cristiano_Zanin_%28cropped%29.jpg',
+            notes: 'Advogado especialista em litígios estratégicos, Direito Empresarial e Processo Penal.'
+          },
+          {
+            name: 'Flávio Dino',
+            role: 'Ministro',
+            origin: 'Magistratura Federal / MJSP (MA)',
+            appointedBy: 'Luiz Inácio Lula da Silva',
+            startYear: 2024,
+            photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Fl%C3%A1vio_Dino_no_voto_da_A%C3%A7%C3%A3o_Penal_%28AP%29_2668_%28cropped%29.jpg/330px-Fl%C3%A1vio_Dino_no_voto_da_A%C3%A7%C3%A3o_Penal_%28AP%29_2668_%28cropped%29.jpg',
+            notes: 'Ex-Juiz Federal (1994-2006), ex-Governador do Maranhão, Senador e Ministro da Justiça e Segurança Pública.'
+          }
+        ]
       },
       superiorCourts: [
         {
           name: 'Superior Tribunal de Justiça',
           acronym: 'STJ',
           totalMinisters: 33,
-          role: 'Uniformizador da interpretação da lei federal infraconstitucional em todo o território nacional.'
+          seat: 'Setor de Administração Federal Sul (SAFS), Brasília - DF',
+          role: 'Conhecido como o "Tribunal da Cidadania", é o guardião e uniformizador da interpretação da legislação federal infraconstitucional em todo o território nacional. Julga Recursos Especiais (REsp) e crimes comuns praticados por Governadores de Estado e Desembargadores de Tribunais de Justiça.',
+          compositionRule: '33 Ministros nomeados pelo Presidente da República após sabatina no Senado: 1/3 dentre Juízes de Tribunais Regionais Federais (TRFs), 1/3 dentre Desembargadores dos Tribunais de Justiça (TJs) e 1/3 alternadamente entre Advogados (OAB) e membros do Ministério Público (MPF e MPs Estaduais).',
+          presidentName: 'Ministro Luis Felipe Salomão',
+          vicePresidentName: 'Ministro Mauro Campbell Marques',
+          members: [
+            // 1/3 TRFs (11 ministros)
+            { name: 'Francisco Falcão', role: 'Ministro', origin: 'TRF-5', category: 'TRF', appointedBy: 'Fernando Henrique Cardoso', startYear: 1999 },
+            { name: 'Benedito Gonçalves', role: 'Ministro', origin: 'TRF-2', category: 'TRF', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2008 },
+            { name: 'Isabel Gallotti', role: 'Ministra', origin: 'TRF-1', category: 'TRF', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2010 },
+            { name: 'Regina Helena Costa', role: 'Ministra', origin: 'TRF-3', category: 'TRF', appointedBy: 'Dilma Rousseff', startYear: 2013 },
+            { name: 'Gurgel de Faria', role: 'Ministro', origin: 'TRF-5', category: 'TRF', appointedBy: 'Dilma Rousseff', startYear: 2014 },
+            { name: 'Reynaldo Soares da Fonseca', role: 'Ministro', origin: 'TRF-1', category: 'TRF', appointedBy: 'Dilma Rousseff', startYear: 2015 },
+            { name: 'Ribeiro Dantas', role: 'Ministro', origin: 'TRF-5', category: 'TRF', appointedBy: 'Dilma Rousseff', startYear: 2015 },
+            { name: 'Joel Ilan Paciornik', role: 'Ministro', origin: 'TRF-4', category: 'TRF', appointedBy: 'Dilma Rousseff', startYear: 2016 },
+            { name: 'Messod Azulay Neto', role: 'Ministro', origin: 'TRF-2', category: 'TRF', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
+            { name: 'Paulo Sérgio Domingues', role: 'Ministro', origin: 'TRF-3', category: 'TRF', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
+            { name: 'Carlos Pires Brandão', role: 'Ministro', origin: 'TRF-1', category: 'TRF', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2025 },
+            // 1/3 TJs (11 ministros)
+            { name: 'Nancy Andrighi', role: 'Ministra', origin: 'TJ-DFT', category: 'TJ', appointedBy: 'Fernando Henrique Cardoso', startYear: 1999 },
+            { name: 'Humberto Martins', role: 'Ministro', origin: 'TJ-AL', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2006 },
+            { name: 'Luis Felipe Salomão', role: 'Presidente do STJ', origin: 'TJ-RJ', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2008 },
+            { name: 'Og Fernandes', role: 'Ministro', origin: 'TJ-PE', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2008 },
+            { name: 'Raul Araújo', role: 'Ministro', origin: 'TJ-CE', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2010 },
+            { name: 'Marco Buzzi', role: 'Ministro', origin: 'TJ-SC', category: 'TJ', appointedBy: 'Dilma Rousseff', startYear: 2011 },
+            { name: 'Marco Aurélio Bellizze', role: 'Ministro', origin: 'TJ-RJ', category: 'TJ', appointedBy: 'Dilma Rousseff', startYear: 2011 },
+            { name: 'Moura Ribeiro', role: 'Ministro', origin: 'TJ-SP', category: 'TJ', appointedBy: 'Dilma Rousseff', startYear: 2013 },
+            { name: 'Antonio Saldanha Palheiro', role: 'Ministro', origin: 'TJ-RJ', category: 'TJ', appointedBy: 'Dilma Rousseff', startYear: 2016 },
+            { name: 'Teodoro Silva Santos', role: 'Ministro', origin: 'TJ-CE', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2023 },
+            { name: 'José Afrânio Vilela', role: 'Ministro', origin: 'TJ-MG', category: 'TJ', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2023 },
+            // 1/3 OAB e Ministério Público (11 ministros)
+            { name: 'João Otávio de Noronha', role: 'Ministro', origin: 'OAB-DF', category: 'OAB/MP', appointedBy: 'Fernando Henrique Cardoso', startYear: 2002 },
+            { name: 'Maria Thereza de Assis Moura', role: 'Ministra', origin: 'OAB-SP', category: 'OAB/MP', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2006 },
+            { name: 'Herman Benjamin', role: 'Ministro', origin: 'MP-SP', category: 'OAB/MP', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2006 },
+            { name: 'Mauro Campbell Marques', role: 'Vice-Presidente do STJ', origin: 'MP-AM', category: 'OAB/MP', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2008 },
+            { name: 'Sebastião Reis Júnior', role: 'Ministro', origin: 'OAB-DF', category: 'OAB/MP', appointedBy: 'Dilma Rousseff', startYear: 2011 },
+            { name: 'Antonio Carlos Ferreira', role: 'Ministro', origin: 'OAB-SP', category: 'OAB/MP', appointedBy: 'Dilma Rousseff', startYear: 2011 },
+            { name: 'Ricardo Villas Bôas Cueva', role: 'Ministro', origin: 'OAB-SP', category: 'OAB/MP', appointedBy: 'Dilma Rousseff', startYear: 2011 },
+            { name: 'Sérgio Kukina', role: 'Ministro', origin: 'MP-PR', category: 'OAB/MP', appointedBy: 'Dilma Rousseff', startYear: 2013 },
+            { name: 'Rogerio Schietti Cruz', role: 'Ministro', origin: 'MP-DFT', category: 'OAB/MP', appointedBy: 'Dilma Rousseff', startYear: 2013 },
+            { name: 'Daniela Teixeira', role: 'Ministra', origin: 'OAB-DF', category: 'OAB/MP', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2023 },
+            { name: 'Marluce Caldas', role: 'Ministra', origin: 'MP-AL', category: 'OAB/MP', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2025 }
+          ]
         },
         {
           name: 'Tribunal Superior Eleitoral',
           acronym: 'TSE',
           totalMinisters: 7,
-          role: 'Cúpula da Justiça Eleitoral; responsável pela organização, apuração e fiscalização das eleições em âmbito nacional.'
+          seat: 'Setor de Administração Federal Sul (SAFS), Brasília - DF',
+          role: 'Instância máxima da Justiça Eleitoral brasileira. Responsável pela governança dos processos eleitorais, registro de candidaturas a cargos federais (Presidência e Vice), prestação de contas dos partidos políticos e diplomação dos eleitos.',
+          compositionRule: 'No mínimo 7 ministros titulares: 3 Ministros do STF (que tradicionalmente ocupam a Presidência e a Vice-Presidência), 2 Ministros do STJ (um deles exercendo a Corregedoria-Geral Eleitoral) e 2 Juristas da advocacia indicados pelo STF e nomeados pelo Presidente da República.',
+          presidentName: 'Ministra Cármen Lúcia',
+          vicePresidentName: 'Ministro Nunes Marques',
+          members: [
+            {
+              name: 'Cármen Lúcia',
+              role: 'Presidente do TSE',
+              origin: 'Supremo Tribunal Federal (STF)',
+              category: 'STF',
+              appointedBy: 'Eleita pelo STF',
+              startYear: 2024,
+              photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/C%C3%A1rmen_L%C3%BAcia_em_outubro_de_2019.jpg/330px-C%C3%A1rmen_L%C3%BAcia_em_outubro_de_2019.jpg',
+              notes: 'Ministra Titular da vaga do STF'
+            },
+            {
+              name: 'Nunes Marques',
+              role: 'Vice-Presidente do TSE',
+              origin: 'Supremo Tribunal Federal (STF)',
+              category: 'STF',
+              appointedBy: 'Eleito pelo STF',
+              startYear: 2024,
+              photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Nunes_Marques%2C_February_2025_%28cropped%29.jpg/330px-Nunes_Marques%2C_February_2025_%28cropped%29.jpg',
+              notes: 'Ministro Titular da vaga do STF'
+            },
+            {
+              name: 'André Mendonça',
+              role: 'Ministro Titular',
+              origin: 'Supremo Tribunal Federal (STF)',
+              category: 'STF',
+              appointedBy: 'Eleito pelo STF',
+              startYear: 2024,
+              photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Ministro_Andr%C3%A9_Mendon%C3%A7a_em_outubro_de_2025_%283x4%29.jpg/330px-Ministro_Andr%C3%A9_Mendon%C3%A7a_em_outubro_de_2025_%283x4%29.jpg',
+              notes: 'Ministro Titular da vaga do STF'
+            },
+            {
+              name: 'Raul Araújo',
+              role: 'Ministro Titular',
+              origin: 'Superior Tribunal de Justiça (STJ)',
+              category: 'STJ',
+              appointedBy: 'Eleito pelo STJ',
+              startYear: 2022,
+              notes: 'Ministro Titular da vaga do STJ'
+            },
+            {
+              name: 'Isabel Gallotti',
+              role: 'Corregedora-Geral da Justiça Eleitoral',
+              origin: 'Superior Tribunal de Justiça (STJ)',
+              category: 'STJ',
+              appointedBy: 'Eleita pelo STJ',
+              startYear: 2023,
+              notes: 'Ministra Titular da vaga do STJ e Corregedora-Geral'
+            },
+            {
+              name: 'Floriano Peixoto de Azevedo Marques Neto',
+              role: 'Ministro Titular',
+              origin: 'Classe dos Juristas / Advocacia',
+              category: 'Advocacia / Jurista',
+              appointedBy: 'Luiz Inácio Lula da Silva',
+              startYear: 2023,
+              notes: 'Professor Titular da Faculdade de Direito da USP'
+            },
+            {
+              name: 'André Ramos Tavares',
+              role: 'Ministro Titular',
+              origin: 'Classe dos Juristas / Advocacia',
+              category: 'Advocacia / Jurista',
+              appointedBy: 'Luiz Inácio Lula da Silva',
+              startYear: 2023,
+              notes: 'Professor Titular da Faculdade de Direito da USP'
+            }
+          ]
         },
         {
           name: 'Tribunal Superior do Trabalho',
           acronym: 'TST',
           totalMinisters: 27,
-          role: 'Instância máxima da Justiça do Trabalho para julgamento de matérias trabalhistas e dissídios coletivos.'
+          seat: 'Setor de Administração Federal Sul (SAFS), Brasília - DF',
+          role: 'Instância máxima da Justiça do Trabalho no Brasil. Tem como atribuição principal pacificar a jurisprudência trabalhista, julgar recursos de revista, agravos regimentais e dissídios coletivos que ultrapassem a jurisdição de um Tribunal Regional do Trabalho.',
+          compositionRule: '27 Ministros vitalícios indicados pelo Presidente da República e sabatinados pelo Senado: 1/5 dentre advogados com mais de 10 anos de efetiva atividade e membros do Ministério Público do Trabalho (MPT), e os demais 4/5 dentre Juízes de Tribunais Regionais do Trabalho (TRTs).',
+          presidentName: 'Ministro Aloysio Corrêa da Veiga',
+          vicePresidentName: 'Ministro Mauricio Godinho Delgado',
+          members: [
+            { name: 'Aloysio Corrêa da Veiga', role: 'Presidente do TST', origin: 'TRT-1 (RJ)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2004 },
+            { name: 'Mauricio Godinho Delgado', role: 'Vice-Presidente do TST', origin: 'TRT-3 (MG)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2007 },
+            { name: 'Luiz Philippe Vieira de Mello Filho', role: 'Corregedor-Geral da Justiça do Trabalho', origin: 'TRT-3 (MG)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2006 },
+            { name: 'Ives Gandra Martins Filho', role: 'Ministro', origin: 'Ministério Público do Trabalho (MPT)', category: 'Quinto MPT', appointedBy: 'Fernando Henrique Cardoso', startYear: 1999 },
+            { name: 'Dora Maria da Costa', role: 'Ministra', origin: 'TRT-18 (GO)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2007 },
+            { name: 'Kátia Magalhães Arruda', role: 'Ministra', origin: 'TRT-7 (CE)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2008 },
+            { name: 'Augusto César Leite de Carvalho', role: 'Ministro', origin: 'TRT-20 (SE)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2009 },
+            { name: 'José Roberto Freire Pimenta', role: 'Ministro', origin: 'TRT-3 (MG)', category: 'Magistratura TRT', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2010 },
+            { name: 'Delaíde Miranda Arantes', role: 'Ministra', origin: 'OAB (GO)', category: 'Quinto OAB', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2011 },
+            { name: 'Hugo Carlos Scheuermann', role: 'Ministro', origin: 'TRT-4 (RS)', category: 'Magistratura TRT', appointedBy: 'Dilma Rousseff', startYear: 2012 },
+            { name: 'Alexandre de Souza Agra Belmonte', role: 'Ministro', origin: 'TRT-1 (RJ)', category: 'Magistratura TRT', appointedBy: 'Dilma Rousseff', startYear: 2012 },
+            { name: 'Cláudio Mascarenhas Brandão', role: 'Ministro', origin: 'TRT-5 (BA)', category: 'Magistratura TRT', appointedBy: 'Dilma Rousseff', startYear: 2013 },
+            { name: 'Douglas Alencar Rodrigues', role: 'Ministro', origin: 'TRT-10 (DF)', category: 'Magistratura TRT', appointedBy: 'Dilma Rousseff', startYear: 2014 },
+            { name: 'Maria Helena Mallmann', role: 'Ministra', origin: 'TRT-4 (RS)', category: 'Magistratura TRT', appointedBy: 'Dilma Rousseff', startYear: 2014 },
+            { name: 'Sergio Pinto Martins', role: 'Ministro', origin: 'TRT-2 (SP)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
+            { name: 'Evandro Valadão', role: 'Ministro', origin: 'TRT-1 (RJ)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2019 },
+            { name: 'Morgana de Almeida Richa', role: 'Ministra', origin: 'TRT-9 (PR)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
+            { name: 'Amaury Rodrigues Pinto Junior', role: 'Ministro', origin: 'TRT-24 (MS)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
+            { name: 'Alberto Bastos Balazeiro', role: 'Ministro', origin: 'Ministério Público do Trabalho (MPT)', category: 'Quinto MPT', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
+            { name: 'Liana Chaib', role: 'Ministra', origin: 'TRT-22 (PI)', category: 'Magistratura TRT', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
+            { name: 'Antônio Fabrício de Campos Gonçalves', role: 'Ministro', origin: 'OAB (MG)', category: 'Quinto OAB', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2024 }
+          ]
         },
         {
           name: 'Superior Tribunal Militar',
           acronym: 'STM',
           totalMinisters: 15,
-          role: 'Cúpula da Justiça Militar da União, processando e julgando crimes militares estabelecidos em lei.'
+          seat: 'Praça dos Tribunais Superiores, SAS, Brasília - DF',
+          role: 'Cúpula da Justiça Militar da União, sendo a mais antiga corte superior do Brasil (criada em 1808 pelo Príncipe Regente D. João VI). Processa e julga em grau de recurso os crimes militares tipificados no Código Penal Militar cometidos por militares das Três Forças Armadas e civis contra instituições e bens militares.',
+          compositionRule: '15 Ministros togados e vitalícios nomeados pelo Presidente da República após aprovação do Senado: 3 Oficiais-Generais da Marinha da ativa, 4 Oficiais-Generais do Exército da ativa, 3 Oficiais-Generais da Aeronáutica da ativa e 5 Ministros Civis (3 advogados com notório saber jurídico e 2 oriundos da magistratura militar ou MPM).',
+          presidentName: 'Ministra Dra. Maria Elizabeth Rocha',
+          vicePresidentName: 'Tenente-Brigadeiro do Ar Francisco Joseli Parente Camelo',
+          members: [
+            { name: 'Dra. Maria Elizabeth Guimarães Teixeira Rocha', role: 'Presidente do STM', origin: 'Advocacia Civil', category: 'Civil', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2007, notes: 'Primeira mulher a presidir a mais antiga Corte Superior do Brasil em 217 anos.' },
+            { name: 'Ten.-Brig. Ar Francisco Joseli Parente Camelo', role: 'Vice-Presidente do STM', origin: 'Força Aérea Brasileira', category: 'Aeronáutica', appointedBy: 'Dilma Rousseff', startYear: 2015 },
+            // Marinha (3)
+            { name: 'Almirante de Esquadra Leonardo Puntel', role: 'Ministro', origin: 'Marinha do Brasil', category: 'Marinha', appointedBy: 'Jair Bolsonaro', startYear: 2020 },
+            { name: 'Almirante de Esquadra Celso Luiz Nazareth', role: 'Ministro', origin: 'Marinha do Brasil', category: 'Marinha', appointedBy: 'Jair Bolsonaro', startYear: 2020 },
+            { name: 'Almirante de Esquadra Claudio Portugal de Viveiros', role: 'Ministro', origin: 'Marinha do Brasil', category: 'Marinha', appointedBy: 'Jair Bolsonaro', startYear: 2021 },
+            // Exército (4)
+            { name: 'General de Exército Lúcio Mário de Barros Góes', role: 'Ministro', origin: 'Exército Brasileiro', category: 'Exército', appointedBy: 'Dilma Rousseff', startYear: 2012 },
+            { name: 'General de Exército Lourival Carvalho Silva', role: 'Ministro', origin: 'Exército Brasileiro', category: 'Exército', appointedBy: 'Jair Bolsonaro', startYear: 2022 },
+            { name: 'General de Exército Marco Antônio de Farias', role: 'Ministro', origin: 'Exército Brasileiro', category: 'Exército', appointedBy: 'Dilma Rousseff', startYear: 2015 },
+            { name: 'General de Exército Odilson Sampaio Benzi', role: 'Ministro', origin: 'Exército Brasileiro', category: 'Exército', appointedBy: 'Dilma Rousseff', startYear: 2014 },
+            // Aeronáutica (3)
+            { name: 'Ten.-Brig. Ar Carlos Augusto Amaral Oliveira', role: 'Ministro', origin: 'Força Aérea Brasileira', category: 'Aeronáutica', appointedBy: 'Jair Bolsonaro', startYear: 2020 },
+            { name: 'Ten.-Brig. Ar Carlos Vuyk de Aquino', role: 'Ministro', origin: 'Força Aérea Brasileira', category: 'Aeronáutica', appointedBy: 'Michel Temer', startYear: 2018 },
+            // Civis (demais)
+            { name: 'Dr. José Coêlho Ferreira', role: 'Ministro (Decano)', origin: 'Advocacia Civil', category: 'Civil', appointedBy: 'Fernando Henrique Cardoso', startYear: 2001 },
+            { name: 'Dr. Artur Vidigal de Oliveira', role: 'Ministro', origin: 'Advocacia Civil', category: 'Civil', appointedBy: 'Luiz Inácio Lula da Silva', startYear: 2010 },
+            { name: 'Dr. Péricles Aurélio Lima de Queiroz', role: 'Ministro', origin: 'Ministério Público Militar (MPM)', category: 'Civil', appointedBy: 'Michel Temer', startYear: 2018 },
+            { name: 'Dr. Carlos Augusto Gomes Rogério', role: 'Ministro', origin: 'Magistratura Militar de 1ª Instância', category: 'Civil', appointedBy: 'Jair Bolsonaro', startYear: 2022 }
+          ]
         }
       ],
       cnj: {
         name: 'Conselho Nacional de Justiça (CNJ)',
         totalMembers: 15,
-        role: 'Responsável pelo controle da atuação administrativa e financeira do Poder Judiciário e do cumprimento dos deveres funcionais dos juízes.'
+        role: 'Órgão de cúpula do controle administrativo e financeiro de todo o Poder Judiciário nacional, além da fiscalização do cumprimento dos deveres éticos e disciplinares dos magistrados de todas as instâncias.',
+        compositionRule: 'Composto por 15 membros com mandato de 2 anos (admitida uma recondução). É presidido pelo Presidente do STF e conta com representantes do STJ, TST, Desembargadores de TJ, Juízes Federais, Juízes Estaduais, Juízes do Trabalho, Ministério Público da União e dos Estados, Advogados indicados pelo CFOAB e Cidadãos indicados pela Câmara e pelo Senado.'
       }
     },
     checksAndBalances: {

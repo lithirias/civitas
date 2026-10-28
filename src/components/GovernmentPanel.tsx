@@ -13,7 +13,10 @@ import {
   ArrowRightLeft,
   Gavel,
   BookOpen,
-  ShieldCheck
+  ShieldCheck,
+  Search,
+  Filter,
+  Award
 } from 'lucide-react';
 import { StateData, FederalStructure, FederalDeputy } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
@@ -34,6 +37,12 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   
   // Abas para a visão Federal
   const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+
+  // Sub-abas do Judiciário Federal (STF e TSIs)
+  const [selectedCourt, setSelectedCourt] = useState<'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ'>('STF');
+  const [memberSearch, setMemberSearch] = useState<string>('');
+  const [stjFilter, setStjFilter] = useState<'TODOS' | 'TRF' | 'TJ' | 'OAB/MP'>('TODOS');
+  const [stmFilter, setStmFilter] = useState<'TODOS' | 'Marinha' | 'Exército' | 'Aeronáutica' | 'Civil'>('TODOS');
 
   // Estado para carregar deputados federais via API da Câmara
   const [loadingDeputies, setLoadingDeputies] = useState<boolean>(false);
@@ -351,83 +360,600 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
             </div>
           )}
 
-          {/* ABA 3: JUDICIÁRIO FEDERAL */}
+          {/* ABA 3: JUDICIÁRIO FEDERAL (STF + TRIBUNAIS SUPERIORES + CNJ) */}
           {federalTab === 'judiciario' && (
             <div className="space-y-3.5 animate-fade-in">
-              {/* STF com Foto do Presidente */}
-              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <Gavel className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
-                    <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
-                      {federalData.judiciary.supremeCourt.name}
-                    </h3>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
-                    {federalData.judiciary.supremeCourt.totalMinisters} Ministros
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-2.5">
-                  {federalData.judiciary.supremeCourt.role}
-                </p>
-
-                {/* Presidente do STF com Foto */}
-                {federalData.judiciary.supremeCourt.presidentName && (
-                  <div className="flex items-center gap-3 p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs mb-2.5">
-                    {federalData.judiciary.supremeCourt.presidentPhoto && (
-                      <img
-                        src={federalData.judiciary.supremeCourt.presidentPhoto}
-                        alt={federalData.judiciary.supremeCourt.presidentName}
-                        className="w-10 h-13 rounded object-cover border border-zinc-300 dark:border-zinc-700 shrink-0"
-                        loading="lazy"
-                      />
-                    )}
-                    <div className="min-w-0">
-                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do STF e do CNJ</span>
-                      <strong className="text-xs font-bold text-zinc-950 dark:text-white block truncate">{federalData.judiciary.supremeCourt.presidentName}</strong>
-                    </div>
-                  </div>
-                )}
-
-                <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-500 dark:text-zinc-400">
-                  <strong>Critério de Nomeação:</strong> {federalData.judiciary.supremeCourt.appointmentCriteria}
-                </div>
-              </div>
-
-              {/* Tribunais Superiores */}
-              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
-                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2.5">
-                  Tribunais Superiores Infraconstitucionais
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  {federalData.judiciary.superiorCourts.map((court) => (
-                    <div key={court.acronym} className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                      <div className="flex items-center justify-between mb-1">
-                        <strong className="text-zinc-900 dark:text-white font-bold">{court.acronym}</strong>
-                        <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{court.totalMinisters} Ministros</span>
-                      </div>
-                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block leading-tight">{court.name}</span>
-                      <p className="text-[10.5px] text-zinc-600 dark:text-zinc-400 mt-1.5 leading-snug">{court.role}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CNJ */}
-              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5 flex items-start gap-3">
-                <Scale className="w-5 h-5 text-zinc-600 dark:text-zinc-400 shrink-0 mt-0.5" />
-                <div>
-                  <div className="flex items-center gap-2">
-                    <strong className="text-xs text-zinc-900 dark:text-white">{federalData.judiciary.cnj.name}</strong>
-                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                      {federalData.judiciary.cnj.totalMembers} Conselheiros
+              {/* Barra de Seleção de Tribunais / Instâncias */}
+              <div className="flex gap-1.5 p-1 bg-zinc-100 rounded-lg border border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800 text-xs font-medium overflow-x-auto">
+                {[
+                  { id: 'STF', label: 'STF', count: federalData.judiciary.supremeCourt.totalMinisters, desc: 'Constitucional' },
+                  { id: 'STJ', label: 'STJ', count: 33, desc: 'Infraconstitucional' },
+                  { id: 'TSE', label: 'TSE', count: 7, desc: 'Eleitoral' },
+                  { id: 'TST', label: 'TST', count: 27, desc: 'Trabalho' },
+                  { id: 'STM', label: 'STM', count: 15, desc: 'Militar' },
+                  { id: 'CNJ', label: 'CNJ', count: 15, desc: 'Controle' }
+                ].map((court) => (
+                  <button
+                    key={court.id}
+                    onClick={() => { setSelectedCourt(court.id as any); setMemberSearch(''); }}
+                    className={`flex-1 min-w-[75px] py-1.5 px-2 rounded-md transition-all flex items-center justify-center gap-1.5 whitespace-nowrap text-xs ${
+                      selectedCourt === court.id
+                        ? 'bg-white text-zinc-950 font-bold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+                    }`}
+                  >
+                    <span>{court.label}</span>
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${
+                      selectedCourt === court.id
+                        ? 'bg-zinc-900 text-white dark:bg-zinc-200 dark:text-zinc-900'
+                        : 'bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400'
+                    }`}>
+                      {court.count}
                     </span>
-                  </div>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
-                    {federalData.judiciary.cnj.role}
-                  </p>
-                </div>
+                  </button>
+                ))}
               </div>
+
+              {/* TRIBUNAL SELECIONADO: STF */}
+              {selectedCourt === 'STF' && (() => {
+                const stf = federalData.judiciary.supremeCourt;
+                const filteredMembers = stf.members.filter(m =>
+                  !memberSearch ||
+                  m.name.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.role?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.origin?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.appointedBy?.toLowerCase().includes(memberSearch.toLowerCase())
+                );
+
+                return (
+                  <div className="space-y-3">
+                    <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <Gavel className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+                          <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                            {stf.name}
+                          </h3>
+                        </div>
+                        <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                          {stf.totalMinisters} Ministros
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                        {stf.role}
+                      </p>
+                      <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 flex items-start gap-2">
+                        <Scale className="w-3.5 h-3.5 text-zinc-500 shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="text-zinc-900 dark:text-zinc-200">Critério Constitucional de Nomeação:</strong> {stf.appointmentCriteria}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Barra de Busca de Ministros */}
+                    <div className="relative">
+                      <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscar entre os 11 Ministros do STF..."
+                        value={memberSearch}
+                        onChange={(e) => setMemberSearch(e.target.value)}
+                        className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                      />
+                    </div>
+
+                    {/* Grid dos 11 Ministros do STF com Fotos Oficiais */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {filteredMembers.map((m) => (
+                        <div
+                          key={m.name}
+                          className="bg-white dark:bg-zinc-900 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-start gap-3 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all"
+                        >
+                          {m.photoUrl ? (
+                            <img
+                              src={m.photoUrl}
+                              alt={m.name}
+                              className="w-13 h-16 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-13 h-16 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center shrink-0 text-zinc-600 dark:text-zinc-400 font-bold text-xs">
+                              <Gavel className="w-4 h-4 mb-0.5 opacity-60" />
+                              <span>{m.name.split(' ').map(n => n[0]).slice(0, 2).join('')}</span>
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-start justify-between gap-1 mb-0.5">
+                              <h4 className="font-bold text-xs sm:text-sm text-zinc-950 dark:text-white leading-tight truncate">
+                                {m.name}
+                              </h4>
+                              {m.role && m.role !== 'Ministro' && m.role !== 'Ministra' && (
+                                <span className="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
+                                  {m.role}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-zinc-600 dark:text-zinc-400 block truncate">
+                              {m.origin}
+                            </span>
+                            <span className="text-[10.5px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
+                              Posse em <strong>{m.startYear}</strong> • Indicado por {m.appointedBy}
+                            </span>
+                            {m.notes && (
+                              <p className="text-[10.5px] text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
+                                {m.notes}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* TRIBUNAL SELECIONADO: STJ */}
+              {selectedCourt === 'STJ' && (() => {
+                const court = federalData.judiciary.superiorCourts.find(c => c.acronym === 'STJ');
+                if (!court) return null;
+
+                const filtered = court.members.filter(m => {
+                  const matchCat = stjFilter === 'TODOS' || m.category === stjFilter;
+                  const matchSearch = !memberSearch ||
+                    m.name.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                    m.origin?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                    m.appointedBy?.toLowerCase().includes(memberSearch.toLowerCase());
+                  return matchCat && matchSearch;
+                });
+
+                return (
+                  <div className="space-y-3">
+                    <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                            {court.name} ({court.acronym})
+                          </h3>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                            O "Tribunal da Cidadania" • {court.seat}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                          {court.totalMinisters} Ministros
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                        {court.role}
+                      </p>
+
+                      {/* Liderança da Corte */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 mb-3 text-xs">
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do STJ</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.presidentName}</strong>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Vice-Presidente do STJ</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.vicePresidentName}</strong>
+                        </div>
+                      </div>
+
+                      <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400">
+                        <strong className="text-zinc-900 dark:text-zinc-200">Regra Constitucional dos Três Terços:</strong> {court.compositionRule}
+                      </div>
+                    </div>
+
+                    {/* Filtros e Busca */}
+                    <div className="space-y-2">
+                      <div className="flex gap-1.5 p-1 bg-zinc-100 rounded-md border border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800 text-xs overflow-x-auto">
+                        {(['TODOS', 'TRF', 'TJ', 'OAB/MP'] as const).map(cat => (
+                          <button
+                            key={cat}
+                            onClick={() => setStjFilter(cat)}
+                            className={`flex-1 py-1 px-2 rounded transition-all text-xs font-medium whitespace-nowrap ${
+                              stjFilter === cat
+                                ? 'bg-white text-zinc-950 font-bold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                                : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
+                            }`}
+                          >
+                            {cat === 'TODOS' ? 'Todos (33)' : cat === 'TRF' ? '1/3 TRFs (11)' : cat === 'TJ' ? '1/3 TJs (11)' : '1/3 OAB & MP (11)'}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                        <input
+                          type="text"
+                          placeholder="Buscar ministro do STJ por nome ou origem..."
+                          value={memberSearch}
+                          onChange={(e) => setMemberSearch(e.target.value)}
+                          className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Lista dos Ministros do STJ */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {filtered.map(m => (
+                        <div
+                          key={m.name}
+                          className="bg-white dark:bg-zinc-900 p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-2 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all text-xs"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="font-bold text-zinc-950 dark:text-white truncate">
+                                {m.name}
+                              </h4>
+                              {m.role && m.role !== 'Ministro' && m.role !== 'Ministra' && (
+                                <span className="text-[9.5px] px-1 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-semibold shrink-0">
+                                  {m.role}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                              Posse {m.startYear} • {m.appointedBy}
+                            </span>
+                          </div>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-md font-semibold shrink-0 border ${
+                            m.category === 'TRF'
+                              ? 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60'
+                              : m.category === 'TJ'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/60'
+                              : 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900/60'
+                          }`}>
+                            {m.origin}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* TRIBUNAL SELECIONADO: TSE */}
+              {selectedCourt === 'TSE' && (() => {
+                const court = federalData.judiciary.superiorCourts.find(c => c.acronym === 'TSE');
+                if (!court) return null;
+
+                const filtered = court.members.filter(m =>
+                  !memberSearch ||
+                  m.name.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.role?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.origin?.toLowerCase().includes(memberSearch.toLowerCase())
+                );
+
+                return (
+                  <div className="space-y-3">
+                    <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                            {court.name} ({court.acronym})
+                          </h3>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                            Cúpula da Justiça Eleitoral • {court.seat}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                          {court.totalMinisters} Ministros Titulares
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                        {court.role}
+                      </p>
+                      <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400">
+                        <strong className="text-zinc-900 dark:text-zinc-200">Regra Constitucional de Composição:</strong> {court.compositionRule}
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscar ministro do TSE..."
+                        value={memberSearch}
+                        onChange={(e) => setMemberSearch(e.target.value)}
+                        className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {filtered.map(m => (
+                        <div
+                          key={m.name}
+                          className="bg-white dark:bg-zinc-900 p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-start gap-3 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all text-xs"
+                        >
+                          {m.photoUrl ? (
+                            <img
+                              src={m.photoUrl}
+                              alt={m.name}
+                              className="w-12 h-15 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-12 h-15 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center shrink-0 text-zinc-600 dark:text-zinc-400 font-bold text-xs">
+                              <Scale className="w-4 h-4 mb-0.5 opacity-60" />
+                              <span>{m.name.split(' ').map(n => n[0]).slice(0, 2).join('')}</span>
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-start justify-between gap-1 mb-0.5">
+                              <h4 className="font-bold text-xs sm:text-sm text-zinc-950 dark:text-white leading-tight truncate">
+                                {m.name}
+                              </h4>
+                              <span className="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 shrink-0">
+                                {m.role}
+                              </span>
+                            </div>
+                            <span className="text-[11px] text-zinc-600 dark:text-zinc-400 block font-medium">
+                              Vaga: {m.origin}
+                            </span>
+                            <span className="text-[10.5px] text-zinc-500 dark:text-zinc-400 block mt-0.5">
+                              {m.appointedBy} ({m.startYear})
+                            </span>
+                            {m.notes && (
+                              <p className="text-[10.5px] text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-2">
+                                {m.notes}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* TRIBUNAL SELECIONADO: TST */}
+              {selectedCourt === 'TST' && (() => {
+                const court = federalData.judiciary.superiorCourts.find(c => c.acronym === 'TST');
+                if (!court) return null;
+
+                const filtered = court.members.filter(m =>
+                  !memberSearch ||
+                  m.name.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.role?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                  m.origin?.toLowerCase().includes(memberSearch.toLowerCase())
+                );
+
+                return (
+                  <div className="space-y-3">
+                    <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                            {court.name} ({court.acronym})
+                          </h3>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                            Cúpula da Justiça do Trabalho • {court.seat}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                          {court.totalMinisters} Ministros
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                        {court.role}
+                      </p>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 mb-3 text-xs">
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do TST</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.presidentName}</strong>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Vice-Presidente do TST</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.vicePresidentName}</strong>
+                        </div>
+                      </div>
+
+                      <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400">
+                        <strong className="text-zinc-900 dark:text-zinc-200">Regra de Composição (Quinto Constitucional + TRTs):</strong> {court.compositionRule}
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                      <input
+                        type="text"
+                        placeholder="Buscar ministro do TST por nome ou tribunal regional de origem..."
+                        value={memberSearch}
+                        onChange={(e) => setMemberSearch(e.target.value)}
+                        className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {filtered.map(m => (
+                        <div
+                          key={m.name}
+                          className="bg-white dark:bg-zinc-900 p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-2 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all text-xs"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="font-bold text-zinc-950 dark:text-white truncate">
+                                {m.name}
+                              </h4>
+                              {m.role && m.role !== 'Ministro' && m.role !== 'Ministra' && (
+                                <span className="text-[9.5px] px-1 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-semibold shrink-0">
+                                  {m.role}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                              Posse {m.startYear} • {m.appointedBy}
+                            </span>
+                          </div>
+                          <span className="text-[10px] px-2 py-0.5 rounded-md font-semibold shrink-0 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                            {m.origin}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* TRIBUNAL SELECIONADO: STM */}
+              {selectedCourt === 'STM' && (() => {
+                const court = federalData.judiciary.superiorCourts.find(c => c.acronym === 'STM');
+                if (!court) return null;
+
+                const filtered = court.members.filter(m => {
+                  const matchCat = stmFilter === 'TODOS' || m.category === stmFilter;
+                  const matchSearch = !memberSearch ||
+                    m.name.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                    m.role?.toLowerCase().includes(memberSearch.toLowerCase()) ||
+                    m.origin?.toLowerCase().includes(memberSearch.toLowerCase());
+                  return matchCat && matchSearch;
+                });
+
+                return (
+                  <div className="space-y-3">
+                    <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                            {court.name} ({court.acronym})
+                          </h3>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                            Mais antigo Tribunal Superior do Brasil (criado em 1808) • {court.seat}
+                          </span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                          {court.totalMinisters} Ministros
+                        </span>
+                      </div>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                        {court.role}
+                      </p>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 mb-3 text-xs">
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do STM</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.presidentName}</strong>
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Vice-Presidente do STM</span>
+                          <strong className="text-zinc-950 dark:text-white font-semibold">{court.vicePresidentName}</strong>
+                        </div>
+                      </div>
+
+                      <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400">
+                        <strong className="text-zinc-900 dark:text-zinc-200">Regra Constitucional das Três Forças e Civis:</strong> {court.compositionRule}
+                      </div>
+                    </div>
+
+                    {/* Filtros por Força / Civis */}
+                    <div className="space-y-2">
+                      <div className="flex gap-1.5 p-1 bg-zinc-100 rounded-md border border-zinc-200 dark:bg-zinc-950 dark:border-zinc-800 text-xs overflow-x-auto">
+                        {(['TODOS', 'Marinha', 'Exército', 'Aeronáutica', 'Civil'] as const).map(cat => (
+                          <button
+                            key={cat}
+                            onClick={() => setStmFilter(cat)}
+                            className={`flex-1 py-1 px-2 rounded transition-all text-xs font-medium whitespace-nowrap ${
+                              stmFilter === cat
+                                ? 'bg-white text-zinc-950 font-bold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                                : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white'
+                            }`}
+                          >
+                            {cat === 'TODOS' ? 'Todos (15)' : `${cat}`}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                        <input
+                          type="text"
+                          placeholder="Buscar ministro do STM..."
+                          value={memberSearch}
+                          onChange={(e) => setMemberSearch(e.target.value)}
+                          className="w-full pl-9 pr-3 py-1.5 text-xs bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {filtered.map(m => (
+                        <div
+                          key={m.name}
+                          className="bg-white dark:bg-zinc-900 p-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center justify-between gap-2 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all text-xs"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-1.5">
+                              <h4 className="font-bold text-zinc-950 dark:text-white truncate">
+                                {m.name}
+                              </h4>
+                              {m.role && m.role !== 'Ministro' && m.role !== 'Ministra' && (
+                                <span className="text-[9.5px] px-1 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 font-semibold shrink-0">
+                                  {m.role}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">
+                              Posse {m.startYear} • {m.appointedBy}
+                            </span>
+                            {m.notes && (
+                              <p className="text-[10px] text-zinc-500 dark:text-zinc-400 italic mt-0.5 truncate">
+                                {m.notes}
+                              </p>
+                            )}
+                          </div>
+                          <span className={`text-[10px] px-2 py-0.5 rounded-md font-semibold shrink-0 border ${
+                            m.category === 'Marinha'
+                              ? 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/60'
+                              : m.category === 'Exército'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/60'
+                              : m.category === 'Aeronáutica'
+                              ? 'bg-cyan-50 text-cyan-800 border-cyan-200 dark:bg-cyan-950/40 dark:text-cyan-300 dark:border-cyan-900/60'
+                              : 'bg-zinc-100 text-zinc-800 border-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:border-zinc-700'
+                          }`}>
+                            {m.category}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* TRIBUNAL SELECIONADO: CNJ */}
+              {selectedCourt === 'CNJ' && (
+                <div className="space-y-3">
+                  <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <Scale className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+                        <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                          {federalData.judiciary.cnj.name}
+                        </h3>
+                      </div>
+                      <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                        {federalData.judiciary.cnj.totalMembers} Conselheiros
+                      </span>
+                    </div>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                      {federalData.judiciary.cnj.role}
+                    </p>
+                    <div className="p-3 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 space-y-2">
+                      <div>
+                        <strong className="text-zinc-900 dark:text-zinc-200 block mb-1">Presidência do Conselho:</strong>
+                        <p className="text-[11px] leading-relaxed">
+                          É sempre exercida nativamente pelo Presidente do Supremo Tribunal Federal (atualmente {federalData.judiciary.supremeCourt.presidentName}).
+                        </p>
+                      </div>
+                      <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                        <strong className="text-zinc-900 dark:text-zinc-200 block mb-1">Composição Pluralista dos 15 Membros:</strong>
+                        <p className="text-[11px] leading-relaxed">
+                          {federalData.judiciary.cnj.compositionRule}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
