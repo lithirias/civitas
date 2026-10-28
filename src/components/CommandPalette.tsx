@@ -162,6 +162,24 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       }
     });
 
+    // 2.1 Ministérios e Ministros de Estado
+    if (dataset.federal.executive.allMinistries) {
+      dataset.federal.executive.allMinistries.forEach((m) => {
+        list.push({
+          id: `min-${m.id}`,
+          title: `${m.name} (${m.minister})`,
+          subtitle: `Ministro(a) de Estado • ${m.party} • Área: ${m.area}`,
+          category: 'Executivo',
+          icon: <Building2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />,
+          action: () => {
+            onSelectState('');
+            onSelectFederalTab?.('executivo');
+            onClose();
+          }
+        });
+      });
+    }
+
     // 3. Chefes do Legislativo Federal
     list.push({
       id: 'leg-camara',

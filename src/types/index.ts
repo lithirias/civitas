@@ -98,6 +98,18 @@ export interface SuperiorCourtDetail {
   members: JudgeMember[];
 }
 
+export interface Ministry {
+  id: string;
+  name: string;
+  shortName: string;
+  minister: string;
+  ministerPhoto?: string;
+  party: string;
+  area: 'Governança & Centro' | 'Economia & Finanças' | 'Infraestrutura & Recursos' | 'Soberania & Defesa' | 'Social & Cidadania';
+  description: string;
+  isKeyMinistry?: boolean;
+}
+
 export interface FederalStructure {
   name: string;
   capital: string;
@@ -114,6 +126,7 @@ export interface FederalStructure {
     mandate: string;
     ministriesCount: number;
     keyMinistries: { name: string; description: string }[];
+    allMinistries: Ministry[];
     roles: string[];
   };
   legislative: {

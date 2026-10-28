@@ -22,7 +22,7 @@ import {
   Mail,
   Printer
 } from 'lucide-react';
-import { StateData, FederalStructure, FederalDeputy, LiveSenator } from '../types';
+import { StateData, FederalStructure, FederalDeputy, LiveSenator, Ministry } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
 import { fetchSenatorsByState } from '../services/senadoApi';
 
@@ -69,6 +69,33 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   const [memberSearch, setMemberSearch] = useState<string>('');
   const [stjFilter, setStjFilter] = useState<'TODOS' | 'TRF' | 'TJ' | 'OAB/MP'>('TODOS');
   const [stmFilter, setStmFilter] = useState<'TODOS' | 'Marinha' | 'Exército' | 'Aeronáutica' | 'Civil'>('TODOS');
+
+  // Estados para exploração ministerial completa
+  const [showAllMinistries, setShowAllMinistries] = useState<boolean>(false);
+  const [ministrySearch, setMinistrySearch] = useState<string>('');
+  const [ministryAreaFilter, setMinistryAreaFilter] = useState<'TODAS' | 'Governança & Centro' | 'Economia & Finanças' | 'Infraestrutura & Recursos' | 'Soberania & Defesa' | 'Social & Cidadania'>('TODAS');
+
+  const filteredMinistries = React.useMemo(() => {
+    const all = federalData.executive.allMinistries || [];
+    return all.filter(m => {
+      const matchArea = ministryAreaFilter === 'TODAS' || m.area === ministryAreaFilter;
+      if (!matchArea) return false;
+      if (!ministrySearch.trim()) return true;
+      const q = ministrySearch.toLowerCase();
+      return (
+        m.name.toLowerCase().includes(q) ||
+        m.shortName.toLowerCase().includes(q) ||
+        m.minister.toLowerCase().includes(q) ||
+        m.party.toLowerCase().includes(q) ||
+        m.description.toLowerCase().includes(q)
+      );
+    });
+  }, [federalData.executive.allMinistries, ministryAreaFilter, ministrySearch]);
+
+  const keyMinistriesList = React.useMemo(() => {
+    const all = federalData.executive.allMinistries || [];
+    return all.filter(m => m.isKeyMinistry);
+  }, [federalData.executive.allMinistries]);
 
   // Estado para carregar deputados federais via API da Câmara
   const [loadingDeputies, setLoadingDeputies] = useState<boolean>(false);
@@ -268,26 +295,260 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
 
               {/* Estrutura Ministerial */}
               <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-5">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wider block">
-                    Ministérios da União
-                  </span>
-                  <span className="px-2.5 py-0.5 rounded bg-zinc-200/80 dark:bg-zinc-800 text-xs sm:text-sm font-bold text-zinc-800 dark:text-zinc-200">
-                    {federalData.executive.ministriesCount} Pastas Ministeriais
-                  </span>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                  <div>
+                    <span className="text-xs sm:text-sm font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wider block">
+                      Gabinete Presidencial & Ministérios da União
+                    </span>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                      Auxiliares diretos do Presidente da República na direção superior da administração federal (Art. 87 CF/88).
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 text-xs sm:text-sm font-bold border border-emerald-300 dark:border-emerald-800">
+                      {federalData.executive.ministriesCount} Pastas Ministeriais
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mb-3.5 leading-relaxed">
-                  Os Ministros de Estado são escolhidos livremente pelo Presidente da República para coordenar a administração pública federal.
-                </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
-                  {federalData.executive.keyMinistries.map((min, idx) => (
-                    <div key={idx} className="bg-white dark:bg-zinc-900 p-3 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                      <strong className="text-zinc-950 dark:text-white font-bold block mb-1 text-sm">{min.name}</strong>
-                      <span className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-snug block">{min.description}</span>
+                {/* VISÃO INICIAL: 6 MINISTÉRIOS CENTRAIS */}
+                {!showAllMinistries ? (
+                  <div className="space-y-3.5 mt-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                        6 Pastas do Núcleo Central de Governo
+                      </span>
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400">
+                        Pastas estratégicas e coordenação geral
+                      </span>
                     </div>
-                  ))}
-                </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                      {keyMinistriesList.map((m) => (
+                        <div
+                          key={m.id}
+                          className="bg-white dark:bg-zinc-900 p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-start gap-3 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all"
+                        >
+                          {m.ministerPhoto ? (
+                            <img
+                              src={m.ministerPhoto}
+                              alt={m.minister}
+                              className="w-14 h-18 sm:w-16 sm:h-20 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                              loading="lazy"
+                              onError={(e) => {
+                                (e.currentTarget as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <div className="w-14 h-18 sm:w-16 sm:h-20 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center text-zinc-400 font-bold text-sm shrink-0">
+                              {m.minister.slice(0, 2).toUpperCase()}
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-1 mb-1">
+                              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 truncate">
+                                {m.shortName || m.name}
+                              </span>
+                              {m.party && (
+                                <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 shrink-0 border border-zinc-200 dark:border-zinc-700">
+                                  {m.party}
+                                </span>
+                              )}
+                            </div>
+                            <strong className="text-zinc-950 dark:text-white font-bold block mb-1 text-sm sm:text-base leading-tight">
+                              {m.minister}
+                            </strong>
+                            <span className="text-xs text-zinc-600 dark:text-zinc-400 leading-snug block line-clamp-2">
+                              {m.description}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setShowAllMinistries(true)}
+                      className="w-full mt-2 py-3 px-4 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-emerald-200 dark:border-emerald-800/80 transition-all cursor-pointer shadow-xs"
+                    >
+                      <ChevronDown className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <span>Ver todas as 38 Pastas Ministeriais e Titulares</span>
+                      <span className="px-2 py-0.5 rounded-full text-[11px] bg-emerald-200/80 dark:bg-emerald-900 text-emerald-900 dark:text-emerald-200 font-bold ml-1">
+                        +32 Pastas
+                      </span>
+                    </button>
+                  </div>
+                ) : (
+                  /* VISÃO EXPANDIDA: TODAS AS 38 PASTAS COM BUSCA E FILTROS */
+                  <div className="mt-3 space-y-3.5 animate-fade-in">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Users className="w-3.5 h-3.5 text-emerald-600" />
+                        Gabinete Ministerial Completo (38 Pastas)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setShowAllMinistries(false)}
+                        className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 cursor-pointer"
+                      >
+                        <ChevronUp className="w-3.5 h-3.5" />
+                        Recolher para 6 centrais
+                      </button>
+                    </div>
+
+                    {/* Filtros e Busca */}
+                    <div className="space-y-2.5">
+                      <div className="relative">
+                        <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                        <input
+                          type="text"
+                          placeholder="Buscar ministério, titular (ex: Haddad, Marina, Alckmin) ou partido..."
+                          value={ministrySearch}
+                          onChange={(e) => setMinistrySearch(e.target.value)}
+                          className="w-full pl-9 pr-14 py-2 text-xs sm:text-sm bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                        {ministrySearch && (
+                          <button
+                            type="button"
+                            onClick={() => setMinistrySearch('')}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 cursor-pointer"
+                          >
+                            Limpar
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Pílulas de Áreas Temáticas */}
+                      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+                        {(['TODAS', 'Governança & Centro', 'Economia & Finanças', 'Infraestrutura & Recursos', 'Soberania & Defesa', 'Social & Cidadania'] as const).map((area) => {
+                          const isSelected = ministryAreaFilter === area;
+                          const count = area === 'TODAS'
+                            ? (federalData.executive.allMinistries?.length || 38)
+                            : (federalData.executive.allMinistries?.filter(m => m.area === area).length || 0);
+                          return (
+                            <button
+                              key={area}
+                              type="button"
+                              onClick={() => setMinistryAreaFilter(area)}
+                              className={`px-3 py-1.5 rounded-full font-medium whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer text-xs ${
+                                isSelected
+                                  ? 'bg-emerald-600 text-white shadow-xs'
+                                  : 'bg-white dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800'
+                              }`}
+                            >
+                              <span>{area === 'TODAS' ? 'Todas as Áreas' : area}</span>
+                              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                                isSelected ? 'bg-white/20 text-white' : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300'
+                              }`}>
+                                {count}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="text-xs text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
+                        <span>
+                          Exibindo <strong>{filteredMinistries.length}</strong> de <strong>{federalData.executive.allMinistries?.length || 38}</strong> ministérios
+                        </span>
+                        {ministrySearch && (
+                          <span className="italic">
+                            Filtro: "{ministrySearch}"
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Grid com Todos os Ministérios Filtrados */}
+                    {filteredMinistries.length === 0 ? (
+                      <div className="bg-white dark:bg-zinc-900 p-8 rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 text-center">
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                          Nenhum ministério ou titular encontrado para a busca "{ministrySearch}".
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setMinistrySearch('');
+                            setMinistryAreaFilter('TODAS');
+                          }}
+                          className="mt-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+                        >
+                          Limpar filtros de busca
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[720px] overflow-y-auto pr-1">
+                        {filteredMinistries.map((m) => (
+                          <div
+                            key={m.id}
+                            className={`bg-white dark:bg-zinc-900 p-3.5 rounded-lg border shadow-xs flex items-start gap-3 transition-all ${
+                              m.isKeyMinistry
+                                ? 'border-emerald-300 dark:border-emerald-900/60 ring-1 ring-emerald-500/10'
+                                : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700'
+                            }`}
+                          >
+                            {m.ministerPhoto ? (
+                              <img
+                                src={m.ministerPhoto}
+                                alt={m.minister}
+                                className="w-14 h-18 sm:w-16 sm:h-20 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                                loading="lazy"
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLElement).style.display = 'none';
+                                }}
+                              />
+                            ) : (
+                              <div className="w-14 h-18 sm:w-16 sm:h-20 rounded-md bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center text-zinc-400 font-bold text-sm shrink-0">
+                                {m.minister.slice(0, 2).toUpperCase()}
+                              </div>
+                            )}
+
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center justify-between gap-1 mb-1">
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 truncate">
+                                  {m.shortName || m.name}
+                                </span>
+                                <div className="flex items-center gap-1 shrink-0">
+                                  {m.isKeyMinistry && (
+                                    <span className="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300">
+                                      Núcleo Central
+                                    </span>
+                                  )}
+                                  {m.party && (
+                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">
+                                      {m.party}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              <strong className="text-zinc-950 dark:text-white font-bold block mb-1 text-sm leading-tight">
+                                {m.minister}
+                              </strong>
+                              <span className="text-xs text-zinc-600 dark:text-zinc-400 leading-snug block">
+                                {m.description}
+                              </span>
+                              <div className="mt-1.5 flex items-center gap-2">
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400">
+                                  Área: {m.area}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => setShowAllMinistries(false)}
+                      className="w-full mt-2 py-2.5 px-4 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-850 text-zinc-700 dark:text-zinc-300 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 border border-zinc-300 dark:border-zinc-700 transition-all cursor-pointer shadow-xs"
+                    >
+                      <ChevronUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <span>Recolher para os 6 Ministérios Centrais</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Atribuições Constitucionais */}
