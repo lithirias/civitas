@@ -130,21 +130,44 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
           {/* ABA 1: EXECUTIVO FEDERAL */}
           {federalTab === 'executivo' && (
             <div className="space-y-3.5 animate-fade-in">
-              {/* Presidência e Vice */}
+              {/* Presidência e Vice com fotos oficiais */}
               <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
                 <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block mb-3">
                   Chefia de Estado e de Governo
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Presidente da República</span>
-                    <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.president}</span>
-                    <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.party}</span>
+                  {/* Card Presidente */}
+                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center gap-3">
+                    {federalData.executive.presidentPhoto && (
+                      <img
+                        src={federalData.executive.presidentPhoto}
+                        alt={federalData.executive.president}
+                        className="w-13 h-16 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Presidente da República</span>
+                      <span className="font-bold text-zinc-950 dark:text-white text-sm sm:text-base block truncate">{federalData.executive.president}</span>
+                      <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.party}</span>
+                    </div>
                   </div>
-                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Vice-Presidente</span>
-                    <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.vicePresident}</span>
-                    <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.viceParty}</span>
+
+                  {/* Card Vice-Presidente */}
+                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center gap-3">
+                    {federalData.executive.vicePhoto && (
+                      <img
+                        src={federalData.executive.vicePhoto}
+                        alt={federalData.executive.vicePresident}
+                        className="w-13 h-16 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Vice-Presidente</span>
+                      <span className="font-bold text-zinc-950 dark:text-white text-sm sm:text-base block truncate">{federalData.executive.vicePresident}</span>
+                      <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.viceParty}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -219,7 +242,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                 </p>
               </div>
 
-              {/* Comparativo Câmara dos Deputados vs Senado Federal */}
+              {/* Comparativo Câmara dos Deputados vs Senado Federal com Fotos dos Presidentes */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {/* Câmara dos Deputados */}
                 <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 flex flex-col justify-between">
@@ -236,7 +259,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                     <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 block mb-1 uppercase tracking-wide">
                       Funções Privativas:
                     </span>
-                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400">
+                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400 mb-3">
                       {federalData.legislative.chamberOfDeputies.roles.map((r, i) => (
                         <li key={i} className="flex items-start gap-1.5">
                           <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
@@ -245,6 +268,24 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                       ))}
                     </ul>
                   </div>
+
+                  {/* Presidente da Câmara com Foto */}
+                  {federalData.legislative.chamberOfDeputies.presidentName && (
+                    <div className="flex items-center gap-2.5 pt-2.5 border-t border-zinc-200 dark:border-zinc-800">
+                      {federalData.legislative.chamberOfDeputies.presidentPhoto && (
+                        <img
+                          src={federalData.legislative.chamberOfDeputies.presidentPhoto}
+                          alt={federalData.legislative.chamberOfDeputies.presidentName}
+                          className="w-9 h-11 rounded object-cover border border-zinc-300 dark:border-zinc-700 shrink-0"
+                          loading="lazy"
+                        />
+                      )}
+                      <div className="min-w-0">
+                        <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente da Câmara</span>
+                        <span className="text-xs font-bold text-zinc-950 dark:text-white truncate block">{federalData.legislative.chamberOfDeputies.presidentName}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Senado Federal */}
@@ -262,7 +303,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                     <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 block mb-1 uppercase tracking-wide">
                       Funções Privativas:
                     </span>
-                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400">
+                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400 mb-3">
                       {federalData.legislative.federalSenate.roles.map((r, i) => (
                         <li key={i} className="flex items-start gap-1.5">
                           <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
@@ -271,6 +312,24 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                       ))}
                     </ul>
                   </div>
+
+                  {/* Presidente do Senado com Foto */}
+                  {federalData.legislative.federalSenate.presidentName && (
+                    <div className="flex items-center gap-2.5 pt-2.5 border-t border-zinc-200 dark:border-zinc-800">
+                      {federalData.legislative.federalSenate.presidentPhoto && (
+                        <img
+                          src={federalData.legislative.federalSenate.presidentPhoto}
+                          alt={federalData.legislative.federalSenate.presidentName}
+                          className="w-9 h-11 rounded object-cover border border-zinc-300 dark:border-zinc-700 shrink-0"
+                          loading="lazy"
+                        />
+                      )}
+                      <div className="min-w-0">
+                        <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do Senado e do Congresso</span>
+                        <span className="text-xs font-bold text-zinc-950 dark:text-white truncate block">{federalData.legislative.federalSenate.presidentName}</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -295,7 +354,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
           {/* ABA 3: JUDICIÁRIO FEDERAL */}
           {federalTab === 'judiciario' && (
             <div className="space-y-3.5 animate-fade-in">
-              {/* STF */}
+              {/* STF com Foto do Presidente */}
               <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -311,6 +370,25 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-2.5">
                   {federalData.judiciary.supremeCourt.role}
                 </p>
+
+                {/* Presidente do STF com Foto */}
+                {federalData.judiciary.supremeCourt.presidentName && (
+                  <div className="flex items-center gap-3 p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xs mb-2.5">
+                    {federalData.judiciary.supremeCourt.presidentPhoto && (
+                      <img
+                        src={federalData.judiciary.supremeCourt.presidentPhoto}
+                        alt={federalData.judiciary.supremeCourt.presidentName}
+                        className="w-10 h-13 rounded object-cover border border-zinc-300 dark:border-zinc-700 shrink-0"
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block">Presidente do STF e do CNJ</span>
+                      <strong className="text-xs font-bold text-zinc-950 dark:text-white block truncate">{federalData.judiciary.supremeCourt.presidentName}</strong>
+                    </div>
+                  </div>
+                )}
+
                 <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-500 dark:text-zinc-400">
                   <strong>Critério de Nomeação:</strong> {federalData.judiciary.supremeCourt.appointmentCriteria}
                 </div>
@@ -513,11 +591,19 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                 Chefia do Poder Executivo Estadual
               </span>
 
-              {/* Governador */}
-              <div className="bg-white dark:bg-zinc-900 rounded-md p-3.5 border border-zinc-200 dark:border-zinc-800 mb-2.5 flex items-start justify-between shadow-xs">
-                <div>
-                  <span className="text-xs text-zinc-500 dark:text-zinc-400">Governador(a)</span>
-                  <h3 className="text-base sm:text-lg font-bold text-zinc-950 dark:text-white">{stateData.executive.governor}</h3>
+              {/* Governador com Foto Oficial */}
+              <div className="bg-white dark:bg-zinc-900 rounded-md p-3.5 border border-zinc-200 dark:border-zinc-800 mb-2.5 flex items-center gap-3.5 shadow-xs">
+                {stateData.executive.photoUrl && (
+                  <img
+                    src={stateData.executive.photoUrl}
+                    alt={stateData.executive.governor}
+                    className="w-13 h-17 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                    loading="lazy"
+                  />
+                )}
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Governador(a) do Estado</span>
+                  <h3 className="text-base sm:text-lg font-bold text-zinc-950 dark:text-white truncate">{stateData.executive.governor}</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="px-2 py-0.5 rounded bg-zinc-100 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 text-xs font-semibold dark:border-zinc-700">
                       Partido: {stateData.executive.party}

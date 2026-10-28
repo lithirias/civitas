@@ -53,8 +53,10 @@ export interface FederalStructure {
   capital: string;
   executive: {
     president: string;
+    presidentPhoto?: string;
     party: string;
     vicePresident: string;
+    vicePhoto?: string;
     viceParty: string;
     seat: string;
     officialResidence: string;
@@ -70,6 +72,8 @@ export interface FederalStructure {
     chamberOfDeputies: {
       totalDeputies: number;
       president: string;
+      presidentName?: string;
+      presidentPhoto?: string;
       seat: string;
       mandateYears: number;
       criteria: string;
@@ -78,6 +82,8 @@ export interface FederalStructure {
     federalSenate: {
       totalSenators: number;
       president: string;
+      presidentName?: string;
+      presidentPhoto?: string;
       seat: string;
       mandateYears: number;
       criteria: string;
@@ -94,6 +100,8 @@ export interface FederalStructure {
       name: string;
       seat: string;
       totalMinisters: number;
+      presidentName?: string;
+      presidentPhoto?: string;
       appointmentCriteria: string;
       role: string;
     };

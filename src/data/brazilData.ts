@@ -16,8 +16,10 @@ export const initialBrazilData: BrazilDataset = {
     capital: 'Brasília - DF',
     executive: {
       president: 'Luiz Inácio Lula da Silva',
+      presidentPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_%28ombros%29_denoise.jpg/330px-Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_%28ombros%29_denoise.jpg',
       party: 'PT',
       vicePresident: 'Geraldo Alckmin',
+      vicePhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/08.08.2026_-_FOTOS_OFICIAIS_-_55450293534.jpg/330px-08.08.2026_-_FOTOS_OFICIAIS_-_55450293534.jpg',
       viceParty: 'PSB',
       seat: 'Palácio do Planalto (Gabinete Presidencial)',
       officialResidence: 'Palácio da Alvorada',
@@ -46,6 +48,8 @@ export const initialBrazilData: BrazilDataset = {
       chamberOfDeputies: {
         totalDeputies: 513,
         president: 'Presidência da Câmara dos Deputados',
+        presidentName: 'Arthur Lira',
+        presidentPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Lula_e_Lira_2022_%28cropped2%29.jpg/330px-Lula_e_Lira_2022_%28cropped2%29.jpg',
         seat: 'Palácio do Congresso Nacional, Brasília - DF',
         mandateYears: 4,
         criteria: 'Voto proporcional da população por estado (mínimo de 8 e máximo de 70 parlamentares por UF).',
@@ -58,6 +62,8 @@ export const initialBrazilData: BrazilDataset = {
       federalSenate: {
         totalSenators: 81,
         president: 'Presidência do Senado Federal (Preside também o Congresso)',
+        presidentName: 'Rodrigo Pacheco',
+        presidentPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Foto_oficial_2_Senador_Rodrigo_Pacheco.jpg/330px-Foto_oficial_2_Senador_Rodrigo_Pacheco.jpg',
         seat: 'Palácio do Congresso Nacional, Brasília - DF',
         mandateYears: 8,
         criteria: '3 senadores eleitos por maioria simples para cada uma das 27 UFs (renovação de 1/3 e 2/3 alternadamente a cada 4 anos).',
@@ -76,6 +82,8 @@ export const initialBrazilData: BrazilDataset = {
     judiciary: {
       supremeCourt: {
         name: 'Supremo Tribunal Federal (STF)',
+        presidentName: 'Ministro Luís Roberto Barroso',
+        presidentPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Ministro_Roberto_Barroso.jpg/330px-Ministro_Roberto_Barroso.jpg',
         seat: 'Praça dos Três Poderes, Brasília - DF',
         totalMinisters: 11,
         appointmentCriteria: 'Cidadãos com mais de 35 e menos de 70 anos, de notável saber jurídico e reputação ilibada, indicados pelo Presidente e aprovados pelo Senado.',
@@ -146,7 +154,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Mailza Gomes',
         viceParty: 'PP',
         seat: 'Palácio Rio Branco',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Retrato_oficial_Gladson_Cameli_2019.jpg/330px-Retrato_oficial_Gladson_Cameli_2019.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Acre (ALEAC)',
@@ -178,7 +187,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Ronaldo Lessa',
         viceParty: 'PDT',
         seat: 'Palácio República dos Palmares',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Paulo_Dantas_Foto_Oficial_%28cropped%29.jpg/330px-Paulo_Dantas_Foto_Oficial_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa de Alagoas (ALEALE)',
@@ -210,7 +220,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Teles Júnior',
         viceParty: 'PDT',
         seat: 'Palácio do Setentrião',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Foto_oficial_do_governador_do_Estado_do_Amap%C3%A1%2C_Cl%C3%A9cio_Lu%C3%ADs.jpg/330px-Foto_oficial_do_governador_do_Estado_do_Amap%C3%A1%2C_Cl%C3%A9cio_Lu%C3%ADs.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Amapá (ALAP)',
@@ -242,7 +253,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Tadeu de Souza',
         viceParty: 'Avante',
         seat: 'Palácio do Governo do Estado do Amazonas',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Wilson_Lima.jpg/330px-Wilson_Lima.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Amazonas (ALEAM)',
@@ -274,7 +286,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Geraldo Júnior',
         viceParty: 'MDB',
         seat: 'Palácio de Ondina',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/18_01_2023_-_Visita_de_Cortesia_Jer%C3%B4nimo_Rodrigues_%28Governador_do_Estado_da_Bahia-BA%29_%2852635213362%29_%28cropped%29.jpg/330px-18_01_2023_-_Visita_de_Cortesia_Jer%C3%B4nimo_Rodrigues_%28Governador_do_Estado_da_Bahia-BA%29_%2852635213362%29_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado da Bahia (ALBA)',
@@ -306,7 +319,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Jade Romero',
         viceParty: 'MDB',
         seat: 'Palácio da Abolição',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Plen%C3%A1rio_do_Congresso_%2854441463325%29.jpg/330px-Plen%C3%A1rio_do_Congresso_%2854441463325%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Ceará (ALECE)',
@@ -338,7 +352,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Celina Leão',
         viceParty: 'PP',
         seat: 'Palácio do Buriti',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Ibaneis_Rocha%2C_January_2023_%28cropped%29.jpg/330px-Ibaneis_Rocha%2C_January_2023_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Câmara Legislativa do Distrito Federal (CLDF)',
@@ -370,7 +385,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Ricardo Ferraço',
         viceParty: 'MDB',
         seat: 'Palácio Anchieta',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Renato_Casagrande_em_mar%C3%A7o_de_2019.jpg/330px-Renato_Casagrande_em_mar%C3%A7o_de_2019.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Espírito Santo (ALES)',
@@ -402,7 +418,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Daniel Vilela',
         viceParty: 'MDB',
         seat: 'Palácio das Esmeraldas',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Foto_oficial_do_governador_de_Goi%C3%A1s%2C_Ronaldo_Caiado_em_2023_%28ombros%29.jpg/330px-Foto_oficial_do_governador_de_Goi%C3%A1s%2C_Ronaldo_Caiado_em_2023_%28ombros%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de Goiás (ALEGO)',
@@ -434,7 +451,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Felipe Camarão',
         viceParty: 'PT',
         seat: 'Palácio dos Leões',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Retrato_Oficial_de_Carlos_Brand%C3%A3o_como_governador_do_Maranh%C3%A3o.jpg/330px-Retrato_Oficial_de_Carlos_Brand%C3%A3o_como_governador_do_Maranh%C3%A3o.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Maranhão (ALEMA)',
@@ -466,7 +484,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Otaviano Pivetta',
         viceParty: 'REPUBLICANOS',
         seat: 'Palácio Paiaguás',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/2019_Reuni%C3%A3o_com_Ministros_da_Casa_Civil%2C_Defesa%2C_Rela%C3%A7%C3%B5es_Exteriores%2C_Meio_Ambiente%2C_Secretaria-Geral%2C_Secretaria_de_Governo%2C_GSI_e_Governadores_da_Amaz%C3%B4nia_Legal_-_48630502003_%28cropped%29_Mauro_Mendes.jpg/330px-thumbnail.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de Mato Grosso (ALMT)',
@@ -498,7 +517,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'José Carlos Barbosa',
         viceParty: 'PP',
         seat: 'Governadoria de Mato Grosso do Sul',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Governador_Eduardo_Riedel.jpg/330px-Governador_Eduardo_Riedel.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa de Mato Grosso do Sul (ALEMS)',
@@ -530,7 +550,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Mateus Simões',
         viceParty: 'NOVO',
         seat: 'Palácio Tiradentes (Cidade Administrativa)',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Romeu_Zema_2025_%28cropped%29.jpg/330px-Romeu_Zema_2025_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de Minas Gerais (ALMG)',
@@ -562,7 +583,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Hana Ghassan',
         viceParty: 'MDB',
         seat: 'Palácio do Governo do Pará',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Helder_Barbalho%2C_January_2023_%28cropped%29.jpg/330px-Helder_Barbalho%2C_January_2023_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Pará (ALEPA)',
@@ -594,7 +616,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Lucas Ribeiro',
         viceParty: 'PP',
         seat: 'Palácio da Redenção',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Jo%C3%A3o_Azev%C3%AAdo%2C_May_2023_%28cropped%29.jpg/330px-Jo%C3%A3o_Azev%C3%AAdo%2C_May_2023_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa da Paraíba (ALPB)',
@@ -626,7 +649,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Darci Piana',
         viceParty: 'PSD',
         seat: 'Palácio Iguaçu',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Ratinho_J%C3%BAnior_as_governor_of_Paran%C3%A1%2C_January_2023_%28cropped%29.jpg/330px-Ratinho_J%C3%BAnior_as_governor_of_Paran%C3%A1%2C_January_2023_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Paraná (ALEP)',
@@ -658,7 +682,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Priscila Krause',
         viceParty: 'CIDADANIA',
         seat: 'Palácio do Campo das Princesas',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/RL45_14-09.jpg/330px-RL45_14-09.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de Pernambuco (ALEPE)',
@@ -690,7 +715,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Themístocles Filho',
         viceParty: 'MDB',
         seat: 'Palácio de Karnak',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Ipea_Recebe_o_Governador_do_Piau%C3%AD_Rafael_Fonteles_%2854119348754%29_%28cropped%29.jpg/330px-Ipea_Recebe_o_Governador_do_Piau%C3%AD_Rafael_Fonteles_%2854119348754%29_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Piauí (ALEPI)',
@@ -722,7 +748,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Thiago Pampolha',
         viceParty: 'MDB',
         seat: 'Palácio Guanabara',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Cl%C3%A1udio_Castro%2C_governador_do_Rio_de_Janeiro.jpg/330px-Cl%C3%A1udio_Castro%2C_governador_do_Rio_de_Janeiro.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Rio de Janeiro (ALERJ)',
@@ -754,7 +781,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Walter Alves',
         viceParty: 'MDB',
         seat: 'Palácio de Despachos de Lagoa Nova',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/F%C3%A1tima_Bezerra%2C_2023.jpg/330px-F%C3%A1tima_Bezerra%2C_2023.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Rio Grande do Norte (ALRN)',
@@ -786,7 +814,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Gabriel Souza',
         viceParty: 'MDB',
         seat: 'Palácio Piratini',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/09.02.2026_%E2%80%93_Eduardo_Leite_in_February_2026_-_55087496770_%283x4%29.jpg/330px-09.02.2026_%E2%80%93_Eduardo_Leite_in_February_2026_-_55087496770_%283x4%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Rio Grande do Sul (ALRS)',
@@ -818,7 +847,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Sérgio Gonçalves',
         viceParty: 'UNIÃO',
         seat: 'Palácio Rio Madeira',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Desfile_de_7_de_Setembro_08.09.22_Foto_Daiane_Mendon%C3%A7a_%28384%29_%2852342537421%29_%28cropped%29.jpg/330px-Desfile_de_7_de_Setembro_08.09.22_Foto_Daiane_Mendon%C3%A7a_%28384%29_%2852342537421%29_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa de Rondônia (ALERO)',
@@ -850,7 +880,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Edilson Damião',
         viceParty: 'REPUBLICANOS',
         seat: 'Palácio Senador Hélio Campos',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Foto_Governador_Antonio_Denarium.jpg/330px-Foto_Governador_Antonio_Denarium.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa de Roraima (ALERR)',
@@ -882,7 +913,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Marilisa Boehm',
         viceParty: 'PL',
         seat: 'Centro Administrativo do Governo de SC',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Governador_Jorginho_Mello_-_Foto_Eduardo_Valente_-_GOVSC-7.jpg/330px-Governador_Jorginho_Mello_-_Foto_Eduardo_Valente_-_GOVSC-7.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa de Santa Catarina (ALESC)',
@@ -914,7 +946,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Felício Ramuth',
         viceParty: 'PSD',
         seat: 'Palácio dos Bandeirantes',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Governador_do_Estado_de_S%C3%A3o_Paulo%2C_Tarc%C3%ADsio_de_Freitas_-_Foto_Oficial_%28cropped%29.jpg/330px-Governador_do_Estado_de_S%C3%A3o_Paulo%2C_Tarc%C3%ADsio_de_Freitas_-_Foto_Oficial_%28cropped%29.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de São Paulo (ALESP)',
@@ -946,7 +979,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Zezinho Sobral',
         viceParty: 'PDT',
         seat: 'Palácio Museu Olímpio Campos / Palácio de Despachos',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Foto_oficial_do_governador_F%C3%A1bio_Mitidieri.jpg/330px-Foto_oficial_do_governador_F%C3%A1bio_Mitidieri.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado de Sergipe (ALESE)',
@@ -978,7 +1012,8 @@ export const initialBrazilData: BrazilDataset = {
         viceGovernor: 'Laurez Moreira',
         viceParty: 'PDT',
         seat: 'Palácio Araguaia',
-        mandate: '2023 - 2026'
+        mandate: '2023 - 2026',
+        photoUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Wanderlei_Barbosa.jpg/330px-Wanderlei_Barbosa.jpg'
       },
       legislative: {
         assembly: 'Assembleia Legislativa do Estado do Tocantins (ALETO)',
