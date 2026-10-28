@@ -24,10 +24,10 @@ const REGION_COLORS: Record<Region, { base: string; hover: string; selected: str
     border: '#b45309'
   },
   'Centro-Oeste': {
-    base: '#eab308', // yellow-500
-    hover: '#facc15', // yellow-400
-    selected: '#fef08a', // yellow-200
-    border: '#ca8a04'
+    base: '#ca8a04', // yellow-600
+    hover: '#eab308', // yellow-500
+    selected: '#fde047', // yellow-300
+    border: '#a16207'
   },
   Sudeste: {
     base: '#2563eb', // blue-600
@@ -57,13 +57,13 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
   return (
     <div className="flex flex-col items-center w-full max-w-xl mx-auto select-none">
       {/* Filtro rápido por região */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-4 px-2">
+      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3.5 px-2">
         <button
           onClick={() => onSelectRegion('Todas')}
-          className={`px-2.5 py-1 text-xs font-medium rounded-full transition-all ${
+          className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
             activeRegionFilter === 'Todas'
-              ? 'bg-slate-200 text-slate-900 shadow-sm'
-              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              ? 'bg-zinc-200 text-zinc-950 font-semibold shadow-sm'
+              : 'bg-zinc-900 border border-zinc-800 text-zinc-300 hover:bg-zinc-800'
           }`}
         >
           Brasil (Todas)
@@ -75,10 +75,10 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
             <button
               key={reg}
               onClick={() => onSelectRegion(isActive ? 'Todas' : reg)}
-              className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition-all border ${
+              className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md transition-all border ${
                 isActive
-                  ? 'border-white text-white shadow-md'
-                  : 'border-transparent bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'border-white text-white shadow-sm'
+                  : 'border-zinc-800 bg-zinc-900 text-zinc-300 hover:bg-zinc-800'
               }`}
               style={{
                 backgroundColor: isActive ? REGION_COLORS[reg].base : undefined
@@ -95,12 +95,12 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
       </div>
 
       {/* Container do Mapa SVG com Tooltip flutuante */}
-      <div className="relative w-full aspect-[450/460] bg-slate-900/60 rounded-2xl p-2 sm:p-4 border border-slate-800/80 shadow-2xl backdrop-blur-sm flex items-center justify-center">
+      <div className="relative w-full aspect-[450/460] bg-zinc-900/60 rounded-xl p-2 sm:p-4 border border-zinc-800 shadow-xl backdrop-blur-sm flex items-center justify-center">
         {/* Tooltip de Hover */}
         {hoveredState && (
-          <div className="absolute top-4 left-4 z-20 pointer-events-none bg-slate-950/90 border border-slate-700 text-slate-100 rounded-lg px-3 py-2 text-xs shadow-xl backdrop-blur-md animate-fade-in">
+          <div className="absolute top-3 left-3 z-20 pointer-events-none bg-zinc-950/95 border border-zinc-700 text-zinc-100 rounded-md px-3 py-2 text-xs shadow-xl backdrop-blur-md animate-fade-in">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm text-blue-400">{hoveredState.name} ({hoveredState.id})</span>
+              <span className="font-bold text-sm text-zinc-100">{hoveredState.name} ({hoveredState.id})</span>
               <span
                 className="text-[10px] px-1.5 py-0.5 rounded text-white font-semibold"
                 style={{ backgroundColor: REGION_COLORS[hoveredState.region].base }}
@@ -108,18 +108,18 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
                 {hoveredState.region}
               </span>
             </div>
-            <div className="text-slate-300 mt-1">
-              Cap.: <strong className="text-white">{hoveredState.capital}</strong>
+            <div className="text-zinc-400 mt-1">
+              Cap.: <strong className="text-zinc-200">{hoveredState.capital}</strong>
             </div>
-            <div className="text-slate-300">
-              Gov.: <span className="text-white">{hoveredState.executive.governor}</span> ({hoveredState.executive.party})
+            <div className="text-zinc-400">
+              Gov.: <span className="text-zinc-200">{hoveredState.executive.governor}</span> ({hoveredState.executive.party})
             </div>
           </div>
         )}
 
         <svg
           viewBox="0 0 460 470"
-          className="w-full h-full max-h-[580px] drop-shadow-md"
+          className="w-full h-full max-h-[580px] drop-shadow-sm"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g transform="translate(5, 5)">
@@ -164,7 +164,7 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
                     strokeWidth={isSelected ? 2.5 : 1.1}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    opacity={isDimmed ? 0.3 : 1}
+                    opacity={isDimmed ? 0.25 : 1}
                     className="state-path"
                     style={{
                       filter: isSelected ? 'drop-shadow(0 0 8px rgba(255,255,255,0.7))' : undefined
@@ -178,7 +178,7 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
                       fill={isSelected ? '#ffffff' : isHovered ? colors.hover : colors.base}
                       stroke={isSelected ? colors.selected : '#ffffff'}
                       strokeWidth={1}
-                      opacity={isDimmed ? 0.3 : 1}
+                      opacity={isDimmed ? 0.25 : 1}
                       className="state-circle"
                     />
                   )}
@@ -186,14 +186,14 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
                   {/* Sigla do Estado */}
                   <text
                     transform={item.textTransform}
-                    fill={isSelected ? '#0f172a' : '#ffffff'}
+                    fill={isSelected ? '#09090b' : '#ffffff'}
                     fontSize="11"
                     fontFamily="system-ui, sans-serif"
                     fontWeight="bold"
                     textAnchor="middle"
                     dominantBaseline="central"
-                    className="pointer-events-none select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-                    opacity={isDimmed ? 0.35 : 1}
+                    className="pointer-events-none select-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]"
+                    opacity={isDimmed ? 0.3 : 1}
                   >
                     {item.id}
                   </text>
@@ -204,12 +204,12 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
         </svg>
       </div>
 
-      <div className="mt-3 text-xs text-slate-400 flex items-center justify-between w-full px-2">
+      <div className="mt-2.5 text-xs text-zinc-400 flex items-center justify-between w-full px-1">
         <span>💡 Clique em qualquer estado para ver sua hierarquia política</span>
         {selectedStateId && (
           <button
             onClick={() => onSelectState('')}
-            className="text-blue-400 hover:text-blue-300 underline font-medium"
+            className="text-zinc-300 hover:text-white underline font-medium"
           >
             Ver Visão Federal
           </button>
