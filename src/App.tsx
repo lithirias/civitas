@@ -5,6 +5,7 @@ import { GovernmentPanel } from './components/GovernmentPanel';
 import { SyncModal } from './components/SyncModal';
 import { CommandPalette } from './components/CommandPalette';
 import { CivicAnalyticsModal } from './components/CivicAnalyticsModal';
+import { StateComparatorModal } from './components/StateComparatorModal';
 import { initialBrazilData } from './data/brazilData';
 import { Region } from './types';
 import { useTheme } from './hooks/useTheme';
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [isAnalyticsOpen, setIsAnalyticsOpen] = useState<boolean>(false);
+  const [isComparatorOpen, setIsComparatorOpen] = useState<boolean>(false);
   
   // Controle de abas da União para deep navigation
   const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio'>('executivo');
@@ -100,6 +102,7 @@ export const App: React.FC = () => {
         onOpenSyncInfo={() => setIsSyncModalOpen(true)}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
+        onOpenComparator={() => setIsComparatorOpen(true)}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
@@ -149,6 +152,7 @@ export const App: React.FC = () => {
               onFederalTabChange={setFederalTab}
               selectedCourt={selectedCourt}
               onSelectCourt={setSelectedCourt}
+              onOpenComparator={() => setIsComparatorOpen(true)}
             />
           </div>
         </div>
@@ -162,6 +166,7 @@ export const App: React.FC = () => {
         onSelectState={handleSelectState}
         onSelectFederalTab={handleSelectFederalTab}
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
+        onOpenComparator={() => setIsComparatorOpen(true)}
       />
 
       {/* Modal de Sincronização e Metadados */}
@@ -176,6 +181,16 @@ export const App: React.FC = () => {
         isOpen={isAnalyticsOpen}
         onClose={() => setIsAnalyticsOpen(false)}
         dataset={dataset}
+      />
+
+      {/* Modal de Comparador Federativo */}
+      <StateComparatorModal
+        isOpen={isComparatorOpen}
+        onClose={() => setIsComparatorOpen(false)}
+        dataset={dataset}
+        initialStateAId={selectedStateId || 'SP'}
+        initialStateBId={selectedStateId === 'RJ' ? 'SP' : 'RJ'}
+        onSelectState={handleSelectState}
       />
 
       {/* Rodapé */}

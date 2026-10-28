@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3 } from 'lucide-react';
+import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3, ArrowRightLeft } from 'lucide-react';
 import { BrazilDataset } from '../types';
 
 interface CommandPaletteProps {
@@ -9,6 +9,7 @@ interface CommandPaletteProps {
   onSelectState: (stateId: string) => void;
   onSelectFederalTab?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
   onOpenAnalytics?: () => void;
+  onOpenComparator?: () => void;
 }
 
 interface SearchItem {
@@ -26,7 +27,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   dataset,
   onSelectState,
   onSelectFederalTab,
-  onOpenAnalytics
+  onOpenAnalytics,
+  onOpenComparator
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -57,6 +59,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         action: () => {
           onClose();
           onOpenAnalytics();
+        }
+      });
+    }
+
+    // Atalho para o Comparador Federativo
+    if (onOpenComparator) {
+      list.push({
+        id: 'cmd-comparator',
+        title: 'Comparador Federativo de Estados',
+        subtitle: 'Compare duas Unidades Federativas lado a lado (população, executivo, vereadores, bancada)',
+        category: 'Estado',
+        icon: <ArrowRightLeft className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />,
+        action: () => {
+          onClose();
+          onOpenComparator();
         }
       });
     }

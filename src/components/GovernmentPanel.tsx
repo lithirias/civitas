@@ -33,6 +33,7 @@ interface GovernmentPanelProps {
   onFederalTabChange?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio') => void;
   selectedCourt?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ';
   onSelectCourt?: (court: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
+  onOpenComparator?: () => void;
 }
 
 export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
@@ -42,7 +43,8 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   federalTab: propFederalTab,
   onFederalTabChange,
   selectedCourt: propCourt,
-  onSelectCourt
+  onSelectCourt,
+  onOpenComparator
 }) => {
   // Abas para a visão de Estado
   const [stateTab, setStateTab] = useState<'executivo' | 'legislativo' | 'judiciario'>('executivo');
@@ -1274,6 +1276,18 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
               </p>
             </div>
           </div>
+
+          {onOpenComparator && (
+            <button
+              onClick={onOpenComparator}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 text-xs font-semibold transition-colors shadow-xs shrink-0"
+              title={`Comparar ${stateData.name} com outro estado`}
+            >
+              <ArrowRightLeft className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+              <span className="hidden sm:inline">Comparar Estado</span>
+              <span className="sm:hidden">Comparar</span>
+            </button>
+          )}
         </div>
 
         {/* Indicadores Rápidos */}

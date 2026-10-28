@@ -1,5 +1,5 @@
 import React from 'react';
-import { Landmark, Search, ShieldCheck, Sun, Moon, BarChart3 } from 'lucide-react';
+import { Landmark, Search, ShieldCheck, Sun, Moon, BarChart3, ArrowRightLeft } from 'lucide-react';
 import { BrazilDataset } from '../types';
 import { Theme } from '../hooks/useTheme';
 
@@ -10,6 +10,7 @@ interface NavbarProps {
   onOpenSyncInfo: () => void;
   onOpenCommandPalette: () => void;
   onOpenAnalytics?: () => void;
+  onOpenComparator?: () => void;
   theme: Theme;
   onToggleTheme: () => void;
 }
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSyncInfo,
   onOpenCommandPalette,
   onOpenAnalytics,
+  onOpenComparator,
   theme,
   onToggleTheme
 }) => {
@@ -103,6 +105,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span className="hidden xl:inline">Raio-X Cívico</span>
+          </button>
+
+          {/* Botão de Comparador Federativo */}
+          <button
+            onClick={onOpenComparator}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
+            title="Comparador Federativo Lado a Lado"
+          >
+            <ArrowRightLeft className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="hidden lg:inline">Comparar</span>
           </button>
 
           {/* Botão de Alternância de Tema (Dark / White) */}
