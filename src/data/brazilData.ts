@@ -405,6 +405,47 @@ export const initialBrazilData: BrazilDataset = {
         'Controle de Constitucionalidade: O STF pode anular leis aprovadas pelo Congresso ou decretos do Executivo que contrariem a Carta Magna.',
         'Julgamento Penal: Julga membros do Executivo e Legislativo em crimes comuns no foro competente.'
       ]
+    },
+    essentialToJustice: {
+      title: 'Funções Essenciais à Justiça (Título IV, Cap. IV da CF/88)',
+      description: 'Instituições autônomas e permanentes encarregadas da defesa da ordem jurídica, dos direitos fundamentais, do patrimônio público e da representação judicial e extrajudicial.',
+      publicProsecution: {
+        name: 'Ministério Público da União (MPU)',
+        headTitle: 'Procurador-Geral da República (PGR)',
+        headName: 'Paulo Gonet Branco',
+        headPhoto: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Paulo_Gonet_Branco_%28cropped%29.jpg/330px-Paulo_Gonet_Branco_%28cropped%29.jpg',
+        seat: 'Setor de Administração Federal Sul (SAFS), Brasília - DF',
+        role: 'Instituição autônoma indispensável à função jurisdicional do Estado, incumbida da defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis. O PGR atua perante o STF e TSE.',
+        branches: [
+          'Ministério Público Federal (MPF)',
+          'Ministério Público do Trabalho (MPT)',
+          'Ministério Público Militar (MPM)',
+          'Ministério Público do Distrito Federal e Territórios (MPDFT)'
+        ],
+        cnmp: {
+          name: 'Conselho Nacional do Ministério Público (CNMP)',
+          totalMembers: 14,
+          role: 'Órgão de controle da atuação administrativa e financeira do Ministério Público de todo o Brasil e do cumprimento dos deveres funcionais de seus membros.'
+        }
+      },
+      publicAdvocacy: {
+        name: 'Advocacia-Geral da União (AGU)',
+        headTitle: 'Advogado-Geral da União',
+        headName: 'Jorge Messias',
+        seat: 'Esplanada dos Ministérios, Brasília - DF',
+        role: 'Instituição que representa judicial e extrajudicialmente a União, prestando serviços de consultoria e assessoramento jurídico ao Poder Executivo Federal.'
+      },
+      publicDefenders: {
+        name: 'Defensoria Pública da União (DPU)',
+        headTitle: 'Defensor Público-Geral Federal',
+        headName: 'Leonardo Cardoso de Magalhães',
+        seat: 'Setor Bancário Norte (SBN), Brasília - DF',
+        role: 'Instituição permanente e essencial à função jurisdicional do Estado, que garante orientação jurídica, promoção dos direitos humanos e defesa integral e gratuita aos necessitados perante a Justiça Federal.'
+      },
+      privateAdvocacy: {
+        name: 'Advocacia e Ordem dos Advogados do Brasil (CFOAB)',
+        role: 'O advogado é indispensável à administração da justiça (Art. 133 CF), sendo inviolável por seus atos e manifestações no exercício da profissão nos limites da lei.'
+      }
     }
   },
   states: {

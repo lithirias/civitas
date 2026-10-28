@@ -7,14 +7,14 @@ interface CommandPaletteProps {
   onClose: () => void;
   dataset: BrazilDataset;
   onSelectState: (stateId: string) => void;
-  onSelectFederalTab?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
+  onSelectFederalTab?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
 }
 
 interface SearchItem {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Estado' | 'Executivo' | 'Legislativo' | 'Judiciário' | 'Tribunal Superior';
+  category: 'Estado' | 'Executivo' | 'Legislativo' | 'Judiciário' | 'Tribunal Superior' | 'Função à Justiça';
   icon: React.ReactNode;
   action: () => void;
 }
@@ -167,6 +167,62 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         }
       });
     });
+
+    // 5. Funções Essenciais à Justiça (Título IV, Cap. IV da CF/88)
+    if (dataset.federal.essentialToJustice) {
+      const ej = dataset.federal.essentialToJustice;
+      list.push({
+        id: 'justica-pgr',
+        title: `${ej.publicProsecution.headName} (${ej.publicProsecution.headTitle})`,
+        subtitle: `${ej.publicProsecution.name} • Atuação perante o STF e TSE`,
+        category: 'Função à Justiça',
+        icon: <Scale className="w-4 h-4 text-purple-600 dark:text-purple-400" />,
+        action: () => {
+          onSelectState('');
+          onSelectFederalTab?.('justica');
+          onClose();
+        }
+      });
+
+      list.push({
+        id: 'justica-agu',
+        title: `${ej.publicAdvocacy.headName} (${ej.publicAdvocacy.headTitle})`,
+        subtitle: `${ej.publicAdvocacy.name} • Representação jurídica da União`,
+        category: 'Função à Justiça',
+        icon: <Scale className="w-4 h-4 text-purple-600 dark:text-purple-400" />,
+        action: () => {
+          onSelectState('');
+          onSelectFederalTab?.('justica');
+          onClose();
+        }
+      });
+
+      list.push({
+        id: 'justica-dpu',
+        title: `${ej.publicDefenders.headName} (${ej.publicDefenders.headTitle})`,
+        subtitle: `${ej.publicDefenders.name} • Assistência jurídica integral e gratuita`,
+        category: 'Função à Justiça',
+        icon: <Scale className="w-4 h-4 text-purple-600 dark:text-purple-400" />,
+        action: () => {
+          onSelectState('');
+          onSelectFederalTab?.('justica');
+          onClose();
+        }
+      });
+
+      list.push({
+        id: 'justica-oab',
+        title: ej.privateAdvocacy.name,
+        subtitle: 'Art. 133 CF/88: Indispensabilidade do advogado à administração da justiça',
+        category: 'Função à Justiça',
+        icon: <Scale className="w-4 h-4 text-purple-600 dark:text-purple-400" />,
+        action: () => {
+          onSelectState('');
+          onSelectFederalTab?.('justica');
+          onClose();
+        }
+      });
+    }
 
     return list;
   }, [dataset, onSelectState, onSelectFederalTab, onClose]);

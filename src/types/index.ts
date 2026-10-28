@@ -46,6 +46,11 @@ export interface StateData {
     jurisdiction: string;
     seat: string;
   };
+  justiceFunctions?: {
+    publicProsecution: string;
+    publicDefender: string;
+    stateAttorney: string;
+  };
 }
 
 export interface JudgeMember {
@@ -145,6 +150,42 @@ export interface FederalStructure {
     executiveOnOthers: string[];
     legislativeOnOthers: string[];
     judiciaryOnOthers: string[];
+  };
+  essentialToJustice: {
+    title: string;
+    description: string;
+    publicProsecution: {
+      name: string;
+      headTitle: string;
+      headName: string;
+      headPhoto?: string;
+      seat: string;
+      role: string;
+      branches: string[];
+      cnmp: {
+        name: string;
+        totalMembers: number;
+        role: string;
+      };
+    };
+    publicAdvocacy: {
+      name: string;
+      headTitle: string;
+      headName: string;
+      seat: string;
+      role: string;
+    };
+    publicDefenders: {
+      name: string;
+      headTitle: string;
+      headName: string;
+      seat: string;
+      role: string;
+    };
+    privateAdvocacy: {
+      name: string;
+      role: string;
+    };
   };
 }
 

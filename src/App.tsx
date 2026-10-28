@@ -17,7 +17,7 @@ export const App: React.FC = () => {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   
   // Controle de abas da União para deep navigation
-  const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+  const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio'>('executivo');
   const [selectedCourt, setSelectedCourt] = useState<'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ'>('STF');
 
   const selectedStateData = selectedStateId ? dataset.states[selectedStateId] : null;
@@ -79,7 +79,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleSelectFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => {
+  const handleSelectFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => {
     setFederalTab(tab);
     if (court) setSelectedCourt(court);
   };

@@ -25,8 +25,8 @@ interface GovernmentPanelProps {
   stateData: StateData | null;
   federalData: FederalStructure;
   lastUpdated: string;
-  federalTab?: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio';
-  onFederalTabChange?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio') => void;
+  federalTab?: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio';
+  onFederalTabChange?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio') => void;
   selectedCourt?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ';
   onSelectCourt?: (court: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
 }
@@ -44,9 +44,9 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   const [stateTab, setStateTab] = useState<'executivo' | 'legislativo' | 'judiciario'>('executivo');
   
   // Abas para a visão Federal
-  const [internalFederalTab, setInternalFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+  const [internalFederalTab, setInternalFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio'>('executivo');
   const federalTab = propFederalTab ?? internalFederalTab;
-  const setFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio') => {
+  const setFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio') => {
     setInternalFederalTab(tab);
     onFederalTabChange?.(tab);
   };
@@ -140,6 +140,16 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
             }`}
           >
             <Scale className="w-4 h-4" /> Judiciário
+          </button>
+          <button
+            onClick={() => setFederalTab('justica')}
+            className={`flex-1 min-w-[140px] flex items-center justify-center gap-2 py-2 px-3 rounded-md transition-all ${
+              federalTab === 'justica'
+                ? 'bg-white text-zinc-950 font-bold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+            }`}
+          >
+            <ShieldCheck className="w-4 h-4" /> Funções à Justiça
           </button>
           <button
             onClick={() => setFederalTab('equilibrio')}
@@ -976,7 +986,172 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
             </div>
           )}
 
-          {/* ABA 4: FREIOS E CONTRAPESOS */}
+          {/* ABA 4: FUNÇÕES ESSENCIAIS À JUSTIÇA (Art. 127 a 135 da CF/88) */}
+          {federalTab === 'justica' && federalData.essentialToJustice && (
+            <div className="space-y-4 animate-fade-in">
+              {/* Contexto Constitucional */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-xs sm:text-sm font-semibold text-purple-700 dark:text-purple-400 uppercase tracking-wider block mb-1">
+                  {federalData.essentialToJustice.title}
+                </span>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                  {federalData.essentialToJustice.description}
+                </p>
+                <div className="p-2.5 rounded-md bg-zinc-200/50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 italic">
+                  Instituições autônomas e independentes que viabilizam o acesso à jurisdição, a defesa do Estado Democrático de Direito e a fiscalização da lei, sem subordinação a nenhum dos Três Poderes.
+                </div>
+              </div>
+
+              {/* 1. Ministério Público da União (MPU) & PGR */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <Scale className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                    {federalData.essentialToJustice.publicProsecution.name}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800 font-bold">
+                    Art. 127 a 130-A CF
+                  </span>
+                </div>
+
+                {/* Card do Procurador-Geral da República */}
+                <div className="bg-white dark:bg-zinc-900 rounded-md p-3.5 border border-zinc-200 dark:border-zinc-800 shadow-xs flex items-center gap-3.5">
+                  {federalData.essentialToJustice.publicProsecution.headPhoto ? (
+                    <img
+                      src={federalData.essentialToJustice.publicProsecution.headPhoto}
+                      alt={federalData.essentialToJustice.publicProsecution.headName}
+                      className="w-16 h-20 sm:w-20 sm:h-24 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 shrink-0 shadow-xs"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-16 h-20 sm:w-20 sm:h-24 rounded-md bg-purple-100 dark:bg-purple-950/40 border border-purple-300 dark:border-purple-800 flex items-center justify-center text-purple-700 dark:text-purple-300 font-black text-xl shrink-0">
+                      PGR
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block font-medium">
+                      {federalData.essentialToJustice.publicProsecution.headTitle}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-black text-zinc-950 dark:text-white truncate">
+                      {federalData.essentialToJustice.publicProsecution.headName}
+                    </h3>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-1.5 truncate">
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
+                      {federalData.essentialToJustice.publicProsecution.seat}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {federalData.essentialToJustice.publicProsecution.role}
+                </p>
+
+                {/* 4 Ramos do MPU */}
+                <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                  <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300 block mb-2">
+                    4 Ramos Integrantes do MPU:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {federalData.essentialToJustice.publicProsecution.branches.map((b, idx) => (
+                      <div key={idx} className="bg-white dark:bg-zinc-900 px-3 py-2 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+                        <span className="truncate">{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CNMP */}
+                <div className="p-3 bg-purple-50/50 dark:bg-purple-950/20 rounded-md border border-purple-200 dark:border-purple-900/40 text-xs space-y-1">
+                  <div className="flex items-center justify-between">
+                    <strong className="text-purple-950 dark:text-purple-300 font-bold">
+                      {federalData.essentialToJustice.publicProsecution.cnmp.name}
+                    </strong>
+                    <span className="px-2 py-0.5 rounded bg-purple-200/80 dark:bg-purple-900/60 text-purple-900 dark:text-purple-200 font-semibold text-[11px]">
+                      {federalData.essentialToJustice.publicProsecution.cnmp.totalMembers} Membros
+                    </span>
+                  </div>
+                  <p className="text-purple-900/80 dark:text-purple-300/80 leading-relaxed">
+                    {federalData.essentialToJustice.publicProsecution.cnmp.role} Presidido nativamente pelo Procurador-Geral da República.
+                  </p>
+                </div>
+              </div>
+
+              {/* 2. Advocacia Pública - AGU */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    {federalData.essentialToJustice.publicAdvocacy.name}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-bold">
+                    Art. 131 CF
+                  </span>
+                </div>
+                <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 block font-medium">
+                    {federalData.essentialToJustice.publicAdvocacy.headTitle}
+                  </span>
+                  <h4 className="text-base font-bold text-zinc-950 dark:text-white">
+                    {federalData.essentialToJustice.publicAdvocacy.headName}
+                  </h4>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    {federalData.essentialToJustice.publicAdvocacy.seat}
+                  </p>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {federalData.essentialToJustice.publicAdvocacy.role}
+                </p>
+              </div>
+
+              {/* 3. Defensoria Pública da União - DPU */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    {federalData.essentialToJustice.publicDefenders.name}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold">
+                    Art. 134 CF
+                  </span>
+                </div>
+                <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 block font-medium">
+                    {federalData.essentialToJustice.publicDefenders.headTitle}
+                  </span>
+                  <h4 className="text-base font-bold text-zinc-950 dark:text-white">
+                    {federalData.essentialToJustice.publicDefenders.headName}
+                  </h4>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    {federalData.essentialToJustice.publicDefenders.seat}
+                  </p>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {federalData.essentialToJustice.publicDefenders.role}
+                </p>
+              </div>
+
+              {/* 4. Advocacia Privada & OAB */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
+                    <Users className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                    {federalData.essentialToJustice.privateAdvocacy.name}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800 font-bold">
+                    Art. 133 CF
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {federalData.essentialToJustice.privateAdvocacy.role}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* ABA 5: FREIOS E CONTRAPESOS */}
           {federalTab === 'equilibrio' && (
             <div className="space-y-3.5 animate-fade-in">
               <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
@@ -1328,6 +1503,31 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                 <Scale className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" /> Competência do TJ
               </div>
               O Tribunal de Justiça é a instância máxima do Poder Judiciário em âmbito estadual, julgando recursos das comarcas de primeira instância e matérias de competência originária do estado.
+            </div>
+
+            {/* Funções Essenciais à Justiça no Estado */}
+            <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 space-y-2.5">
+              <span className="text-xs sm:text-sm font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+                Funções Essenciais à Justiça em {stateData.name}
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="font-bold text-zinc-950 dark:text-white block">Ministério Público Estadual</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">MP{stateData.id} • Procuradoria-Geral de Justiça</span>
+                </div>
+                <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="font-bold text-zinc-950 dark:text-white block">Defensoria Pública Estadual</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">DPE-{stateData.id} • Assistência Jurídica Gratuita</span>
+                </div>
+                <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="font-bold text-zinc-950 dark:text-white block">Advocacia Pública do Estado</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">PGE-{stateData.id} • Procuradoria-Geral do Estado</span>
+                </div>
+                <div className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                  <span className="font-bold text-zinc-950 dark:text-white block">Ordem dos Advogados do Brasil</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">OAB/{stateData.id} • Seccional Estadual</span>
+                </div>
+              </div>
             </div>
           </div>
         )}
