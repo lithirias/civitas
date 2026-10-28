@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3, ArrowRightLeft } from 'lucide-react';
+import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3, ArrowRightLeft, Printer } from 'lucide-react';
 import { BrazilDataset } from '../types';
 
 interface CommandPaletteProps {
@@ -77,6 +77,19 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         }
       });
     }
+
+    // Atalho para Imprimir / Gerar PDF
+    list.push({
+      id: 'cmd-print',
+      title: 'Imprimir / Exportar Ficha Cívica (PDF)',
+      subtitle: 'Gera versão diagramada em folha A4 da Unidade Federativa atual ou da União',
+      category: 'Executivo',
+      icon: <Printer className="w-4 h-4 text-zinc-600 dark:text-zinc-400" />,
+      action: () => {
+        onClose();
+        setTimeout(() => window.print(), 200);
+      }
+    });
 
     // 1. Todos os 27 Estados e seus Governadores
     Object.values(dataset.states).forEach((state) => {

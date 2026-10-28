@@ -6,6 +6,7 @@ import { SyncModal } from './components/SyncModal';
 import { CommandPalette } from './components/CommandPalette';
 import { CivicAnalyticsModal } from './components/CivicAnalyticsModal';
 import { StateComparatorModal } from './components/StateComparatorModal';
+import { CivicPrintDossier } from './components/CivicPrintDossier';
 import { initialBrazilData } from './data/brazilData';
 import { Region } from './types';
 import { useTheme } from './hooks/useTheme';
@@ -108,7 +109,7 @@ export const App: React.FC = () => {
       />
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 max-w-[1720px] 2xl:max-w-[1880px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
+      <main className="screen-only flex-1 max-w-[1720px] 2xl:max-w-[1880px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
         {/* Banner de Boas-vindas / Contexto */}
         <div className="mb-6 bg-white border border-zinc-200 shadow-xs dark:bg-gradient-to-r dark:from-zinc-900 dark:via-zinc-900/80 dark:to-zinc-950 dark:border-zinc-800 rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors">
           <div>
@@ -204,6 +205,13 @@ export const App: React.FC = () => {
           </p>
         </div>
       </footer>
+
+      {/* Dossiê / Ficha Cívica Otimizada Exclusivamente para Impressão e PDF (A4) */}
+      <CivicPrintDossier
+        stateData={selectedStateData}
+        federalData={dataset.federal}
+        lastUpdated={dataset.metadata.lastUpdated}
+      />
     </div>
   );
 };

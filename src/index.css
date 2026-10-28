@@ -37,3 +37,37 @@
   stroke: #09090b;
   stroke-width: 2.2;
 }
+
+/* Regras de Impressão e Exportação para PDF */
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
+
+@media print {
+  /* Ocultar elementos de tela e navegação */
+  header, footer, nav, .screen-only, [role="dialog"], button, input, select {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 1.2cm;
+  }
+}

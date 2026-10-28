@@ -19,7 +19,8 @@ import {
   Award,
   ExternalLink,
   Phone,
-  Mail
+  Mail,
+  Printer
 } from 'lucide-react';
 import { StateData, FederalStructure, FederalDeputy, LiveSenator } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
@@ -125,16 +126,27 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
     return (
       <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 xl:p-9 shadow-md dark:bg-zinc-900/85 dark:border-zinc-800 shadow-xl backdrop-blur-md flex flex-col h-full text-zinc-900 dark:text-zinc-100 transition-colors">
         {/* Cabeçalho Federal */}
-        <div className="border-b border-zinc-200 dark:border-zinc-800 pb-5 mb-5">
-          <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1.5">
-            <Landmark className="w-4 h-4" /> Governo Federal da União
+        <div className="border-b border-zinc-200 dark:border-zinc-800 pb-5 mb-5 flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1.5">
+              <Landmark className="w-4 h-4" /> Governo Federal da União
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-950 dark:text-white tracking-tight">
+              {federalData.name}
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 mt-1.5 flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-zinc-400 dark:text-zinc-500" /> Capital Federal: <strong className="text-zinc-900 dark:text-white">{federalData.capital}</strong>
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-950 dark:text-white tracking-tight">
-            {federalData.name}
-          </h2>
-          <p className="text-sm sm:text-base text-zinc-500 dark:text-zinc-400 mt-1.5 flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-zinc-400 dark:text-zinc-500" /> Capital Federal: <strong className="text-zinc-900 dark:text-white">{federalData.capital}</strong>
-          </p>
+          <button
+            onClick={() => window.print()}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 text-xs font-semibold transition-colors shadow-xs shrink-0"
+            title="Imprimir ou Salvar em PDF a Ficha da União"
+          >
+            <Printer className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300" />
+            <span className="hidden sm:inline">Imprimir Ficha (PDF)</span>
+            <span className="sm:hidden">PDF</span>
+          </button>
         </div>
 
         {/* Abas da Estrutura Federal */}
@@ -1277,17 +1289,29 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
             </div>
           </div>
 
-          {onOpenComparator && (
+          <div className="flex items-center gap-2 shrink-0">
+            {onOpenComparator && (
+              <button
+                onClick={onOpenComparator}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 text-xs font-semibold transition-colors shadow-xs"
+                title={`Comparar ${stateData.name} com outro estado`}
+              >
+                <ArrowRightLeft className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                <span className="hidden sm:inline">Comparar Estado</span>
+                <span className="sm:hidden">Comparar</span>
+              </button>
+            )}
+
             <button
-              onClick={onOpenComparator}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 text-xs font-semibold transition-colors shadow-xs shrink-0"
-              title={`Comparar ${stateData.name} com outro estado`}
+              onClick={() => window.print()}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 dark:border-zinc-700 text-xs font-semibold transition-colors shadow-xs"
+              title={`Imprimir ou Salvar em PDF a Ficha Cívica de ${stateData.name}`}
             >
-              <ArrowRightLeft className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-              <span className="hidden sm:inline">Comparar Estado</span>
-              <span className="sm:hidden">Comparar</span>
+              <Printer className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-300" />
+              <span className="hidden sm:inline">Ficha (PDF)</span>
+              <span className="sm:hidden">PDF</span>
             </button>
-          )}
+          </div>
         </div>
 
         {/* Indicadores Rápidos */}
