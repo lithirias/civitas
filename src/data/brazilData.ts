@@ -39,7 +39,7 @@ export const initialBrazilData: BrazilDataset = {
         'Chefia de Governo: Administra as políticas públicas nacionais e a máquina pública federal.',
         'Sanção e Veto: Aprova ou veta total ou parcialmente projetos de lei aprovados pelo Congresso Nacional.',
         'Medidas Provisórias: Edita medidas com força de lei em situações de relevância e urgência, submetendo-as ao Congresso.',
-        'Comandante Supremo: Ejerce o comando superior das Forças Armadas.'
+        'Comandante Supremo: Exerce o comando superior das Forças Armadas.'
       ]
     },
     legislative: {
