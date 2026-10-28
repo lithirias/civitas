@@ -7,9 +7,11 @@ import { CommandPalette } from './components/CommandPalette';
 import { CivicAnalyticsModal } from './components/CivicAnalyticsModal';
 import { StateComparatorModal } from './components/StateComparatorModal';
 import { CivicPrintDossier } from './components/CivicPrintDossier';
+import { CivicGlossaryModal } from './components/CivicGlossaryModal';
 import { initialBrazilData } from './data/brazilData';
 import { Region } from './types';
 import { useTheme } from './hooks/useTheme';
+import { Check } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -20,6 +22,9 @@ export const App: React.FC = () => {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [isAnalyticsOpen, setIsAnalyticsOpen] = useState<boolean>(false);
   const [isComparatorOpen, setIsComparatorOpen] = useState<boolean>(false);
+  const [isGlossaryOpen, setIsGlossaryOpen] = useState<boolean>(false);
+  const [glossaryTermId, setGlossaryTermId] = useState<string | null>(null);
+  const [shareToast, setShareToast] = useState<string | null>(null);
   
   // Controle de abas da União para deep navigation
   const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio'>('executivo');
@@ -48,21 +53,57 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleGlobalKeydown);
   }, []);
 
-  // Sincronização bidirecional via Hash (#/SP, #/RJ, etc.) para Deep Linking
+  // Leitura inicial de parâmetros da URL para Deep Linking (suporta ?uf=SP, ?tab=judiciario, etc. e hash #/SP)
   useEffect(() => {
-    const handleHashSync = () => {
-      const hash = window.location.hash.replace(/^#\/?/, '').toUpperCase();
-      if (hash && dataset.states[hash]) {
-        setSelectedStateId(hash);
-      } else if (!hash) {
-        setSelectedStateId(null);
-      }
-    };
+    const params = new URLSearchParams(window.location.search);
+    const hash = window.location.hash.replace(/^#\/?/, '').toUpperCase();
+    const ufParam = params.get('uf')?.toUpperCase() || hash;
 
-    handleHashSync();
-    window.addEventListener('hashchange', handleHashSync);
-    return () => window.removeEventListener('hashchange', handleHashSync);
+    if (ufParam && dataset.states[ufParam]) {
+      setSelectedStateId(ufParam);
+    }
+
+    const tabParam = params.get('tab') as any;
+    if (tabParam && ['executivo', 'legislativo', 'judiciario', 'justica', 'equilibrio'].includes(tabParam)) {
+      setFederalTab(tabParam);
+    }
+
+    const courtParam = params.get('court') as any;
+    if (courtParam && ['STF', 'STJ', 'TSE', 'TST', 'STM', 'CNJ'].includes(courtParam)) {
+      setSelectedCourt(courtParam);
+    }
+
+    const modalParam = params.get('modal');
+    if (modalParam === 'glossario') setIsGlossaryOpen(true);
+    else if (modalParam === 'analytics') setIsAnalyticsOpen(true);
+    else if (modalParam === 'comparador') setIsComparatorOpen(true);
+    else if (modalParam === 'sync') setIsSyncModalOpen(true);
   }, [dataset.states]);
+
+  // Sincronização contínua da URL com o estado da aplicação
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (selectedStateId) {
+      params.set('uf', selectedStateId);
+    } else {
+      if (federalTab !== 'executivo') {
+        params.set('tab', federalTab);
+      }
+      if (federalTab === 'judiciario' && selectedCourt !== 'STF') {
+        params.set('court', selectedCourt);
+      }
+    }
+
+    if (isGlossaryOpen) params.set('modal', 'glossario');
+    else if (isAnalyticsOpen) params.set('modal', 'analytics');
+    else if (isComparatorOpen) params.set('modal', 'comparador');
+    else if (isSyncModalOpen) params.set('modal', 'sync');
+
+    const queryString = params.toString();
+    const newRelativeUrl = queryString ? `?${queryString}` : window.location.pathname;
+    window.history.replaceState(null, '', newRelativeUrl);
+  }, [selectedStateId, federalTab, selectedCourt, isGlossaryOpen, isAnalyticsOpen, isComparatorOpen, isSyncModalOpen]);
 
   // Atualização dinâmica do título da página
   useEffect(() => {
@@ -76,12 +117,6 @@ export const App: React.FC = () => {
   const handleSelectState = (stateId: string) => {
     const upper = stateId ? stateId.toUpperCase() : null;
     setSelectedStateId(upper);
-    if (upper) {
-      window.location.hash = `#/${upper}`;
-    } else {
-      // Remove o hash de forma limpa sem recarregar
-      history.pushState('', document.title, window.location.pathname + window.location.search);
-    }
   };
 
   const handleSelectFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => {
@@ -91,6 +126,14 @@ export const App: React.FC = () => {
 
   const handleSelectRegion = (region: Region | 'Todas') => {
     setActiveRegionFilter(region);
+  };
+
+  const handleShareLink = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+      setShareToast('Link da página copiado para a área de transferência!');
+      setTimeout(() => setShareToast(null), 3000);
+    }
   };
 
   return (
@@ -104,6 +147,11 @@ export const App: React.FC = () => {
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
         onOpenComparator={() => setIsComparatorOpen(true)}
+        onOpenGlossary={() => {
+          setGlossaryTermId(null);
+          setIsGlossaryOpen(true);
+        }}
+        onShareLink={handleShareLink}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
@@ -168,6 +216,20 @@ export const App: React.FC = () => {
         onSelectFederalTab={handleSelectFederalTab}
         onOpenAnalytics={() => setIsAnalyticsOpen(true)}
         onOpenComparator={() => setIsComparatorOpen(true)}
+        onOpenGlossary={(termId) => {
+          setGlossaryTermId(termId || null);
+          setIsGlossaryOpen(true);
+        }}
+      />
+
+      {/* Modal do Glossário Cívico-Constitucional */}
+      <CivicGlossaryModal
+        isOpen={isGlossaryOpen}
+        onClose={() => {
+          setIsGlossaryOpen(false);
+          setGlossaryTermId(null);
+        }}
+        initialTermId={glossaryTermId}
       />
 
       {/* Modal de Sincronização e Metadados */}
@@ -212,6 +274,14 @@ export const App: React.FC = () => {
         federalData={dataset.federal}
         lastUpdated={dataset.metadata.lastUpdated}
       />
+
+      {/* Notificação Toast ao Compartilhar Link */}
+      {shareToast && (
+        <div className="fixed bottom-6 right-6 z-50 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-bounce">
+          <Check className="w-4 h-4 shrink-0" />
+          <span>{shareToast}</span>
+        </div>
+      )}
     </div>
   );
 };

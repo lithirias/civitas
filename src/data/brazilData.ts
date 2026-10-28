@@ -44,7 +44,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (BA)',
           area: 'Governança & Centro',
           description: 'Coordenação e integração das ações governamentais, articulação dos ministérios e gestão dos projetos estruturantes (Novo PAC).',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 3,8 bilhões',
+          budgetHighlight: 'Coordenação e gestão estratégica de programas prioritários'
         },
         {
           id: 'secretaria-geral',
@@ -55,7 +57,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (SE)',
           area: 'Governança & Centro',
           description: 'Interlocução com a sociedade civil, coordenação da participação social nas políticas públicas e apoio direto à Presidência.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 480 milhões',
+          budgetHighlight: 'Articulação social e apoio direto'
         },
         {
           id: 'sri',
@@ -66,7 +70,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (SP)',
           area: 'Governança & Centro',
           description: 'Coordenação política com o Congresso Nacional (Câmara e Senado), interlocução federativa com governadores e prefeitos.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 280 milhões',
+          budgetHighlight: 'Articulação federativa e parlamentar'
         },
         {
           id: 'secom',
@@ -77,7 +83,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (RS)',
           area: 'Governança & Centro',
           description: 'Comunicação institucional do Poder Executivo da União, relacionamento com a imprensa nacional e internacional e publicidade estatal.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 650 milhões',
+          budgetHighlight: 'Comunicação institucional e utilidade pública'
         },
         {
           id: 'gsi',
@@ -88,7 +96,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'General de Exército (Militar)',
           area: 'Governança & Centro',
           description: 'Segurança das instalações presidenciais, inteligência de Estado (Abin), gestão de crises nacionais e segurança cibernética crítica.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 1,1 bilhão',
+          budgetHighlight: 'Segurança institucional e defesa cibernética'
         },
         {
           id: 'agu',
@@ -99,7 +109,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Advogado da União (Carreira)',
           area: 'Governança & Centro',
           description: 'Representação judicial e consultoria jurídica do Poder Executivo, defesa judicial das políticas públicas e do patrimônio público federal.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 4,9 bilhões',
+          budgetHighlight: 'Defesa judicial e consultoria jurídica da União'
         },
         {
           id: 'cgu',
@@ -110,7 +122,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Jurista / Prof. Titular USP',
           area: 'Governança & Centro',
           description: 'Controle interno da administração pública federal, auditoria governamental, prevenção e combate à corrupção e transparência pública.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 1,8 bilhão',
+          budgetHighlight: 'Auditoria pública e combate à corrupção'
         },
         {
           id: 'mgi',
@@ -121,7 +135,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Economista / Profª UFRJ',
           area: 'Governança & Centro',
           description: 'Governança das empresas estatais, patrimônio imobiliário da União, transformação digital pública e estruturação de carreiras federais.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 45 bilhões',
+          budgetHighlight: 'Gestão da folha de servidores e patrimônio'
         },
         {
           id: 'fazenda',
@@ -132,7 +148,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (SP)',
           area: 'Economia & Finanças',
           description: 'Política macroeconômica, política fiscal, arrecadação federal (Receita Federal), gestão da dívida pública e reforma tributária.',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 52 bilhões',
+          budgetHighlight: 'Receita Federal, administração tributária e aduaneira'
         },
         {
           id: 'planejamento',
@@ -143,7 +161,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'MDB (MS)',
           area: 'Economia & Finanças',
           description: 'Elaboração do Orçamento da União (LOA, LDO, PPA), avaliação de políticas públicas e planejamento de desenvolvimento de longo prazo.',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 1,6 bilhão',
+          budgetHighlight: 'Planejamento federal, IBGE e Ipea'
         },
         {
           id: 'mdic',
@@ -154,7 +174,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSB (SP) / Vice-Presidente',
           area: 'Economia & Finanças',
           description: 'Política de neoindustrialização brasileira, comércio exterior, defesa comercial, propriedade intelectual e competitividade empresarial.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 3,4 bilhões',
+          budgetHighlight: 'Apoio à inovação e neoindustrialização'
         },
         {
           id: 'memp',
@@ -165,7 +187,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSB (SP)',
           area: 'Economia & Finanças',
           description: 'Incentivo ao crédito produtivo (Acredita), desburocratização e estímulo aos Microempreendedores Individuais (MEI) e MPEs.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 400 milhões',
+          budgetHighlight: 'Políticas de microcrédito e fomento a MEI e MPEs'
         },
         {
           id: 'mapa',
@@ -176,7 +200,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSD (MT)',
           area: 'Economia & Finanças',
           description: 'Política agrícola e agronegócio, defesa agropecuária e sanitária, abertura de mercados internacionais e crédito via Plano Safra.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 14 bilhões',
+          budgetHighlight: 'Vigilância agropecuária e subvenção ao crédito rural'
         },
         {
           id: 'mda',
@@ -187,7 +213,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (SP)',
           area: 'Economia & Finanças',
           description: 'Agricultura familiar, reforma agrária, regularização fundiária, crédito rural do Pronaf e abastecimento alimentar popular.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 6,5 bilhões',
+          budgetHighlight: 'Agricultura familiar (Pronaf) e reforma agrária'
         },
         {
           id: 'mpa',
@@ -198,7 +226,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSD (PE)',
           area: 'Economia & Finanças',
           description: 'Ordenamento da pesca comercial e artesanal, fomento à aquicultura sustentável e crédito para pescadores artesanais.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 450 milhões',
+          budgetHighlight: 'Fomento pesqueiro e ordenamento aquícola'
         },
         {
           id: 'transportes',
@@ -209,7 +239,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'MDB (AL)',
           area: 'Infraestrutura & Recursos',
           description: 'Infraestrutura de transportes terrestres, malha rodoviária federal, malha ferroviária e contratos de concessão pública.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 22 bilhões',
+          budgetHighlight: 'Obras de rodovias e ferrovias do Novo PAC'
         },
         {
           id: 'portos-aeroportos',
@@ -220,7 +252,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Republicanos (PE)',
           area: 'Infraestrutura & Recursos',
           description: 'Infraestrutura portuária, terminais marítimos e fluviais, hidrovias e aviação civil (aeroportos federais e concedidos).',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 4,8 bilhões',
+          budgetHighlight: 'Infraestrutura hidroviária e aviação regional'
         },
         {
           id: 'minas-energia',
@@ -231,7 +265,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSD (MG)',
           area: 'Infraestrutura & Recursos',
           description: 'Matriz energética nacional, petróleo, gás natural e biocombustíveis (Petrobras), energia elétrica e setor mineral.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 9 bilhões',
+          budgetHighlight: 'Universalização da energia (Luz para Todos)'
         },
         {
           id: 'comunicacoes',
@@ -242,7 +278,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'União Brasil (MA)',
           area: 'Infraestrutura & Recursos',
           description: 'Telecomunicações, expansão do 5G e internet de alta velocidade em escolas públicas, radiodifusão e serviços postais.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 3,2 bilhões',
+          budgetHighlight: 'Conectividade e banda larga em escolas'
         },
         {
           id: 'cidades',
@@ -253,7 +291,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'MDB (PA)',
           area: 'Infraestrutura & Recursos',
           description: 'Habitação social (Programa Minha Casa, Minha Vida), mobilidade urbana, saneamento básico e prevenção de riscos geológicos.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 19 bilhões',
+          budgetHighlight: 'Habitação social (Minha Casa, Minha Vida) e saneamento'
         },
         {
           id: 'integracao',
@@ -264,7 +304,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PDT (AP)',
           area: 'Infraestrutura & Recursos',
           description: 'Redução das desigualdades regionais, Defesa Civil Nacional, segurança hídrica, transposição do São Francisco e fundos constitucionais.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 11 bilhões',
+          budgetHighlight: 'Defesa Civil Nacional e transposição de bacias'
         },
         {
           id: 'meio-ambiente',
@@ -275,7 +317,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Rede (AC)',
           area: 'Infraestrutura & Recursos',
           description: 'Proteção ambiental e fiscalização (Ibama, ICMBio), metas de transição climática, combate ao desmatamento e conservação dos biomas.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 4,5 bilhões',
+          budgetHighlight: 'Fiscalização ambiental (Ibama/ICMBio) e preservação'
         },
         {
           id: 'relacoes-exteriores',
@@ -286,7 +330,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Diplomata de Carreira',
           area: 'Soberania & Defesa',
           description: 'Diplomacia de Estado, política externa multilateral, representação diplomática em embaixadas e apoio a cidadãos brasileiros no exterior.',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 5,2 bilhões',
+          budgetHighlight: 'Embaixadas, consulados e missões no exterior'
         },
         {
           id: 'justica',
@@ -297,7 +343,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Jurista / Ex-Min. STF',
           area: 'Soberania & Defesa',
           description: 'Defesa da ordem constitucional, coordenação de segurança pública, Polícia Federal (PF), Polícia Rodoviária Federal (PRF) e políticas penais.',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 23 bilhões',
+          budgetHighlight: 'Polícia Federal, PRF e Fundo de Segurança Pública'
         },
         {
           id: 'defesa',
@@ -308,7 +356,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Sem partido / Ex-Pres. TCU',
           area: 'Soberania & Defesa',
           description: 'Comando político-civil e coordenação operacional conjunta das Forças Armadas da República (Marinha, Exército e Aeronáutica).',
-          isKeyMinistry: true
+          isKeyMinistry: true,
+          budget: 'R$ 126 bilhões',
+          budgetHighlight: 'Forças Armadas, remuneração militar e projetos estratégicos'
         },
         {
           id: 'educacao',
@@ -319,7 +369,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (CE)',
           area: 'Social & Cidadania',
           description: 'Educação básica, rede federal de ensino superior e técnico, Enem, Fies, Prouni, programa Pé-de-Meia e alfabetização infantil.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 180 bilhões',
+          budgetHighlight: 'Piso Constitucional, Fundeb, universidades e Pé-de-Meia'
         },
         {
           id: 'saude',
@@ -330,7 +382,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Socióloga / Fiocruz',
           area: 'Social & Cidadania',
           description: 'Direção nacional do Sistema Único de Saúde (SUS), Programa Nacional de Imunizações (PNI), atenção primária e regulação sanitária (Anvisa).',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 231 bilhões',
+          budgetHighlight: 'Piso Constitucional, SUS, vacinação e atenção primária'
         },
         {
           id: 'ciencia-tecnologia',
@@ -341,7 +395,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PCdoB (PE)',
           area: 'Social & Cidadania',
           description: 'Fomento à pesquisa científica e tecnológica (CNPq, Finep), desenvolvimento aeroespacial, inteligência artificial e semicondutores.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 13 bilhões',
+          budgetHighlight: 'Fundo Nacional de Desenv. Científico (FNDCT) e bolsas CNPq'
         },
         {
           id: 'desenvolvimento-social',
@@ -352,7 +408,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (PI)',
           area: 'Social & Cidadania',
           description: 'Programa Bolsa Família, Cadastro Único (CadÚnico), Rede SUAS de assistência social e políticas de segurança alimentar e nutricional.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 282 bilhões',
+          budgetHighlight: 'Bolsa Família, BPC e segurança alimentar'
         },
         {
           id: 'trabalho',
@@ -363,7 +421,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (SP)',
           area: 'Social & Cidadania',
           description: 'Geração de emprego e renda, política de valorização do salário mínimo, fiscalização do trabalho e relações sindicais.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 115 bilhões',
+          budgetHighlight: 'Fundo de Amparo ao Trabalhador (FAT) e abono salarial'
         },
         {
           id: 'previdencia',
@@ -374,7 +434,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PDT (RJ)',
           area: 'Social & Cidadania',
           description: 'Regime Geral de Previdência Social, fiscalização previdenciária e gestão da concessão de benefícios pelo INSS.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 935 bilhões',
+          budgetHighlight: 'Aposentadorias e pensões do INSS (maior despesa do país)'
         },
         {
           id: 'direitos-humanos',
@@ -385,7 +447,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (MG)',
           area: 'Social & Cidadania',
           description: 'Proteção dos direitos da criança e adolescente, pessoas idosas, pessoas com deficiência, população em situação de rua e combate à tortura.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 750 milhões',
+          budgetHighlight: 'Proteção à infância, idosos e PCDs'
         },
         {
           id: 'mulheres',
@@ -396,7 +460,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (MS)',
           area: 'Social & Cidadania',
           description: 'Prevenção e enfrentamento à violência contra a mulher (Ligue 180), igualdade salarial no mercado de trabalho e autonomia socioeconômica.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 450 milhões',
+          budgetHighlight: 'Casas da Mulher Brasileira e canais de proteção'
         },
         {
           id: 'igualdade-racial',
@@ -407,7 +473,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PT (RJ)',
           area: 'Social & Cidadania',
           description: 'Políticas de ações afirmativas, combate ao racismo estrutural e institucional, titulação e apoio a comunidades quilombolas.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 380 milhões',
+          budgetHighlight: 'Ações afirmativas e titulação quilombola'
         },
         {
           id: 'povos-indigenas',
@@ -418,7 +486,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PSOL (MA)',
           area: 'Social & Cidadania',
           description: 'Demarcação, proteção e vigilância de terras indígenas, fortalecimento institucional da Funai e preservação das culturas originárias.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 980 milhões',
+          budgetHighlight: 'Proteção territorial e fortalecimento da Funai'
         },
         {
           id: 'cultura',
@@ -429,7 +499,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'Gestora Cultural / Artista',
           area: 'Social & Cidadania',
           description: 'Fomento às artes e patrimônio cultural brasileiro (Leis Aldir Blanc, Paulo Gustavo e Rouanet), preservação histórica (Iphan) e cultura viva.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 3,6 bilhões',
+          budgetHighlight: 'Leis Aldir Blanc, Paulo Gustavo e Rouanet'
         },
         {
           id: 'esporte',
@@ -440,7 +512,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'PP (MA)',
           area: 'Social & Cidadania',
           description: 'Bolsa Atleta, apoio a esportes olímpicos e paralímpicos de alto rendimento, iniciação esportiva escolar e infraestrutura comunitária.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 2,5 bilhões',
+          budgetHighlight: 'Bolsa Atleta e complexos esportivos comunitários'
         },
         {
           id: 'turismo',
@@ -451,7 +525,9 @@ export const initialBrazilData: BrazilDataset = {
           party: 'União Brasil (PA)',
           area: 'Social & Cidadania',
           description: 'Divulgação dos destinos turísticos brasileiros no país e exterior (Embratur), linhas de crédito do Fungetur e qualificação no setor.',
-          isKeyMinistry: false
+          isKeyMinistry: false,
+          budget: 'R$ 1,2 bilhão',
+          budgetHighlight: 'Promoção internacional (Embratur) e crédito Fungetur'
         }
       ],
       roles: [

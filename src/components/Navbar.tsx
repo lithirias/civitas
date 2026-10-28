@@ -1,5 +1,5 @@
 import React from 'react';
-import { Landmark, Search, ShieldCheck, Sun, Moon, BarChart3, ArrowRightLeft } from 'lucide-react';
+import { Landmark, Search, ShieldCheck, Sun, Moon, BarChart3, ArrowRightLeft, BookOpen, Share2 } from 'lucide-react';
 import { BrazilDataset } from '../types';
 import { Theme } from '../hooks/useTheme';
 
@@ -11,6 +11,8 @@ interface NavbarProps {
   onOpenCommandPalette: () => void;
   onOpenAnalytics?: () => void;
   onOpenComparator?: () => void;
+  onOpenGlossary?: () => void;
+  onShareLink?: () => void;
   theme: Theme;
   onToggleTheme: () => void;
 }
@@ -23,6 +25,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCommandPalette,
   onOpenAnalytics,
   onOpenComparator,
+  onOpenGlossary,
+  onShareLink,
   theme,
   onToggleTheme
 }) => {
@@ -95,6 +99,26 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span className="hidden md:inline">Base & Dados</span>
+          </button>
+
+          {/* Botão de Glossário Constitucional */}
+          <button
+            onClick={onOpenGlossary}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
+            title="Dicionário da Democracia: Termos Constitucionais Explicados"
+          >
+            <BookOpen className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span className="hidden md:inline">Glossário</span>
+          </button>
+
+          {/* Botão de Compartilhar Link */}
+          <button
+            onClick={onShareLink}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
+            title="Copiar link compartilhável da visualização atual"
+          >
+            <Share2 className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
+            <span className="hidden lg:inline">Compartilhar</span>
           </button>
 
           {/* Botão de Estatísticas e Análises Cívicas */}

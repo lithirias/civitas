@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3, ArrowRightLeft, Printer } from 'lucide-react';
+import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3, ArrowRightLeft, Printer, BookOpen } from 'lucide-react';
 import { BrazilDataset } from '../types';
+import { GLOSSARY_TERMS } from './CivicGlossaryModal';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -10,13 +11,14 @@ interface CommandPaletteProps {
   onSelectFederalTab?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
   onOpenAnalytics?: () => void;
   onOpenComparator?: () => void;
+  onOpenGlossary?: (termId?: string) => void;
 }
 
 interface SearchItem {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Estado' | 'Executivo' | 'Legislativo' | 'Judiciário' | 'Tribunal Superior' | 'Função à Justiça';
+  category: 'Estado' | 'Executivo' | 'Legislativo' | 'Judiciário' | 'Tribunal Superior' | 'Função à Justiça' | 'Conceito / Glossário';
   icon: React.ReactNode;
   action: () => void;
 }
@@ -28,7 +30,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   onSelectState,
   onSelectFederalTab,
   onOpenAnalytics,
-  onOpenComparator
+  onOpenComparator,
+  onOpenGlossary
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -304,8 +307,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       });
     }
 
+    // 6. Termos do Glossário Cívico-Constitucional
+    GLOSSARY_TERMS.forEach((gt) => {
+      list.push({
+        id: `glossary-${gt.id}`,
+        title: gt.term,
+        subtitle: `${gt.article} • ${gt.definition}`,
+        category: 'Conceito / Glossário',
+        icon: <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />,
+        action: () => {
+          onClose();
+          onOpenGlossary?.(gt.id);
+        }
+      });
+    });
+
     return list;
-  }, [dataset, onSelectState, onSelectFederalTab, onClose]);
+  }, [dataset, onSelectState, onSelectFederalTab, onClose, onOpenGlossary]);
 
   // Filtro inteligente
   const filtered = useMemo(() => {
@@ -399,7 +417,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-bold text-sm sm:text-base truncate">{item.title}</span>
-                        <span className="text-[10px] font-semibold uppercase px-1.5 py-0.2 rounded bg-zinc-200/80 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300 shrink-0">
+                        <span className={`text-[10px] font-semibold uppercase px-1.5 py-0.2 rounded shrink-0 ${
+                          item.category === 'Conceito / Glossário'
+                            ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800'
+                            : 'bg-zinc-200/80 dark:bg-zinc-700 text-zinc-700 dark:text-zinc-300'
+                        }`}>
                           {item.category}
                         </span>
                       </div>

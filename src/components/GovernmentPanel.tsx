@@ -20,7 +20,10 @@ import {
   ExternalLink,
   Phone,
   Mail,
-  Printer
+  Printer,
+  ArrowRight,
+  ShieldAlert,
+  Info
 } from 'lucide-react';
 import { StateData, FederalStructure, FederalDeputy, LiveSenator, Ministry } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
@@ -293,6 +296,185 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                 </div>
               </div>
 
+              {/* Linha Sucessória da Presidência da República (Art. 79, 80 e 81 da CF/88) */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider block">
+                      Linha Sucessória Presidencial (Art. 79 e 80 da CF/88)
+                    </span>
+                  </div>
+                  <span className="px-2.5 py-0.5 rounded bg-zinc-200/80 dark:bg-zinc-800 text-[11px] sm:text-xs font-bold text-zinc-700 dark:text-zinc-300">
+                    Ordem Constitucional de Substituição
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed">
+                  Em caso de ausência temporária (como viagens ao exterior) ou vacância definitiva dos cargos, a Constituição Federal estabelece rigorosamente quem assume a Chefia de Estado e de Governo da República:
+                </p>
+
+                {/* Grade dos 4 Sucessores em Ordem Legal */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  {/* 1º Sucessor: Vice-Presidente */}
+                  <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-lg border-2 border-emerald-500/30 dark:border-emerald-500/20 shadow-xs relative flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-600 text-white">
+                          1º na Linha
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                          Sucessão Definitiva
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 mb-2.5">
+                        {federalData.executive.vicePhoto ? (
+                          <img
+                            src={federalData.executive.vicePhoto}
+                            alt={federalData.executive.vicePresident}
+                            className="w-12 h-15 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shrink-0"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-12 h-15 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs">VP</div>
+                        )}
+                        <div className="min-w-0">
+                          <strong className="text-zinc-900 dark:text-white block text-xs sm:text-sm font-bold truncate">
+                            {federalData.executive.vicePresident}
+                          </strong>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block font-semibold">
+                            Vice-Presidente ({federalData.executive.viceParty})
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
+                      <strong>Art. 79 CF:</strong> Substitui no impedimento e sucede em caso de vacância definitiva, assumindo a titularidade do mandato.
+                    </div>
+                  </div>
+
+                  {/* 2º Sucessor: Presidente da Câmara */}
+                  <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs relative flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white">
+                          2º na Linha
+                        </span>
+                        <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
+                          Substituição Legal
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 mb-2.5">
+                        {federalData.legislative.chamberOfDeputies.presidentPhoto ? (
+                          <img
+                            src={federalData.legislative.chamberOfDeputies.presidentPhoto}
+                            alt={federalData.legislative.chamberOfDeputies.presidentName}
+                            className="w-12 h-15 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shrink-0"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-12 h-15 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs">CD</div>
+                        )}
+                        <div className="min-w-0">
+                          <strong className="text-zinc-900 dark:text-white block text-xs sm:text-sm font-bold truncate">
+                            {federalData.legislative.chamberOfDeputies.presidentName || 'Arthur Lira'}
+                          </strong>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block font-semibold truncate">
+                            Presidente da Câmara
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
+                      <strong>Art. 80 CF:</strong> Representante do povo brasileiro. Chamado prioritariamente caso Presidente e Vice estejam impedidos.
+                    </div>
+                  </div>
+
+                  {/* 3º Sucessor: Presidente do Senado */}
+                  <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs relative flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-sky-600 text-white">
+                          3º na Linha
+                        </span>
+                        <span className="text-[10px] font-bold text-sky-600 dark:text-sky-400">
+                          Substituição Legal
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 mb-2.5">
+                        {federalData.legislative.federalSenate.presidentPhoto ? (
+                          <img
+                            src={federalData.legislative.federalSenate.presidentPhoto}
+                            alt={federalData.legislative.federalSenate.presidentName}
+                            className="w-12 h-15 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shrink-0"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-12 h-15 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs">SF</div>
+                        )}
+                        <div className="min-w-0">
+                          <strong className="text-zinc-900 dark:text-white block text-xs sm:text-sm font-bold truncate">
+                            {federalData.legislative.federalSenate.presidentName || 'Rodrigo Pacheco'}
+                          </strong>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block font-semibold truncate">
+                            Pres. do Senado e Congresso
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
+                      <strong>Art. 80 CF:</strong> Representante dos 26 Estados e DF na Federação e Presidente do Congresso Nacional.
+                    </div>
+                  </div>
+
+                  {/* 4º Sucessor: Presidente do STF */}
+                  <div className="bg-white dark:bg-zinc-900 p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-xs relative flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-purple-600 text-white">
+                          4º na Linha
+                        </span>
+                        <span className="text-[10px] font-bold text-purple-600 dark:text-purple-400">
+                          Cúpula da Justiça
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3 mb-2.5">
+                        {federalData.judiciary.supremeCourt.presidentPhoto ? (
+                          <img
+                            src={federalData.judiciary.supremeCourt.presidentPhoto}
+                            alt={federalData.judiciary.supremeCourt.presidentName}
+                            className="w-12 h-15 rounded-md object-cover bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 shrink-0"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="w-12 h-15 rounded-md bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center font-bold text-xs">STF</div>
+                        )}
+                        <div className="min-w-0">
+                          <strong className="text-zinc-900 dark:text-white block text-xs sm:text-sm font-bold truncate">
+                            {federalData.judiciary.supremeCourt.presidentName || 'Luís Roberto Barroso'}
+                          </strong>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block font-semibold truncate">
+                            Presidente do STF e do CNJ
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 leading-tight">
+                      <strong>Art. 80 CF:</strong> Chefe do Poder Judiciário. Assume interinamente em último caso institucional para convocar novas eleições.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Regra Constitucional da Dupla Vacância (Art. 81 CF) */}
+                <div className="mt-3.5 p-3 rounded-md bg-emerald-500/10 dark:bg-emerald-950/30 border border-emerald-500/20 text-xs text-zinc-700 dark:text-zinc-300 flex items-start gap-2.5">
+                  <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                  <div className="leading-relaxed">
+                    <strong className="font-bold text-emerald-800 dark:text-emerald-300">Regra de Dupla Vacância (Art. 81 CF/88): </strong>
+                    Se houver vacância simultânea do Presidente e do Vice-Presidente, os presidentes da Câmara, Senado e STF apenas assumem <em>provisoriamente</em> para conduzir novas eleições:
+                    se a vaga ocorrer nos <strong>dois primeiros anos</strong> do mandato, realiza-se <strong>eleição direta pelo povo em 90 dias</strong>; se ocorrer nos <strong>dois últimos anos</strong>, realiza-se <strong>eleição indireta pelo Congresso Nacional em 30 dias</strong> (mandato-tampão).
+                  </div>
+                </div>
+              </div>
+
               {/* Estrutura Ministerial */}
               <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
@@ -362,6 +544,14 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                             <span className="text-xs text-zinc-600 dark:text-zinc-400 leading-snug block line-clamp-2">
                               {m.description}
                             </span>
+                            {m.budget && (
+                              <div className="mt-2 pt-2 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between text-[11px]">
+                                <span className="text-zinc-500 dark:text-zinc-400 font-medium">Orçamento LOA:</span>
+                                <span className="font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200/60 dark:border-emerald-800/60">
+                                  {m.budget}
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -395,6 +585,15 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                         <ChevronUp className="w-3.5 h-3.5" />
                         Recolher para 6 centrais
                       </button>
+                    </div>
+
+                    {/* Raio-X do Orçamento Federal (LOA) */}
+                    <div className="p-3 bg-zinc-100 dark:bg-zinc-900/90 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed flex items-start gap-2.5">
+                      <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-zinc-900 dark:text-zinc-200">Raio-X do Orçamento da União (LOA): </strong>
+                        As maiores fatias concentram-se na <strong>Previdência Social (~R$ 935 bi)</strong>, no <strong>Desenvolvimento Social (~R$ 282 bi)</strong>, na <strong>Saúde (~R$ 231 bi)</strong> e na <strong>Educação (~R$ 180 bi)</strong>. Mais de 90% dos recursos são <em>despesas obrigatórias</em> (estipuladas por lei ou mínimos constitucionais), restando uma parcela discricionária para investimentos e novas obras.
+                      </div>
                     </div>
 
                     {/* Filtros e Busca */}
@@ -528,11 +727,21 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
                               <span className="text-xs text-zinc-600 dark:text-zinc-400 leading-snug block">
                                 {m.description}
                               </span>
-                              <div className="mt-1.5 flex items-center gap-2">
+                              <div className="mt-2 pt-2 border-t border-zinc-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-1.5">
                                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400">
                                   Área: {m.area}
                                 </span>
+                                {m.budget && (
+                                  <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200/60 dark:border-emerald-800/60">
+                                    LOA: {m.budget}
+                                  </span>
+                                )}
                               </div>
+                              {m.budgetHighlight && (
+                                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block mt-1 italic">
+                                  {m.budgetHighlight}
+                                </span>
+                              )}
                             </div>
                           </div>
                         ))}
@@ -870,6 +1079,15 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
 
                       <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                         <strong className="text-zinc-900 dark:text-zinc-200">Regra Constitucional dos Três Terços:</strong> {court.compositionRule}
+                      </div>
+                    </div>
+
+                    {/* Raio-X do Orçamento Federal (LOA) */}
+                    <div className="p-3 bg-zinc-100 dark:bg-zinc-900/90 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed flex items-start gap-2.5">
+                      <Info className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-zinc-900 dark:text-zinc-200">Raio-X do Orçamento da União (LOA): </strong>
+                        As maiores fatias concentram-se na <strong>Previdência Social (~R$ 935 bi)</strong>, no <strong>Desenvolvimento Social (~R$ 282 bi)</strong>, na <strong>Saúde (~R$ 231 bi)</strong> e na <strong>Educação (~R$ 180 bi)</strong>. Mais de 90% dos recursos são <em>despesas obrigatórias</em> (estipuladas por lei ou mínimos constitucionais), restando uma parcela discricionária para investimentos e novas obras.
                       </div>
                     </div>
 

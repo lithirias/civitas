@@ -108,6 +108,8 @@ export interface Ministry {
   area: 'Governança & Centro' | 'Economia & Finanças' | 'Infraestrutura & Recursos' | 'Soberania & Defesa' | 'Social & Cidadania';
   description: string;
   isKeyMinistry?: boolean;
+  budget?: string;
+  budgetHighlight?: string;
 }
 
 export interface FederalStructure {
