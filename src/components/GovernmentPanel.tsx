@@ -25,21 +25,40 @@ interface GovernmentPanelProps {
   stateData: StateData | null;
   federalData: FederalStructure;
   lastUpdated: string;
+  federalTab?: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio';
+  onFederalTabChange?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio') => void;
+  selectedCourt?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ';
+  onSelectCourt?: (court: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
 }
 
 export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   stateData,
   federalData,
-  lastUpdated
+  lastUpdated,
+  federalTab: propFederalTab,
+  onFederalTabChange,
+  selectedCourt: propCourt,
+  onSelectCourt
 }) => {
   // Abas para a visão de Estado
   const [stateTab, setStateTab] = useState<'executivo' | 'legislativo' | 'judiciario'>('executivo');
   
   // Abas para a visão Federal
-  const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+  const [internalFederalTab, setInternalFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+  const federalTab = propFederalTab ?? internalFederalTab;
+  const setFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio') => {
+    setInternalFederalTab(tab);
+    onFederalTabChange?.(tab);
+  };
 
   // Sub-abas do Judiciário Federal (STF e TSIs)
-  const [selectedCourt, setSelectedCourt] = useState<'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ'>('STF');
+  const [internalCourt, setInternalCourt] = useState<'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ'>('STF');
+  const selectedCourt = propCourt ?? internalCourt;
+  const setSelectedCourt = (court: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => {
+    setInternalCourt(court);
+    onSelectCourt?.(court);
+  };
+
   const [memberSearch, setMemberSearch] = useState<string>('');
   const [stjFilter, setStjFilter] = useState<'TODOS' | 'TRF' | 'TJ' | 'OAB/MP'>('TODOS');
   const [stmFilter, setStmFilter] = useState<'TODOS' | 'Marinha' | 'Exército' | 'Aeronáutica' | 'Civil'>('TODOS');

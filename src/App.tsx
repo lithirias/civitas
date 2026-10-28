@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { BrazilMap } from './components/BrazilMap';
 import { GovernmentPanel } from './components/GovernmentPanel';
 import { SyncModal } from './components/SyncModal';
+import { CommandPalette } from './components/CommandPalette';
 import { initialBrazilData } from './data/brazilData';
 import { Region } from './types';
 import { useTheme } from './hooks/useTheme';
@@ -13,8 +14,34 @@ export const App: React.FC = () => {
   const [selectedStateId, setSelectedStateId] = useState<string | null>(null);
   const [activeRegionFilter, setActiveRegionFilter] = useState<Region | 'Todas'>('Todas');
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  
+  // Controle de abas da União para deep navigation
+  const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+  const [selectedCourt, setSelectedCourt] = useState<'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ'>('STF');
 
   const selectedStateData = selectedStateId ? dataset.states[selectedStateId] : null;
+
+  // Atalho global do teclado (Ctrl+K, Cmd+K ou '/') para abrir a Command Palette
+  useEffect(() => {
+    const handleGlobalKeydown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      } else if (
+        e.key === '/' && 
+        document.activeElement?.tagName !== 'INPUT' && 
+        document.activeElement?.tagName !== 'SELECT' && 
+        document.activeElement?.tagName !== 'TEXTAREA'
+      ) {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeydown);
+    return () => window.removeEventListener('keydown', handleGlobalKeydown);
+  }, []);
 
   // Sincronização bidirecional via Hash (#/SP, #/RJ, etc.) para Deep Linking
   useEffect(() => {
@@ -52,6 +79,11 @@ export const App: React.FC = () => {
     }
   };
 
+  const handleSelectFederalTab = (tab: 'executivo' | 'legislativo' | 'judiciario' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => {
+    setFederalTab(tab);
+    if (court) setSelectedCourt(court);
+  };
+
   const handleSelectRegion = (region: Region | 'Todas') => {
     setActiveRegionFilter(region);
   };
@@ -64,6 +96,7 @@ export const App: React.FC = () => {
         selectedStateId={selectedStateId}
         onSelectState={handleSelectState}
         onOpenSyncInfo={() => setIsSyncModalOpen(true)}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
@@ -82,7 +115,7 @@ export const App: React.FC = () => {
           </div>
           {selectedStateId && (
             <button
-              onClick={() => setSelectedStateId(null)}
+              onClick={() => handleSelectState('')}
               className="px-4 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 text-sm font-semibold transition-colors shrink-0 dark:border-zinc-700 shadow-xs"
             >
               ← Voltar à Visão da União
@@ -109,10 +142,23 @@ export const App: React.FC = () => {
               stateData={selectedStateData}
               federalData={dataset.federal}
               lastUpdated={dataset.metadata.lastUpdated}
+              federalTab={federalTab}
+              onFederalTabChange={setFederalTab}
+              selectedCourt={selectedCourt}
+              onSelectCourt={setSelectedCourt}
             />
           </div>
         </div>
       </main>
+
+      {/* Busca Global Unificada (Command Palette) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        dataset={dataset}
+        onSelectState={handleSelectState}
+        onSelectFederalTab={handleSelectFederalTab}
+      />
 
       {/* Modal de Sincronização e Metadados */}
       <SyncModal

@@ -8,6 +8,7 @@ interface NavbarProps {
   selectedStateId: string | null;
   onSelectState: (stateId: string) => void;
   onOpenSyncInfo: () => void;
+  onOpenCommandPalette: () => void;
   theme: Theme;
   onToggleTheme: () => void;
 }
@@ -17,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   selectedStateId,
   onSelectState,
   onOpenSyncInfo,
+  onOpenCommandPalette,
   theme,
   onToggleTheme
 }) => {
@@ -51,19 +53,31 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Busca / Seletor de Estados + Ações */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Botão de Busca Rápida (Command Palette) */}
+          <button
+            onClick={onOpenCommandPalette}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 text-zinc-600 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:border-zinc-800 dark:text-zinc-300 text-sm transition-colors shadow-xs"
+            title="Abrir busca global (Ctrl + K)"
+          >
+            <Search className="w-4 h-4 text-zinc-400" />
+            <span className="hidden xl:inline text-xs font-medium">Buscar no Brasil...</span>
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-[10px] font-mono border border-zinc-300 dark:border-zinc-700 text-zinc-500">
+              Ctrl K
+            </kbd>
+          </button>
+
           {/* Dropdown de Busca de Estados */}
           <div className="relative">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <select
               value={selectedStateId || ''}
               onChange={(e) => onSelectState(e.target.value)}
-              className="bg-white border border-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-200 text-sm rounded-lg pl-9 pr-9 py-2 focus:outline-none focus:border-zinc-500 appearance-none cursor-pointer transition-colors shadow-xs font-medium"
+              className="bg-white border border-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-200 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-zinc-500 appearance-none cursor-pointer transition-colors shadow-xs font-medium"
             >
-              <option value="">🇧🇷 Visão Geral (União)</option>
+              <option value="">🇧🇷 União (Federal)</option>
               {statesList.map((state) => (
                 <option key={state.id} value={state.id}>
-                  {state.name} ({state.id}) - {state.region}
+                  {state.name} ({state.id})
                 </option>
               ))}
             </select>
@@ -72,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Botão de Info da Base e Sincronização */}
           <button
             onClick={onOpenSyncInfo}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
             title="Sobre a Base de Dados e Sincronização Mensal"
           >
             <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
