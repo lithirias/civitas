@@ -1,5 +1,5 @@
 import React from 'react';
-import { Landmark, Search, ShieldCheck, Sun, Moon } from 'lucide-react';
+import { Landmark, Search, ShieldCheck, Sun, Moon, BarChart3 } from 'lucide-react';
 import { BrazilDataset } from '../types';
 import { Theme } from '../hooks/useTheme';
 
@@ -9,6 +9,7 @@ interface NavbarProps {
   onSelectState: (stateId: string) => void;
   onOpenSyncInfo: () => void;
   onOpenCommandPalette: () => void;
+  onOpenAnalytics?: () => void;
   theme: Theme;
   onToggleTheme: () => void;
 }
@@ -19,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectState,
   onOpenSyncInfo,
   onOpenCommandPalette,
+  onOpenAnalytics,
   theme,
   onToggleTheme
 }) => {
@@ -91,6 +93,16 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span className="hidden md:inline">Base & Dados</span>
+          </button>
+
+          {/* Botão de Estatísticas e Análises Cívicas */}
+          <button
+            onClick={onOpenAnalytics}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-zinc-300 text-sm font-medium text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 transition-colors shadow-xs"
+            title="Estatísticas, Gráficos e Raio-X Cívico da Federação"
+          >
+            <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            <span className="hidden xl:inline">Raio-X Cívico</span>
           </button>
 
           {/* Botão de Alternância de Tema (Dark / White) */}

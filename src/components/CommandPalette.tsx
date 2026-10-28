@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Search, X, MapPin, Building2, Scale, Users, Landmark, ArrowRight, CornerDownLeft, BarChart3 } from 'lucide-react';
 import { BrazilDataset } from '../types';
 
 interface CommandPaletteProps {
@@ -8,6 +8,7 @@ interface CommandPaletteProps {
   dataset: BrazilDataset;
   onSelectState: (stateId: string) => void;
   onSelectFederalTab?: (tab: 'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio', court?: 'STF' | 'STJ' | 'TSE' | 'TST' | 'STM' | 'CNJ') => void;
+  onOpenAnalytics?: () => void;
 }
 
 interface SearchItem {
@@ -24,7 +25,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   onClose,
   dataset,
   onSelectState,
-  onSelectFederalTab
+  onSelectFederalTab,
+  onOpenAnalytics
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -43,6 +45,21 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   // Indexação rápida de itens pesquisáveis
   const items: SearchItem[] = useMemo(() => {
     const list: SearchItem[] = [];
+
+    // Atalho para o Raio-X Cívico
+    if (onOpenAnalytics) {
+      list.push({
+        id: 'cmd-analytics',
+        title: 'Raio-X Cívico & Gráficos da Federação',
+        subtitle: 'Distribuição partidária, representação de gênero e equilíbrio regional CF/88',
+        category: 'Executivo',
+        icon: <BarChart3 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />,
+        action: () => {
+          onClose();
+          onOpenAnalytics();
+        }
+      });
+    }
 
     // 1. Todos os 27 Estados e seus Governadores
     Object.values(dataset.states).forEach((state) => {

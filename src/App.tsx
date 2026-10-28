@@ -4,6 +4,7 @@ import { BrazilMap } from './components/BrazilMap';
 import { GovernmentPanel } from './components/GovernmentPanel';
 import { SyncModal } from './components/SyncModal';
 import { CommandPalette } from './components/CommandPalette';
+import { CivicAnalyticsModal } from './components/CivicAnalyticsModal';
 import { initialBrazilData } from './data/brazilData';
 import { Region } from './types';
 import { useTheme } from './hooks/useTheme';
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
   const [activeRegionFilter, setActiveRegionFilter] = useState<Region | 'Todas'>('Todas');
   const [isSyncModalOpen, setIsSyncModalOpen] = useState<boolean>(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [isAnalyticsOpen, setIsAnalyticsOpen] = useState<boolean>(false);
   
   // Controle de abas da União para deep navigation
   const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'justica' | 'equilibrio'>('executivo');
@@ -97,6 +99,7 @@ export const App: React.FC = () => {
         onSelectState={handleSelectState}
         onOpenSyncInfo={() => setIsSyncModalOpen(true)}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+        onOpenAnalytics={() => setIsAnalyticsOpen(true)}
         theme={theme}
         onToggleTheme={toggleTheme}
       />
@@ -158,6 +161,7 @@ export const App: React.FC = () => {
         dataset={dataset}
         onSelectState={handleSelectState}
         onSelectFederalTab={handleSelectFederalTab}
+        onOpenAnalytics={() => setIsAnalyticsOpen(true)}
       />
 
       {/* Modal de Sincronização e Metadados */}
@@ -165,6 +169,13 @@ export const App: React.FC = () => {
         isOpen={isSyncModalOpen}
         onClose={() => setIsSyncModalOpen(false)}
         metadata={dataset.metadata}
+      />
+
+      {/* Modal de Análise e Gráficos Cívicos */}
+      <CivicAnalyticsModal
+        isOpen={isAnalyticsOpen}
+        onClose={() => setIsAnalyticsOpen(false)}
+        dataset={dataset}
       />
 
       {/* Rodapé */}
