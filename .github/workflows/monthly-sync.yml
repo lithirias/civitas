@@ -1,0 +1,32 @@
+name: Monthly Data Sync
+
+on:
+  schedule:
+    # Executa às 00:00 do primeiro dia de cada mês
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sincronizar dados
+        run: node scripts/sync-data.mjs
+
+      - name: Commitar alterações se houver
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/brazilData.ts
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(data): sincronização mensal dos dados políticos" && git push)
