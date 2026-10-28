@@ -55,12 +55,12 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
   const hoveredState = hoveredStateId ? dataset.states[hoveredStateId] : null;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-xl mx-auto select-none">
+    <div className="flex flex-col items-center w-full select-none">
       {/* Filtro rápido por região */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3.5 px-2">
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-4 px-1">
         <button
           onClick={() => onSelectRegion('Todas')}
-          className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all ${
+          className={`px-3.5 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all ${
             activeRegionFilter === 'Todas'
               ? 'bg-zinc-900 text-white font-semibold shadow-xs dark:bg-zinc-200 dark:text-zinc-950'
               : 'bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800'
@@ -75,7 +75,7 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
             <button
               key={reg}
               onClick={() => onSelectRegion(isActive ? 'Todas' : reg)}
-              className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md transition-all border ${
+              className={`flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm font-medium rounded-md transition-all border ${
                 isActive
                   ? 'border-zinc-900 text-white shadow-xs dark:border-white'
                   : 'border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800'
@@ -85,7 +85,7 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
               }}
             >
               <span
-                className="w-2 h-2 rounded-full"
+                className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: REGION_COLORS[reg].base }}
               />
               {reg}
@@ -95,14 +95,14 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
       </div>
 
       {/* Container do Mapa SVG com Tooltip flutuante */}
-      <div className="relative w-full aspect-[450/460] bg-white rounded-xl p-2 sm:p-4 border border-zinc-200 shadow-md dark:bg-zinc-900/60 dark:border-zinc-800 dark:shadow-xl backdrop-blur-sm flex items-center justify-center transition-colors">
+      <div className="relative w-full aspect-[450/460] bg-white rounded-xl p-3 sm:p-5 border border-zinc-200 shadow-md dark:bg-zinc-900/60 dark:border-zinc-800 dark:shadow-xl backdrop-blur-sm flex items-center justify-center transition-colors">
         {/* Tooltip de Hover */}
         {hoveredState && (
-          <div className="absolute top-3 left-3 z-20 pointer-events-none bg-white/95 border border-zinc-200 text-zinc-900 shadow-lg dark:bg-zinc-950/95 dark:border-zinc-700 dark:text-zinc-100 rounded-md px-3 py-2 text-xs backdrop-blur-md animate-fade-in">
+          <div className="absolute top-3 left-3 z-20 pointer-events-none bg-white/95 border border-zinc-200 text-zinc-900 shadow-lg dark:bg-zinc-950/95 dark:border-zinc-700 dark:text-zinc-100 rounded-md px-3.5 py-2.5 text-sm backdrop-blur-md animate-fade-in">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm text-zinc-900 dark:text-zinc-100">{hoveredState.name} ({hoveredState.id})</span>
+              <span className="font-extrabold text-base text-zinc-900 dark:text-zinc-100">{hoveredState.name} ({hoveredState.id})</span>
               <span
-                className="text-[10px] px-1.5 py-0.5 rounded text-white font-semibold"
+                className="text-xs px-2 py-0.5 rounded text-white font-semibold"
                 style={{ backgroundColor: REGION_COLORS[hoveredState.region].base }}
               >
                 {hoveredState.region}
@@ -112,14 +112,14 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
               Cap.: <strong className="text-zinc-900 dark:text-zinc-200">{hoveredState.capital}</strong>
             </div>
             <div className="text-zinc-600 dark:text-zinc-400">
-              Gov.: <span className="text-zinc-900 dark:text-zinc-200">{hoveredState.executive.governor}</span> ({hoveredState.executive.party})
+              Gov.: <span className="text-zinc-900 dark:text-zinc-200 font-medium">{hoveredState.executive.governor}</span> ({hoveredState.executive.party})
             </div>
           </div>
         )}
 
         <svg
           viewBox="0 0 460 470"
-          className="w-full h-full max-h-[580px] drop-shadow-xs"
+          className="w-full h-full max-h-[720px] 2xl:max-h-[820px] drop-shadow-xs"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g transform="translate(5, 5)">
@@ -192,7 +192,7 @@ export const BrazilMap: React.FC<BrazilMapProps> = ({
         </svg>
       </div>
 
-      <div className="mt-2.5 text-xs text-zinc-500 dark:text-zinc-400 flex items-center justify-between w-full px-1">
+      <div className="mt-3 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 flex items-center justify-between w-full px-1">
         <span>💡 Clique em qualquer estado para ver sua hierarquia política</span>
         {selectedStateId && (
           <button

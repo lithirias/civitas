@@ -37,21 +37,21 @@ export const App: React.FC = () => {
       />
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
+      <main className="flex-1 max-w-[1720px] 2xl:max-w-[1880px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
         {/* Banner de Boas-vindas / Contexto */}
-        <div className="mb-5 bg-white border border-zinc-200 shadow-xs dark:bg-gradient-to-r dark:from-zinc-900 dark:via-zinc-900/80 dark:to-zinc-950 dark:border-zinc-800 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors">
+        <div className="mb-6 bg-white border border-zinc-200 shadow-xs dark:bg-gradient-to-r dark:from-zinc-900 dark:via-zinc-900/80 dark:to-zinc-950 dark:border-zinc-800 rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-zinc-900 dark:text-white flex items-center gap-2.5">
               <span>🇧🇷</span> Organização dos Poderes nos Estados Brasileiros
             </h2>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
               Explore o mapa político interativo: clique em qualquer estado para visualizar seus representantes nos Poderes Executivo, Legislativo e Judiciário.
             </p>
           </div>
           {selectedStateId && (
             <button
               onClick={() => setSelectedStateId(null)}
-              className="px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 text-xs font-semibold transition-colors shrink-0 dark:border-zinc-700 shadow-xs"
+              className="px-4 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 text-sm font-semibold transition-colors shrink-0 dark:border-zinc-700 shadow-xs"
             >
               ← Voltar à Visão da União
             </button>
@@ -59,9 +59,9 @@ export const App: React.FC = () => {
         </div>
 
         {/* Grade: Mapa à esquerda | Painel de Hierarquia à direita */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-          {/* Coluna do Mapa (5-6 colunas) */}
-          <div className="lg:col-span-6 xl:col-span-5 flex justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-start">
+          {/* Coluna do Mapa (5 colunas no desktop grande, sticky para melhor navegabilidade) */}
+          <div className="lg:col-span-5 2xl:col-span-5 flex justify-center lg:sticky lg:top-24">
             <BrazilMap
               dataset={dataset}
               selectedStateId={selectedStateId}
@@ -71,8 +71,8 @@ export const App: React.FC = () => {
             />
           </div>
 
-          {/* Coluna do Painel de Hierarquia (6-7 colunas) */}
-          <div className="lg:col-span-6 xl:col-span-7">
+          {/* Coluna do Painel de Hierarquia (7 colunas) */}
+          <div className="lg:col-span-7 2xl:col-span-7">
             <GovernmentPanel
               stateData={selectedStateData}
               federalData={dataset.federal}
@@ -90,12 +90,12 @@ export const App: React.FC = () => {
       />
 
       {/* Rodapé */}
-      <footer className="border-t border-zinc-200 bg-white dark:border-zinc-900 dark:bg-zinc-950 py-5 text-center text-xs text-zinc-500 dark:text-zinc-500 transition-colors">
-        <div className="max-w-7xl mx-auto px-4">
+      <footer className="border-t border-zinc-200 bg-white dark:border-zinc-900 dark:bg-zinc-950 py-6 text-center text-sm text-zinc-500 dark:text-zinc-400 transition-colors">
+        <div className="max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8">
           <p>
-            <strong className="text-zinc-700 dark:text-zinc-400">Pólis Brasil</strong> • Projeto Cívico de Código Aberto • Deploy via GitHub Pages
+            <strong className="text-zinc-700 dark:text-zinc-300 font-semibold">Pólis Brasil</strong> • Projeto Cívico de Código Aberto • Deploy via GitHub Pages
           </p>
-          <p className="mt-1 text-[11px] text-zinc-400 dark:text-zinc-600">
+          <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">
             Dados públicos consolidados a partir da Câmara dos Deputados, Senado Federal, IBGE e Tribunais de Justiça.
           </p>
         </div>
