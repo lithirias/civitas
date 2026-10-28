@@ -35,49 +35,45 @@ export const SyncModal: React.FC<SyncModalProps> = ({
           </div>
         </div>
 
-        <div className="space-y-3.5 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
-          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 p-3.5 rounded-lg">
-            <h4 className="font-semibold text-zinc-900 dark:text-white mb-1.5 flex items-center gap-2 text-xs">
-              <Calendar className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" /> Política de Atualização Mensal
+        <div className="space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
+          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 p-4 rounded-lg">
+            <h4 className="font-bold text-zinc-900 dark:text-white mb-1.5 flex items-center gap-2 text-sm">
+              <Calendar className="w-4 h-4 text-zinc-500 dark:text-zinc-400" /> Política de Atualização Mensal
             </h4>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              O projeto combina uma <strong>base de dados estática de alta performance (0ms)</strong> com rotinas de consulta às APIs públicas oficiais. Mudanças nos quadros de parlamentares e executivo podem ser sincronizadas mensalmente via rotina automatizada.
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              O projeto combina uma <strong>base de dados estática de alta performance (0ms)</strong> com rotinas de consulta às APIs públicas oficiais. Mudanças nos quadros de parlamentares e executivo são consolidadas periodicamente para garantir precisão e rapidez.
             </p>
-            <div className="mt-2.5 flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-medium text-xs">
-              <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+            <div className="mt-3 flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold text-xs sm:text-sm">
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Última revisão da base: <strong>{metadata.lastUpdated}</strong></span>
             </div>
           </div>
 
           <div>
-            <h4 className="font-semibold text-zinc-500 dark:text-zinc-400 text-[11px] uppercase tracking-wider mb-2">
+            <h4 className="font-bold text-zinc-500 dark:text-zinc-400 text-xs uppercase tracking-wider mb-2">
               Fontes Oficiais Utilizadas:
             </h4>
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {metadata.sources.map((src, i) => (
                 <a
                   key={i}
                   href={src.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between p-2 rounded-md bg-zinc-50 border border-zinc-200 text-zinc-700 hover:text-zinc-950 hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-zinc-800/80 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                  className="flex items-center justify-between p-2.5 rounded-md bg-zinc-50 border border-zinc-200 text-zinc-700 hover:text-zinc-950 hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-zinc-800/80 dark:text-zinc-300 dark:hover:text-white transition-colors text-xs sm:text-sm font-medium"
                 >
                   <span>{src.name}</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" />
+                  <ExternalLink className="w-4 h-4 text-zinc-400 dark:text-zinc-500" />
                 </a>
               ))}
             </div>
           </div>
-
-          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800 p-3 rounded-lg text-xs text-zinc-700 dark:text-zinc-300">
-            💡 <strong>Dica de Desenvolvimento:</strong> Você pode rodar <code className="bg-zinc-200 dark:bg-zinc-900 px-1.5 py-0.5 rounded text-zinc-900 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 font-mono">npm run sync-data</code> no terminal para atualizar os dados com as APIs oficiais a qualquer momento.
-          </div>
         </div>
 
-        <div className="mt-5 flex justify-end">
+        <div className="mt-6 flex justify-end">
           <button
             onClick={onClose}
-            className="px-3.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-semibold text-xs transition-colors shadow-xs"
+            className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 font-semibold text-sm transition-colors shadow-xs"
           >
             Entendido
           </button>
