@@ -7,9 +7,13 @@ import {
   MapPin, 
   Calendar, 
   RefreshCw, 
-  Sparkles,
-  ChevronDown,
-  ChevronUp
+  Sparkles, 
+  ChevronDown, 
+  ChevronUp, 
+  ArrowRightLeft,
+  Gavel,
+  BookOpen,
+  ShieldCheck
 } from 'lucide-react';
 import { StateData, FederalStructure, FederalDeputy } from '../types';
 import { fetchDeputiesByState } from '../services/camaraApi';
@@ -25,8 +29,12 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
   federalData,
   lastUpdated
 }) => {
-  const [activeTab, setActiveTab] = useState<'executivo' | 'legislativo' | 'judiciario'>('executivo');
+  // Abas para a visão de Estado
+  const [stateTab, setStateTab] = useState<'executivo' | 'legislativo' | 'judiciario'>('executivo');
   
+  // Abas para a visão Federal
+  const [federalTab, setFederalTab] = useState<'executivo' | 'legislativo' | 'judiciario' | 'equilibrio'>('executivo');
+
   // Estado para carregar deputados federais via API da Câmara
   const [loadingDeputies, setLoadingDeputies] = useState<boolean>(false);
   const [liveDeputies, setLiveDeputies] = useState<FederalDeputy[] | null>(null);
@@ -56,80 +64,364 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
     }
   };
 
-  // Se nenhum estado estiver selecionado, exibe a estrutura da União Federal
+  // Se nenhum estado estiver selecionado, exibe a estrutura aprofundada da União Federal
   if (!stateData) {
     return (
       <div className="bg-white border border-zinc-200 rounded-xl p-5 sm:p-6 shadow-md dark:bg-zinc-900/85 dark:border-zinc-800 shadow-xl backdrop-blur-md flex flex-col h-full text-zinc-900 dark:text-zinc-100 transition-colors">
-        <div className="border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-5">
+        {/* Cabeçalho Federal */}
+        <div className="border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-4">
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-1">
-            <Landmark className="w-3.5 h-3.5" /> Nível Nacional
+            <Landmark className="w-3.5 h-3.5" /> Governo Federal da União
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 dark:text-white tracking-tight">
             {federalData.name}
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1 flex items-center gap-2">
-            <MapPin className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" /> Capital Federal: Brasília - DF
+            <MapPin className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500" /> Capital Federal: <strong className="text-zinc-900 dark:text-white">{federalData.capital}</strong>
           </p>
         </div>
 
-        <div className="space-y-4 flex-1 overflow-y-auto pr-1">
-          {/* Poder Executivo Federal */}
-          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800/90 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold text-xs uppercase tracking-wider mb-3">
-              <Building2 className="w-4 h-4" /> Poder Executivo Federal
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Presidente da República</span>
-                <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.president}</span>
-                <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.party}</span>
-              </div>
-              <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Vice-Presidente</span>
-                <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.vicePresident}</span>
-                <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.viceParty}</span>
-              </div>
-            </div>
-            <div className="mt-3 text-xs text-zinc-600 dark:text-zinc-400 flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span><strong>Sede:</strong> {federalData.executive.seat}</span>
-              <span><strong>Mandato:</strong> {federalData.executive.mandate}</span>
-            </div>
-          </div>
-
-          {/* Poder Legislativo Federal */}
-          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800/90 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-semibold text-xs uppercase tracking-wider mb-3">
-              <Users className="w-4 h-4" /> Poder Legislativo Federal (Congresso Nacional)
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Câmara dos Deputados</span>
-                <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.legislative.chamberOfDeputies.totalDeputies} Deputados Federais</span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-500">Representação proporcional da população</span>
-              </div>
-              <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-                <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Senado Federal</span>
-                <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.legislative.federalSenate.totalSenators} Senadores</span>
-                <span className="text-xs text-zinc-400 dark:text-zinc-500">3 senadores por estado e DF</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Poder Judiciário Federal */}
-          <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800/90 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 font-semibold text-xs uppercase tracking-wider mb-3">
-              <Scale className="w-4 h-4 text-zinc-500 dark:text-zinc-400" /> Poder Judiciário Federal
-            </div>
-            <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
-              <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Cúpula Constitucional</span>
-              <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.judiciary.supremeCourt}</span>
-              <span className="text-xs text-zinc-500 dark:text-zinc-400 block mt-1">Composto por {federalData.judiciary.totalMinisters} Ministros indicados pelo Presidente e sabatinados pelo Senado.</span>
-            </div>
-          </div>
+        {/* Abas da Estrutura Federal */}
+        <div className="flex gap-1 p-1 bg-zinc-100 rounded-lg mb-4 border border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800 text-xs sm:text-sm font-medium overflow-x-auto">
+          <button
+            onClick={() => setFederalTab('executivo')}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md transition-all ${
+              federalTab === 'executivo'
+                ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+            }`}
+          >
+            <Building2 className="w-3.5 h-3.5" /> Executivo
+          </button>
+          <button
+            onClick={() => setFederalTab('legislativo')}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md transition-all ${
+              federalTab === 'legislativo'
+                ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" /> Legislativo
+          </button>
+          <button
+            onClick={() => setFederalTab('judiciario')}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md transition-all ${
+              federalTab === 'judiciario'
+                ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+            }`}
+          >
+            <Scale className="w-3.5 h-3.5" /> Judiciário
+          </button>
+          <button
+            onClick={() => setFederalTab('equilibrio')}
+            className={`flex-1 min-w-[120px] flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md transition-all ${
+              federalTab === 'equilibrio'
+                ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
+                : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
+            }`}
+          >
+            <ArrowRightLeft className="w-3.5 h-3.5" /> Freios & Contrapesos
+          </button>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-zinc-200 dark:border-zinc-800 text-xs text-zinc-500 flex items-center justify-between">
-          <span>Base curada nacional</span>
+        {/* Conteúdo das Abas Federais */}
+        <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
+          {/* ABA 1: EXECUTIVO FEDERAL */}
+          {federalTab === 'executivo' && (
+            <div className="space-y-3.5 animate-fade-in">
+              {/* Presidência e Vice */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block mb-3">
+                  Chefia de Estado e de Governo
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Presidente da República</span>
+                    <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.president}</span>
+                    <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.party}</span>
+                  </div>
+                  <div className="bg-white dark:bg-zinc-900 rounded-md p-3 border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block">Vice-Presidente</span>
+                    <span className="font-bold text-zinc-950 dark:text-white text-base block">{federalData.executive.vicePresident}</span>
+                    <span className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">Partido: {federalData.executive.viceParty}</span>
+                  </div>
+                </div>
+
+                {/* Sedes e Palácios */}
+                <div className="space-y-1.5 text-xs text-zinc-600 dark:text-zinc-400 pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
+                  <div className="flex items-center justify-between">
+                    <span>Sede de Despacho Presidencial:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{federalData.executive.seat}</strong>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Residência Oficial do Presidente:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{federalData.executive.officialResidence}</strong>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Residência do Vice-Presidente:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{federalData.executive.viceResidence}</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Estrutura Ministerial */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+                    Ministérios da União
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-zinc-200/80 dark:bg-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200">
+                    {federalData.executive.ministriesCount} Pastas Ministeriais
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mb-3">
+                  Os Ministros de Estado são escolhidos livremente pelo Presidente da República para coordenar a administração pública federal.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  {federalData.executive.keyMinistries.map((min, idx) => (
+                    <div key={idx} className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                      <strong className="text-zinc-900 dark:text-white block mb-0.5">{min.name}</strong>
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-tight block">{min.description}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Atribuições Constitucionais */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2 flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> Competências Constitucionais (Art. 84 CF)
+                </span>
+                <ul className="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
+                  {federalData.executive.roles.map((role, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0">•</span>
+                      <span>{role}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
+          {/* ABA 2: LEGISLATIVO FEDERAL */}
+          {federalTab === 'legislativo' && (
+            <div className="space-y-3.5 animate-fade-in">
+              {/* O Sistema Bicameral */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-[11px] font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider block mb-1">
+                  {federalData.legislative.nationalCongress}
+                </span>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {federalData.legislative.bicameralSystemDescription}
+                </p>
+              </div>
+
+              {/* Comparativo Câmara dos Deputados vs Senado Federal */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Câmara dos Deputados */}
+                <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold text-sm text-zinc-950 dark:text-white">Câmara dos Deputados</h4>
+                      <span className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800/60 text-xs font-bold">
+                        {federalData.legislative.chamberOfDeputies.totalDeputies} Cadeiras
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mb-2">
+                      Mandato de <strong>{federalData.legislative.chamberOfDeputies.mandateYears} anos</strong> • {federalData.legislative.chamberOfDeputies.criteria}
+                    </span>
+                    <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 block mb-1 uppercase tracking-wide">
+                      Funções Privativas:
+                    </span>
+                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400">
+                      {federalData.legislative.chamberOfDeputies.roles.map((r, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
+                          <span>{r}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Senado Federal */}
+                <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold text-sm text-zinc-950 dark:text-white">Senado Federal</h4>
+                      <span className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800/60 text-xs font-bold">
+                        {federalData.legislative.federalSenate.totalSenators} Cadeiras
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block mb-2">
+                      Mandato de <strong>{federalData.legislative.federalSenate.mandateYears} anos</strong> • {federalData.legislative.federalSenate.criteria}
+                    </span>
+                    <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 block mb-1 uppercase tracking-wide">
+                      Funções Privativas:
+                    </span>
+                    <ul className="space-y-1 text-[11px] text-zinc-600 dark:text-zinc-400">
+                      {federalData.legislative.federalSenate.roles.map((r, i) => (
+                        <li key={i} className="flex items-start gap-1.5">
+                          <span className="text-amber-600 dark:text-amber-400 font-bold">•</span>
+                          <span>{r}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Órgão Auxiliar: TCU */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5 flex items-start gap-3">
+                <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <strong className="text-xs text-zinc-900 dark:text-white">{federalData.legislative.externalControl.name}</strong>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                      {federalData.legislative.externalControl.totalMinisters} Ministros
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
+                    {federalData.legislative.externalControl.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ABA 3: JUDICIÁRIO FEDERAL */}
+          {federalTab === 'judiciario' && (
+            <div className="space-y-3.5 animate-fade-in">
+              {/* STF */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <Gavel className="w-4 h-4 text-zinc-700 dark:text-zinc-300" />
+                    <h3 className="font-bold text-sm text-zinc-950 dark:text-white">
+                      {federalData.judiciary.supremeCourt.name}
+                    </h3>
+                  </div>
+                  <span className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-xs font-bold">
+                    {federalData.judiciary.supremeCourt.totalMinisters} Ministros
+                  </span>
+                </div>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-2.5">
+                  {federalData.judiciary.supremeCourt.role}
+                </p>
+                <div className="p-2.5 rounded-md bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-500 dark:text-zinc-400">
+                  <strong>Critério de Nomeação:</strong> {federalData.judiciary.supremeCourt.appointmentCriteria}
+                </div>
+              </div>
+
+              {/* Tribunais Superiores */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2.5">
+                  Tribunais Superiores Infraconstitucionais
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  {federalData.judiciary.superiorCourts.map((court) => (
+                    <div key={court.acronym} className="bg-white dark:bg-zinc-900 p-2.5 rounded-md border border-zinc-200 dark:border-zinc-800 shadow-xs">
+                      <div className="flex items-center justify-between mb-1">
+                        <strong className="text-zinc-900 dark:text-white font-bold">{court.acronym}</strong>
+                        <span className="text-[10px] text-zinc-500 dark:text-zinc-400">{court.totalMinisters} Ministros</span>
+                      </div>
+                      <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block leading-tight">{court.name}</span>
+                      <p className="text-[10.5px] text-zinc-600 dark:text-zinc-400 mt-1.5 leading-snug">{court.role}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CNJ */}
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5 flex items-start gap-3">
+                <Scale className="w-5 h-5 text-zinc-600 dark:text-zinc-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="flex items-center gap-2">
+                    <strong className="text-xs text-zinc-900 dark:text-white">{federalData.judiciary.cnj.name}</strong>
+                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                      {federalData.judiciary.cnj.totalMembers} Conselheiros
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5">
+                    {federalData.judiciary.cnj.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ABA 4: FREIOS E CONTRAPESOS */}
+          {federalTab === 'equilibrio' && (
+            <div className="space-y-3.5 animate-fade-in">
+              <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
+                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-1">
+                  {federalData.checksAndBalances.title}
+                </span>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
+                  {federalData.checksAndBalances.description}
+                </p>
+                <div className="p-2.5 rounded-md bg-zinc-200/50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300 italic">
+                  "São Poderes da União, independentes e harmônicos entre si, o Legislativo, o Executivo e o Judiciário." — Art. 2º da Constituição de 1988
+                </div>
+              </div>
+
+              {/* 3 Colunas de Controles Mútuos */}
+              <div className="space-y-2.5">
+                {/* Executivo sobre outros */}
+                <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5">
+                  <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs mb-1.5">
+                    <Building2 className="w-3.5 h-3.5" /> Poder Executivo atua sobre:
+                  </div>
+                  <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+                    {federalData.checksAndBalances.executiveOnOthers.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-emerald-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Legislativo sobre outros */}
+                <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5">
+                  <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-bold text-xs mb-1.5">
+                    <Users className="w-3.5 h-3.5" /> Poder Legislativo atua sobre:
+                  </div>
+                  <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+                    {federalData.checksAndBalances.legislativeOnOthers.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-amber-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Judiciário sobre outros */}
+                <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-3.5">
+                  <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300 font-bold text-xs mb-1.5">
+                    <Scale className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" /> Poder Judiciário atua sobre:
+                  </div>
+                  <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
+                    {federalData.checksAndBalances.judiciaryOnOthers.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-zinc-600 font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Rodapé da Visão Federal */}
+        <div className="mt-4 pt-3 border-t border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-500 flex items-center justify-between">
+          <span>Base curada nacional da República</span>
           <span>Atualizado em: <strong className="text-zinc-700 dark:text-zinc-400">{lastUpdated}</strong></span>
         </div>
       </div>
@@ -177,12 +469,12 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
         </div>
       </div>
 
-      {/* Abas dos Três Poderes */}
+      {/* Abas dos Três Poderes Estaduais */}
       <div className="flex gap-1.5 p-1 bg-zinc-100 rounded-lg mb-4 border border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800 text-xs sm:text-sm font-medium">
         <button
-          onClick={() => setActiveTab('executivo')}
+          onClick={() => setStateTab('executivo')}
           className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md transition-all ${
-            activeTab === 'executivo'
+            stateTab === 'executivo'
               ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
               : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
           }`}
@@ -190,9 +482,9 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
           <Building2 className="w-4 h-4" /> Executivo
         </button>
         <button
-          onClick={() => setActiveTab('legislativo')}
+          onClick={() => setStateTab('legislativo')}
           className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md transition-all ${
-            activeTab === 'legislativo'
+            stateTab === 'legislativo'
               ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
               : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
           }`}
@@ -200,9 +492,9 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
           <Users className="w-4 h-4" /> Legislativo
         </button>
         <button
-          onClick={() => setActiveTab('judiciario')}
+          onClick={() => setStateTab('judiciario')}
           className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-md transition-all ${
-            activeTab === 'judiciario'
+            stateTab === 'judiciario'
               ? 'bg-white text-zinc-950 font-semibold shadow-xs border border-zinc-300 dark:bg-zinc-800 dark:text-white dark:border-zinc-700'
               : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/50 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900'
           }`}
@@ -211,10 +503,10 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
         </button>
       </div>
 
-      {/* Conteúdo das Abas */}
+      {/* Conteúdo das Abas Estaduais */}
       <div className="flex-1 overflow-y-auto pr-1 space-y-3.5">
         {/* ABA: PODER EXECUTIVO */}
-        {activeTab === 'executivo' && (
+        {stateTab === 'executivo' && (
           <div className="space-y-3.5 animate-fade-in">
             <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
               <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-3">
@@ -259,7 +551,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
         )}
 
         {/* ABA: PODER LEGISLATIVO */}
-        {activeTab === 'legislativo' && (
+        {stateTab === 'legislativo' && (
           <div className="space-y-3.5 animate-fade-in">
             {/* Senadores da República (3) */}
             <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
@@ -381,7 +673,7 @@ export const GovernmentPanel: React.FC<GovernmentPanelProps> = ({
         )}
 
         {/* ABA: PODER JUDICIÁRIO */}
-        {activeTab === 'judiciario' && (
+        {stateTab === 'judiciario' && (
           <div className="space-y-3.5 animate-fade-in">
             <div className="bg-zinc-50 border border-zinc-200 dark:bg-zinc-950/70 dark:border-zinc-800 rounded-lg p-4">
               <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block mb-2">

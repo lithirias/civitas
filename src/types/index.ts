@@ -50,31 +50,71 @@ export interface StateData {
 
 export interface FederalStructure {
   name: string;
+  capital: string;
   executive: {
     president: string;
     party: string;
     vicePresident: string;
     viceParty: string;
     seat: string;
+    officialResidence: string;
+    viceResidence: string;
     mandate: string;
+    ministriesCount: number;
+    keyMinistries: { name: string; description: string }[];
+    roles: string[];
   };
   legislative: {
     nationalCongress: string;
+    bicameralSystemDescription: string;
     chamberOfDeputies: {
       totalDeputies: number;
       president: string;
       seat: string;
+      mandateYears: number;
+      criteria: string;
+      roles: string[];
     };
     federalSenate: {
       totalSenators: number;
       president: string;
       seat: string;
+      mandateYears: number;
+      criteria: string;
+      roles: string[];
+    };
+    externalControl: {
+      name: string;
+      totalMinisters: number;
+      role: string;
     };
   };
   judiciary: {
-    supremeCourt: string;
-    seat: string;
-    totalMinisters: number;
+    supremeCourt: {
+      name: string;
+      seat: string;
+      totalMinisters: number;
+      appointmentCriteria: string;
+      role: string;
+    };
+    superiorCourts: {
+      name: string;
+      acronym: string;
+      totalMinisters: number;
+      role: string;
+    }[];
+    cnj: {
+      name: string;
+      totalMembers: number;
+      role: string;
+    };
+  };
+  checksAndBalances: {
+    title: string;
+    description: string;
+    executiveOnOthers: string[];
+    legislativeOnOthers: string[];
+    judiciaryOnOthers: string[];
   };
 }
 

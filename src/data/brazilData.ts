@@ -13,31 +13,122 @@ export const initialBrazilData: BrazilDataset = {
   },
   federal: {
     name: 'República Federativa do Brasil',
+    capital: 'Brasília - DF',
     executive: {
       president: 'Luiz Inácio Lula da Silva',
       party: 'PT',
       vicePresident: 'Geraldo Alckmin',
       viceParty: 'PSB',
-      seat: 'Palácio do Planalto, Brasília - DF',
-      mandate: '2023 - 2026'
+      seat: 'Palácio do Planalto (Gabinete Presidencial)',
+      officialResidence: 'Palácio da Alvorada',
+      viceResidence: 'Palácio do Jaburu',
+      mandate: '2023 - 2026',
+      ministriesCount: 38,
+      keyMinistries: [
+        { name: 'Casa Civil', description: 'Coordenação e integração das ações governamentais e articulação dos ministérios.' },
+        { name: 'Ministério da Fazenda', description: 'Política fiscal, arrecadação tributária, estabilidade monetária e gestão da dívida pública.' },
+        { name: 'Relações Exteriores (Itamaraty)', description: 'Diplomacia, política externa e representação oficial do Brasil no mundo.' },
+        { name: 'Justiça e Segurança Pública', description: 'Defesa da ordem jurídica, direitos constitucionais e coordenação de segurança federal (PF e PRF).' },
+        { name: 'Ministério da Defesa', description: 'Coordenação e preparo conjunto das Forças Armadas (Exército, Marinha e Aeronáutica).' },
+        { name: 'Planejamento e Orçamento', description: 'Elaboração das diretrizes orçamentárias (LDO, LOA) e plano plurianual (PPA).' }
+      ],
+      roles: [
+        'Chefia de Estado: Representa a República Federativa do Brasil perante governos estrangeiros e organismos internacionais.',
+        'Chefia de Governo: Administra as políticas públicas nacionais e a máquina pública federal.',
+        'Sanção e Veto: Aprova ou veta total ou parcialmente projetos de lei aprovados pelo Congresso Nacional.',
+        'Medidas Provisórias: Edita medidas com força de lei em situações de relevância e urgência, submetendo-as ao Congresso.',
+        'Comandante Supremo: Ejerce o comando superior das Forças Armadas.'
+      ]
     },
     legislative: {
-      nationalCongress: 'Congresso Nacional (Bicameral)',
+      nationalCongress: 'Congresso Nacional (Sistema Bicameral)',
+      bicameralSystemDescription: 'Adota o bicameralismo federativo: a Câmara representa o povo brasileiro proporcionalmente, enquanto o Senado representa os Estados e o DF em paridade igualitária.',
       chamberOfDeputies: {
         totalDeputies: 513,
-        president: 'Arthur Lira / Presidência da Câmara',
-        seat: 'Palácio do Congresso Nacional, Brasília - DF'
+        president: 'Presidência da Câmara dos Deputados',
+        seat: 'Palácio do Congresso Nacional, Brasília - DF',
+        mandateYears: 4,
+        criteria: 'Voto proporcional da população por estado (mínimo de 8 e máximo de 70 parlamentares por UF).',
+        roles: [
+          'Autorizar a instauração de processo de impedimento (impeachment) contra o Presidente e Vice da República.',
+          'Iniciativa privativa da discussão de leis sobre matérias de orçamento, plano plurianual e diretrizes orçamentárias.',
+          'Tomar as contas do Presidente da República quando não apresentadas no prazo constitucional.'
+        ]
       },
       federalSenate: {
         totalSenators: 81,
-        president: 'Rodrigo Pacheco / Presidência do Senado',
-        seat: 'Palácio do Congresso Nacional, Brasília - DF'
+        president: 'Presidência do Senado Federal (Preside também o Congresso)',
+        seat: 'Palácio do Congresso Nacional, Brasília - DF',
+        mandateYears: 8,
+        criteria: '3 senadores eleitos por maioria simples para cada uma das 27 UFs (renovação de 1/3 e 2/3 alternadamente a cada 4 anos).',
+        roles: [
+          'Processar e julgar o Presidente e Vice-Presidente da República e Ministros de Estado em crimes de responsabilidade.',
+          'Aprovar após sabatina pública a indicação de Ministros do STF, Tribunais Superiores, PGR, diretores do Banco Central e embaixadores.',
+          'Autorizar operações externas de natureza financeira e fixar limites da dívida pública consolidada da União, estados e municípios.'
+        ]
+      },
+      externalControl: {
+        name: 'Tribunal de Contas da União (TCU)',
+        totalMinisters: 9,
+        role: 'Órgão constitucional de controle externo que auxilia o Congresso Nacional na fiscalização contábil, financeira, orçamentária e patrimonial da administração pública.'
       }
     },
     judiciary: {
-      supremeCourt: 'Supremo Tribunal Federal (STF)',
-      seat: 'Praça dos Três Poderes, Brasília - DF',
-      totalMinisters: 11
+      supremeCourt: {
+        name: 'Supremo Tribunal Federal (STF)',
+        seat: 'Praça dos Três Poderes, Brasília - DF',
+        totalMinisters: 11,
+        appointmentCriteria: 'Cidadãos com mais de 35 e menos de 70 anos, de notável saber jurídico e reputação ilibada, indicados pelo Presidente e aprovados pelo Senado.',
+        role: 'Guardião supremo da Constituição Federal. Julga Ações Diretas de Inconstitucionalidade (ADI), crimes comuns de autoridades federais com foro privilegiado e recursos extraordinários.'
+      },
+      superiorCourts: [
+        {
+          name: 'Superior Tribunal de Justiça',
+          acronym: 'STJ',
+          totalMinisters: 33,
+          role: 'Uniformizador da interpretação da lei federal infraconstitucional em todo o território nacional.'
+        },
+        {
+          name: 'Tribunal Superior Eleitoral',
+          acronym: 'TSE',
+          totalMinisters: 7,
+          role: 'Cúpula da Justiça Eleitoral; responsável pela organização, apuração e fiscalização das eleições em âmbito nacional.'
+        },
+        {
+          name: 'Tribunal Superior do Trabalho',
+          acronym: 'TST',
+          totalMinisters: 27,
+          role: 'Instância máxima da Justiça do Trabalho para julgamento de matérias trabalhistas e dissídios coletivos.'
+        },
+        {
+          name: 'Superior Tribunal Militar',
+          acronym: 'STM',
+          totalMinisters: 15,
+          role: 'Cúpula da Justiça Militar da União, processando e julgando crimes militares estabelecidos em lei.'
+        }
+      ],
+      cnj: {
+        name: 'Conselho Nacional de Justiça (CNJ)',
+        totalMembers: 15,
+        role: 'Responsável pelo controle da atuação administrativa e financeira do Poder Judiciário e do cumprimento dos deveres funcionais dos juízes.'
+      }
+    },
+    checksAndBalances: {
+      title: 'Sistema de Freios e Contrapesos (Checks and Balances)',
+      description: 'Garante que nenhum dos três poderes atue com soberania absoluta, existindo mecanismos de vigilância mútua estabelecidos pelo Artigo 2º da Constituição Federal de 1988.',
+      executiveOnOthers: [
+        'Veto Presidencial: O Executivo pode vetar projetos de lei aprovados pelo Legislativo por inconstitucionalidade ou interesse público.',
+        'Indicação de Magistrados: O Presidente indica os Ministros do STF e Tribunais Superiores.'
+      ],
+      legislativeOnOthers: [
+        'Derrubada de Vetos: O Congresso pode rejeitar os vetos presidenciais em sessão conjunta por maioria absoluta.',
+        'Sabatina e Aprovação: O Senado pode rejeitar indicações do Presidente para o STF, PGR e tribunais.',
+        'Julgamento Político: O Congresso tem a prerrogativa constitucional de destituir o Presidente ou Ministros por impeachment.'
+      ],
+      judiciaryOnOthers: [
+        'Controle de Constitucionalidade: O STF pode anular leis aprovadas pelo Congresso ou decretos do Executivo que contrariem a Carta Magna.',
+        'Julgamento Penal: Julga membros do Executivo e Legislativo em crimes comuns no foro competente.'
+      ]
     }
   },
   states: {
