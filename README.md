@@ -1,4 +1,4 @@
-# 🇧🇷 Pólis Brasil - Hierarquia de Governo e Representação dos Estados
+# 🇧🇷 Civitas Brasil - Hierarquia de Governo e Representação dos Estados
 
 Uma aplicação web interativa e cívica projetada para visualizar a organização política dos 26 estados brasileiros e do Distrito Federal, detalhando seus representantes nos Poderes **Executivo**, **Legislativo** e **Judiciário**.
 

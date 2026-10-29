@@ -448,7 +448,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
             <span>Use <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[11px]">↑</kbd> <kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[11px]">↓</kbd> para navegar</span>
             <span><kbd className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[11px]">Enter</kbd> para selecionar</span>
           </div>
-          <span>Pólis Brasil</span>
+          <span>Civitas Brasil</span>
         </div>
       </div>
     </div>

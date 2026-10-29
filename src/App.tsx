@@ -108,9 +108,9 @@ export const App: React.FC = () => {
   // Atualização dinâmica do título da página
   useEffect(() => {
     if (selectedStateData) {
-      document.title = `${selectedStateData.name} (${selectedStateData.id}) - Pólis Brasil`;
+      document.title = `${selectedStateData.name} (${selectedStateData.id}) - Civitas Brasil`;
     } else {
-      document.title = 'Pólis Brasil - Hierarquia de Governo e Representação dos Estados';
+      document.title = 'Civitas Brasil - Hierarquia de Governo e Representação dos Estados';
     }
 
     // Notificação de visualização de tela ao Google Analytics 4 (SPA tracking)
@@ -269,7 +269,7 @@ export const App: React.FC = () => {
       <footer className="border-t border-zinc-200 bg-white dark:border-zinc-900 dark:bg-zinc-950 py-6 text-center text-sm text-zinc-500 dark:text-zinc-400 transition-colors">
         <div className="max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8">
           <p>
-            <strong className="text-zinc-700 dark:text-zinc-300 font-semibold">Pólis Brasil</strong> • Projeto Cívico de Código Aberto • Deploy via GitHub Pages
+            <strong className="text-zinc-700 dark:text-zinc-300 font-semibold">Civitas Brasil</strong> • Projeto Cívico de Código Aberto • Deploy via GitHub Pages
           </p>
           <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">
             Dados públicos consolidados a partir da Câmara dos Deputados, Senado Federal, IBGE e Tribunais de Justiça.

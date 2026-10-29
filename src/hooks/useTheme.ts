@@ -4,7 +4,7 @@ export type Theme = 'dark' | 'light';
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('polis-theme') as Theme;
+    const saved = (localStorage.getItem('civitas-theme') || localStorage.getItem('polis-theme')) as Theme;
     if (saved === 'light' || saved === 'dark') {
       return saved;
     }
@@ -20,7 +20,7 @@ export function useTheme() {
       root.classList.add('light');
       root.classList.remove('dark');
     }
-    localStorage.setItem('polis-theme', theme);
+    localStorage.setItem('civitas-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {

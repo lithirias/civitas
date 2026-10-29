@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-extrabold text-lg sm:text-xl tracking-tight text-zinc-900 dark:text-white">
-                Pólis <span className="text-zinc-500 dark:text-zinc-400">Brasil</span>
+                Civitas <span className="text-zinc-500 dark:text-zinc-400">Brasil</span>
               </h1>
               <span className="text-xs font-semibold uppercase px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 border border-zinc-200 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-800 hidden sm:inline-block">
                 Cívico & Transparência

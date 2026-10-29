@@ -25,7 +25,7 @@ export const CivicPrintDossier: React.FC<CivicPrintDossierProps> = ({
         {/* Cabeçalho da Ficha */}
         <div className="border-b-2 border-black pb-4 mb-5 text-center">
           <span className="text-xs uppercase tracking-widest font-bold text-zinc-600 block mb-1">
-            República Federativa do Brasil • Pólis Brasil
+            República Federativa do Brasil • Civitas Brasil
           </span>
           <h1 className="text-2xl font-black uppercase tracking-tight">
             Dossiê Cívico da União Federal
@@ -118,7 +118,7 @@ export const CivicPrintDossier: React.FC<CivicPrintDossierProps> = ({
 
         {/* Rodapé da Impressão */}
         <div className="border-t border-zinc-300 pt-3 flex items-center justify-between text-[10px] text-zinc-500">
-          <span>Pólis Brasil • Plataforma Cívica Aberta (https://lithirias.github.io/polis/)</span>
+          <span>Civitas Brasil • Plataforma Cívica Aberta (https://lithirias.github.io/polis/)</span>
           <span>Emissão: {currentDate} • Base curada: {lastUpdated}</span>
         </div>
       </div>
@@ -132,7 +132,7 @@ export const CivicPrintDossier: React.FC<CivicPrintDossierProps> = ({
       <div className="border-b-2 border-black pb-4 mb-5 flex items-center justify-between">
         <div>
           <span className="text-xs uppercase tracking-widest font-bold text-zinc-600 block mb-0.5">
-            República Federativa do Brasil • Pólis Brasil
+            República Federativa do Brasil • Civitas Brasil
           </span>
           <h1 className="text-2xl font-black uppercase tracking-tight">
             Ficha Cívica: {stateData.name} ({stateData.id})
@@ -271,7 +271,7 @@ export const CivicPrintDossier: React.FC<CivicPrintDossierProps> = ({
 
       {/* Rodapé da Impressão */}
       <div className="border-t border-zinc-300 pt-3 flex items-center justify-between text-[10px] text-zinc-500">
-        <span>Pólis Brasil • Plataforma Cívica Aberta (https://lithirias.github.io/polis/)</span>
+        <span>Civitas Brasil • Plataforma Cívica Aberta (https://lithirias.github.io/polis/)</span>
         <span>Emissão: {currentDate} • Base curada: {lastUpdated}</span>
       </div>
     </div>
