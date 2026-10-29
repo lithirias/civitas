@@ -21,6 +21,18 @@
     <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png" />
     
     <meta name="theme-color" content="#18181b" />
+
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RV4VSY0Y17"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RV4VSY0Y17', {
+        page_path: window.location.pathname + window.location.search + window.location.hash
+      });
+    </script>
   </head>
   <body class="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-200">
     <div id="root"></div>

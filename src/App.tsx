@@ -112,7 +112,16 @@ export const App: React.FC = () => {
     } else {
       document.title = 'Pólis Brasil - Hierarquia de Governo e Representação dos Estados';
     }
-  }, [selectedStateData]);
+
+    // Notificação de visualização de tela ao Google Analytics 4 (SPA tracking)
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        page_path: window.location.pathname + window.location.search
+      });
+    }
+  }, [selectedStateData, federalTab, selectedCourt]);
 
   const handleSelectState = (stateId: string) => {
     const upper = stateId ? stateId.toUpperCase() : null;
